@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="LK.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LK.UWP"
+    RequestedTheme="Light">
+
+</Application>
