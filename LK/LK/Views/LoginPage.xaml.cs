@@ -1,18 +1,13 @@
 ﻿using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace LK.Views
 {
     public partial class LoginPage : ContentPage
     {
-        // TODO - add PageRenderers on iOS, Android
-        public IPlatformParameters platformParameters { get; set; }
+        //public IPlatformParameters platformParameters { get; set; }
 
         public LoginPage()
         {
@@ -21,12 +16,17 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            App.PCApplication.PlatformParameters = platformParameters;
+            //App.PCApplication.PlatformParameters = platformParameters;
             // let's see if we have a user in our belly already
             try
             {
-                AuthenticationResult ar = await App.PCApplication.AcquireTokenSilentAsync(App.Scopes, "", App.Authority, App.SignUpSignInpolicy, false);
-                Navigation.PushAsync(new EventsPage());
+                AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenSilentAsync(
+                    Constants.Scopes,
+                    string.Empty, 
+                    Constants.Authority, 
+                    Constants.SignUpSignInpolicy,
+                    false);
+                await Navigation.PushAsync(new EventsPage(ar));
             }
             catch
             {
@@ -34,28 +34,19 @@ namespace LK.Views
             }
         }
 
-        async void OnForgotPassword()
-        {
-            try
-            {
-                AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.ResetPasswordpolicy);
-                Navigation.PushAsync(new EventsPage());
-            }
-            catch (MsalException ee)
-            {
-                if (ee.ErrorCode != "authentication_canceled")
-                {
-                    DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
-                }
-            }
-        }
-
         async void OnSignUpSignIn(object sender, EventArgs e)
         {
             try
             {
-                AuthenticationResult ar = await App.PCApplication.AcquireTokenAsync(App.Scopes, "", UiOptions.SelectAccount, string.Empty, null, App.Authority, App.SignUpSignInpolicy);
-                Navigation.PushAsync(new EventsPage());
+                AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenAsync(
+                    Constants.Scopes,
+                    string.Empty,
+                    UiOptions.SelectAccount,
+                    string.Empty,
+                    null, 
+                    Constants.Authority, 
+                    Constants.SignUpSignInpolicy);
+                await Navigation.PushAsync(new EventsPage(ar));
             }
             catch (MsalException ee)
             {
@@ -66,7 +57,30 @@ namespace LK.Views
 
                 if (ee.ErrorCode != "authentication_canceled")
                 {
-                    DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+                    await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
+                }
+            }
+        }
+
+        async void OnForgotPassword()
+        {
+            try
+            {
+                AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenAsync(
+                    Constants.Scopes,
+                    string.Empty,
+                    UiOptions.SelectAccount,
+                    string.Empty,
+                    null,
+                    Constants.Authority,
+                    Constants.ResetPasswordpolicy);
+                await Navigation.PushAsync(new EventsPage(ar));
+            }
+            catch (MsalException ee)
+            {
+                if (ee.ErrorCode != "authentication_canceled")
+                {
+                    await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
                 }
             }
         }

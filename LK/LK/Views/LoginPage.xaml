@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.LoginPage">
-  <!--<Label Text="{Binding MainText}" VerticalOptions="Center" HorizontalOptions="Center" />
--->
-  <ContentPage.Content>
-    <StackLayout>
-      <Label Text="Lærlingekompaniet" VerticalOptions="Start" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+
+ <!-- <ContentPage.Content> -->
+    <StackLayout Spacing="20" Padding="20" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
+      <Image Source="icon.png" Aspect="AspectFit" WidthRequest = "75" HeightRequest = "75" />
+      <Image Source="LKTxT.png" Aspect="AspectFit" />
       <BoxView Color="Transparent" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
       <Button x:Name="btnSignUpSignIn" Text="Sign up or Sign in" Clicked="OnSignUpSignIn" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
     </StackLayout>
-  </ContentPage.Content>
+  <!--</ContentPage.Content> -->
 
 </ContentPage>
