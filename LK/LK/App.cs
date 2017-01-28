@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using LK.Views;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,8 +16,8 @@ namespace LK
 
         public App()
         {
-            AuthenticationClient = new PublicClientApplication(Constants.Authority, Constants.ClientID); 
-            MainPage = new NavigationPage(new Views.LoginPage());
+            AuthenticationClient = new PublicClientApplication(Constants.Authority, Constants.ClientID);
+            MainPage = new ContentPage1();//new TabbedPage1();//new NavigationPage(new Views.LoginPage());
         }
 
         protected override void OnStart()

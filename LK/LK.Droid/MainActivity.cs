@@ -21,9 +21,15 @@ namespace LK.Droid
 
             base.OnCreate(bundle);
 
+            // Initialize Azure Mobile Apps
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+
+            // Initialize Xamarin Forms
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
             LoadApplication(new App());
             App.AuthenticationClient.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
+            
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

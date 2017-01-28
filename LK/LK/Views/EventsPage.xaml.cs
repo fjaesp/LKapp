@@ -72,7 +72,12 @@ namespace LK.Views
 
         async void OnGraphTestButtonnClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new OfficeGraphPage(authenticationResult));
+            //await Navigation.PushAsync(new OfficeGraphPage(authenticationResult));
+        }
+
+        async void OnSharePointButtonnClicked(object sender, EventArgs e)
+        {
+            //await Navigation.PushAsync(new TabbedPage1(authenticationResult));
         }
     }
 }
