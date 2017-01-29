@@ -13,14 +13,10 @@ namespace LK.iOS
     {
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            // Initialize Azure Mobile Apps
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
-
-            // Initialize Xamarin Forms
+            SQLitePCL.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init();
-
             LoadApplication(new App());
-
             return base.FinishedLaunching(app, options);
         }
     }

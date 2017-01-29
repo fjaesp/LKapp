@@ -12,13 +12,11 @@ namespace LK.Views
         {
             InitializeComponent();
             manager = EventManager.DefaultManager;
-
         }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-
-            // Set syncItems to true in order to synchronize the data on startup when running in offline mode
             await RefreshItems(true, syncItems: true);
         }
 
@@ -26,7 +24,7 @@ namespace LK.Views
         {
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                eventList.ItemsSource = await manager.GetTodoItemsAsync(syncItems);
+                eventList.ItemsSource = await manager.GetEventsAsync(syncItems);
             }
         }
 
@@ -68,6 +66,7 @@ namespace LK.Views
         }
         public async void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            var selectedEvent = e.SelectedItem as EventEntities;
         }
 
         public async void OnRefresh(object sender, EventArgs e)
