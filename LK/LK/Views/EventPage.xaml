@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LK.Views.EventPage">
+
+  <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
+    <Label Text="Funker dette?" FontSize="Medium" />
+    <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="Start"/>
+    <Label Text="{Binding Title}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start"/>
+    <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="1" HorizontalOptions="Start"/>
+  </StackLayout>
+  
+  
+</ContentPage>
+  <!--<ScrollView>
+    <Grid Padding="10" RowSpacing="10" ColumnSpacing="10">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="250"/>
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width=".5*"/>
+        <ColumnDefinition Width=".1*"/>
+        <ColumnDefinition Width=".4*"/>
+      </Grid.ColumnDefinitions>
+      <Image Source="{Binding SelectedEvent.PictureUrl}"/>
+      <Label
+        Grid.Row="1"
+        Grid.ColumnSpan="3"
+        FontSize="Small"
+        Text="{Binding SelectedEvent.Address}"
+        HorizontalOptions="Center"/>
+      <Label
+        Grid.Row="2"
+        Grid.Column="1"
+        Grid.ColumnSpan="2"
+        VerticalOptions="Center"
+        HorizontalOptions="Center"
+        FontSize="Medium"
+        Text="{Binding SelectedEvent.Description}"/>
+      <maps:Map Grid.Row="14"
+          Grid.ColumnSpan="3"
+                x:Name="MyMap"
+                IsShowingUser="false"
+                MapType="Hybrid"/>
+    </Grid>
+  </ScrollView>
+</ContentPage>-->

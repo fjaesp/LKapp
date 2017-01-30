@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace LK.Views
@@ -66,10 +67,15 @@ namespace LK.Views
         }
         public async void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var selectedEvent = e.SelectedItem as EventEntities;
+            if (((ListView)sender).SelectedItem != null)
+            {
+                await Navigation.PushAsync(new EventPage(e.SelectedItem as EventEntities));
+                ((ListView)sender).SelectedItem = null;
+            }
         }
 
-        public async void OnRefresh(object sender, EventArgs e)
+
+    public async void OnRefresh(object sender, EventArgs e)
         {
             var list = (ListView)sender;
             Exception error = null;

@@ -5,13 +5,13 @@ namespace LK
 {
     public class EventEntities
     {
-        string id;
-        string title;
-        string pictureUrl;
-        string description;
-        DateTime date;
-        string attachementUrl;
-        string address;
+        //string id;
+        //string title;
+        //string pictureUrl;
+        //string description;
+        //DateTime date;
+        //string attachementUrl;
+        //string address;
 
         [Newtonsoft.Json.JsonProperty("Id")]
         public string Id { get; set; }
