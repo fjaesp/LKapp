@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.MobileServices;
+using Xamarin.Forms.Maps;
 
 namespace LK.UWP
 {
@@ -24,6 +25,7 @@ namespace LK.UWP
             this.InitializeComponent();
 
             LoadApplication(new LK.App());
+            Xamarin.FormsMaps.Init("PdWdgaYTjvPi2glGT8vg~LbScu1WGZXZrsXWCQjU6JQ~AvDHcwVdyFiP1Zb0TQRKdea8UueybeJDRyGKPiVPLaferq5wg6V4Ms38rJutw287");
         }
     }
 }
