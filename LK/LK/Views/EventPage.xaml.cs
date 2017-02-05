@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms;
+using LK.Models;
 
 namespace LK.Views
 {
@@ -13,33 +14,33 @@ namespace LK.Views
         public EventPage(EventEntities e)
         {
             InitializeComponent();
-            BindingContext = e;
-            string test = BindingContext.ToString();
-            double longditude=37;
-            double latitude=-127;
+            this.BindingContext = e;
+            //string test = BindingContext.ToString();
+            //double longditude=37;
+            //double latitude=-127;
 
-            try
-            { 
-                longditude = Double.Parse(getLocation(e.Address, "longditude").ToString());
-                latitude = Double.Parse(getLocation(e.Address, "latitude").ToString());
-            }
-            catch
-            {
-            }
+            //try
+            //{ 
+            //    longditude = Double.Parse(getLocation(e.Address, "longditude").ToString());
+            //    latitude = Double.Parse(getLocation(e.Address, "latitude").ToString());
+            //}
+            //catch
+            //{
+            //}
 
-        Position pos = new Position(longditude, latitude);
-            var pin = new Pin
-            {
-                Type = PinType.Place,
-                Position = pos,
-                Label = e.Title,
-                Address = e.Address
-            };
-            //MyMap.Pins.Add(pin);
+            //Position pos = new Position(longditude, latitude);
+            //var pin = new Pin
+            //{
+            //    Type = PinType.Place,
+            //    Position = pos,
+            //    Label = e.Title,
+            //    Address = e.Address
+            //};
+            ////MyMap.Pins.Add(pin);
 
-            //MyMap.MoveToRegion(
-            //    MapSpan.FromCenterAndRadius(
-            //        pos, Distance.FromMiles(.2)));
+            ////MyMap.MoveToRegion(
+            ////    MapSpan.FromCenterAndRadius(
+            ////        pos, Distance.FromMiles(.2)));
         }
 
         protected override void OnAppearing()

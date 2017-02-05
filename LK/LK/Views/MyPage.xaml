@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="LK.Views.MyPage"
+             Title="My page">
+  <ContentPage.Content>
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
+      <Label x:Name="messageLabel" FontSize="Medium" />
+      <Button x:Name="editButton" Text="Edit Profile" Clicked="OnEditButtonClicked" />
+      <Button x:Name="btnResetPwd" Text="Reset password" Clicked="OnResetPwdBtnClicked" />
+      <Button x:Name="btnSignOut" Text="Sign out" Clicked="OnSignOutBtnClicked" />
+    </StackLayout>
+  </ContentPage.Content>
+</ContentPage>

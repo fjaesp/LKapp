@@ -1,11 +1,5 @@
 ﻿using LK.Views;
 using Microsoft.Identity.Client;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-
 using Xamarin.Forms;
 
 namespace LK
@@ -17,7 +11,7 @@ namespace LK
         public App()
         {
             AuthenticationClient = new PublicClientApplication(Constants.Authority, Constants.ClientID);
-            MainPage = new NavigationPage(new ContentPage1());//new TabbedPage1();//new NavigationPage(new Views.LoginPage());
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

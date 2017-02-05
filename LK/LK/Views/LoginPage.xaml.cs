@@ -1,14 +1,11 @@
 ﻿using Microsoft.Identity.Client;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace LK.Views
 {
     public partial class LoginPage : ContentPage
     {
-        //public IPlatformParameters platformParameters { get; set; }
-
         public LoginPage()
         {
             InitializeComponent();
@@ -16,8 +13,6 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            //App.PCApplication.PlatformParameters = platformParameters;
-            // let's see if we have a user in our belly already
             try
             {
                 AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenSilentAsync(
@@ -26,12 +21,10 @@ namespace LK.Views
                     Constants.Authority, 
                     Constants.SignUpSignInpolicy,
                     false);
-                await Navigation.PushAsync(new EventsPage(ar));
+                await Navigation.PushModalAsync(new BasePage(ar));
             }
             catch
-            {
-                // doesn't matter, we go in interactive more
-            }
+            { }
         }
 
         async void OnSignUpSignIn(object sender, EventArgs e)
@@ -46,7 +39,7 @@ namespace LK.Views
                     null, 
                     Constants.Authority, 
                     Constants.SignUpSignInpolicy);
-                await Navigation.PushAsync(new EventsPage(ar));
+                await Navigation.PushModalAsync(new BasePage(ar));
             }
             catch (MsalException ee)
             {
@@ -74,7 +67,7 @@ namespace LK.Views
                     null,
                     Constants.Authority,
                     Constants.ResetPasswordpolicy);
-                await Navigation.PushAsync(new EventsPage(ar));
+                await Navigation.PushModalAsync(new BasePage(ar));
             }
             catch (MsalException ee)
             {

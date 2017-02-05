@@ -6,7 +6,7 @@ using Microsoft.Identity.Client;
 
 namespace LK.Droid
 {
-    [Activity(Label = "LK.Droid", 
+    [Activity(Label = "LK App", 
         Icon = "@drawable/icon", 
         Theme = "@style/MainTheme",
         MainLauncher = true, 
@@ -27,7 +27,9 @@ namespace LK.Droid
 
             LoadApplication(new App());
             App.AuthenticationClient.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
-            
+
+            // 4FEB
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)

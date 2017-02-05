@@ -4,6 +4,9 @@
              x:Class="LK.Views.ContentPage1"
              Title="Kommende arrangement">
   
+  <!-- Denne er erstattet av "EventsPage" -->
+  
+  <!--
   <Grid x:Name="LayoutRoot" Padding="16">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
@@ -51,4 +54,5 @@
       </ListView.ItemTemplate>
     </ListView>
   </Grid>
+ -->
 </ContentPage>

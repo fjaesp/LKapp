@@ -17,6 +17,10 @@ namespace LK.iOS
             SQLitePCL.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
+
+            // 4FEB
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+
             LoadApplication(new App());
             return base.FinishedLaunching(app, options);
         }

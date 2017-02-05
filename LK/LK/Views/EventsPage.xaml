@@ -1,14 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="LK.Views.EventsPage">
+             x:Class="LK.Views.EventsPage"
+             Title="Coming events">
+  <ContentPage.Content>
+    <Grid x:Name="LayoutRoot" Padding="16">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="*" />
+      </Grid.RowDefinitions>
 
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
-      <Label x:Name="messageLabel" FontSize="Medium" />
-      <Button x:Name="editButton" Text="Edit Profile" Clicked="OnEditButtonClicked" />
-      <Button x:Name="graphTestButton" Text="Office Graph" Clicked="OnGraphTestButtonnClicked" />
-      <Button x:Name="sharepointButton" Text="SharePoint" Clicked="OnSharePointButtonnClicked" />
-      <Button x:Name="logoutButton" Text="Logout" Clicked="OnLogoutButtonClicked" />
-    </StackLayout>
+      <Label Text="{Binding Title}" FontSize="Large" LineBreakMode="WordWrap">
+        <Label.IsVisible>
+          <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="False" WinPhone="True" />
+        </Label.IsVisible>
+      </Label>
 
+      <ActivityIndicator Grid.RowSpan="2"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           IsVisible="False"
+                           IsEnabled="True"
+                           x:Name="syncIndicator"/>
+      <ListView x:Name="eventList"
+          ItemTapped="OnEventSelected"
+				  IsPullToRefreshEnabled="true" 
+          Refreshing="OnRefresh"
+				  Grid.Row="1"
+          HasUnevenRows="True"
+          IsGroupingEnabled="True"
+          GroupDisplayBinding="{Binding MonthGroupName}"
+          GroupShortNameBinding="{Binding MonthGroupName}">
+        <ListView.GroupHeaderTemplate>
+          <DataTemplate>
+            <ViewCell Height="30">
+              <StackLayout VerticalOptions="FillAndExpand"
+                           Padding="5,0,5,0">
+                <Label Text="{Binding DateFilter}" FontSize="Medium" VerticalOptions="Center"/>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.GroupHeaderTemplate>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <StackLayout Spacing="10" HorizontalOptions="Start">
+                <Grid RowSpacing="5" HorizontalOptions="Start">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="Start"/>
+                  <Label Text="{Binding Title}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start"/>
+                  <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="1" HorizontalOptions="Start"/>
+                </Grid>
+              </StackLayout>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </Grid>
+      <!--
+      <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
+        <Label x:Name="messageLabel" FontSize="Medium" />
+        <Button x:Name="editButton" Text="Edit Profile" Clicked="OnEditButtonClicked" />
+        <Button x:Name="graphTestButton" Text="Office Graph" Clicked="OnGraphTestButtonnClicked" />
+        <Button x:Name="sharepointButton" Text="SharePoint" Clicked="OnSharePointButtonnClicked" />
+        <Button x:Name="logoutButton" Text="Logout" Clicked="OnLogoutButtonClicked" />
+      </StackLayout>
+      -->
+  </ContentPage.Content>
 </ContentPage>
