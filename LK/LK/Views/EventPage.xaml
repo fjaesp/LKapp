@@ -12,17 +12,19 @@
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
           <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
           <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
-          <!--<Label Text="Funker dette?" FontSize="Medium" />-->
-          <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"  Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-          <Label Text="{Binding Title}" FontSize="Medium" FontAttributes="Bold" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-          <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-          <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+          <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"  Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+          <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+          <Label Text="Attend this event" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
+          <Switch HorizontalOptions = "LayoutOptions.Center" VerticalOptions = "LayoutOptions.CenterAndExpand" Grid.Row="2" Grid.Column="1"/>
+          <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+          <Label Text="Attachments" FontSize="Medium" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
           <!--<StackLayout VerticalOptions="StartAndExpand" Padding="30">
             <maps:Map WidthRequest="320" HeightRequest="200" 
                 x:Name="MyMap"

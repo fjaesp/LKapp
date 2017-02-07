@@ -14,7 +14,7 @@ namespace LK.Views
         public EventPage(EventEntities e)
         {
             InitializeComponent();
-            this.BindingContext = e;
+            BindingContext = e;
             //string test = BindingContext.ToString();
             //double longditude=37;
             //double latitude=-127;

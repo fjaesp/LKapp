@@ -27,9 +27,6 @@ namespace LK.Droid
 
             LoadApplication(new App());
             App.AuthenticationClient.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);
-
-            // 4FEB
-            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
         }
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
