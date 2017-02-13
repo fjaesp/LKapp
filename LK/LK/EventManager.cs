@@ -167,10 +167,10 @@ namespace LK
         {
             try
             {
-                //if (syncItems)
-                //{
-                //    await this.SyncAsync();
-                //}
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
 
                 // Hent kun fremtidige eventer og sorter disse etter nærmeste dato først
 

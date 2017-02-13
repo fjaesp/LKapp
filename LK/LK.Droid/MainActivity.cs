@@ -23,7 +23,7 @@ namespace LK.Droid
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            Xamarin.FormsMaps.Init(this, bundle);
+            //Xamarin.FormsMaps.Init(this, bundle);
 
             LoadApplication(new App());
             App.AuthenticationClient.PlatformParameters = new PlatformParameters(Xamarin.Forms.Forms.Context as Activity);

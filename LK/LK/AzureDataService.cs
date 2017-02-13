@@ -6,6 +6,7 @@ using Microsoft.WindowsAzure.MobileServices.Sync;
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -15,7 +16,7 @@ namespace LK
     public class AzureDataService
     {
         public MobileServiceClient MobileService { get; set; } = null;
-        IMobileServiceSyncTable<EventEntities> eventEntities;
+        IMobileServiceSyncTable<EventEntities> eventTable;
         //public static bool UseAuth { get; set; } = false;
 
         public async Task Initialize()
@@ -25,23 +26,34 @@ namespace LK
                 return;
 
             var appUrl = "http://lkmobileapp.azurewebsites.net";
+
+            //Create Client
             MobileService = new MobileServiceClient(appUrl);
 
-            const string path = "syncstore.db";
+            //InitialzeDatabase for path
+            string path = "syncstore.db";
+            path = Path.Combine(MobileServiceClient.DefaultDatabasePath, path);
+
             //setup our local sqlite store and intialize our table
             var store = new MobileServiceSQLiteStore(path);
+
+            //Define table
             store.DefineTable<EventEntities>();
-            await MobileService.SyncContext.InitializeAsync(store, new MobileServiceSyncHandler());
+
+            //Initialize SyncContext
+            await MobileService.SyncContext.InitializeAsync(store);//, new MobileServiceSyncHandler());
 
             //Get our sync table that will call out to azure
-            eventEntities = MobileService.GetSyncTable<EventEntities>();
+            eventTable = MobileService.GetSyncTable<EventEntities>();
         }
 
         public async Task<IEnumerable> GetEvents()
         {
+            //Initialize & Sync
             await Initialize();
             await SyncEvents();
-            return await eventEntities.OrderBy(c => c.Date).ToEnumerableAsync();
+
+            return await eventTable.OrderBy(c => c.Date).ToEnumerableAsync();
         }
 
         //public async Task AddEvent(bool madeAtHome)
@@ -53,7 +65,7 @@ namespace LK
             try
             {
                 //pull down all latest changes and then push current coffees up
-                await eventEntities.PullAsync("allEvents", eventEntities.CreateQuery());
+                await eventTable.PullAsync("allEvents", eventTable.CreateQuery());
                 await MobileService.SyncContext.PushAsync();
             }
             catch (Exception ex)
