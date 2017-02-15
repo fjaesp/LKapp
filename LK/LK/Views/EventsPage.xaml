@@ -66,14 +66,5 @@
         </ListView.ItemTemplate>
       </ListView>
     </Grid>
-      <!--
-      <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
-        <Label x:Name="messageLabel" FontSize="Medium" />
-        <Button x:Name="editButton" Text="Edit Profile" Clicked="OnEditButtonClicked" />
-        <Button x:Name="graphTestButton" Text="Office Graph" Clicked="OnGraphTestButtonnClicked" />
-        <Button x:Name="sharepointButton" Text="SharePoint" Clicked="OnSharePointButtonnClicked" />
-        <Button x:Name="logoutButton" Text="Logout" Clicked="OnLogoutButtonClicked" />
-      </StackLayout>
-      -->
   </ContentPage.Content>
 </ContentPage>

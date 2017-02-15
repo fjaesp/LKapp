@@ -43,12 +43,12 @@ namespace LK
             this.eventTable = client.GetSyncTable<EventEntities>();
 
             // Hvis du vil slette elementene i den lokale tabellen
-            bool clear = true;
-            ClearTable(clear);
+            //bool clear = true;
+            //ClearTable(clear);
 
             // Midlertidig
-            int maxEvents = 6;
-            Add(maxEvents);
+            //int maxEvents = 6;
+            //Add(maxEvents);
         }
 
         private async void ClearTable(bool clear)
@@ -162,7 +162,7 @@ namespace LK
 
         }
 
-        public async Task<ObservableCollection<Grouping<string, EventEntities>>> GetEventsAsync(bool syncItems = false)
+        public async Task<ObservableCollection<Grouping<string, EventEntities>>> GetEventsAsync(bool syncItems = true)
         //public async Task<ObservableCollection<EventEntities>> GetEventsAsync(bool syncItems = false)
         {
             try
@@ -183,13 +183,20 @@ namespace LK
                              group e by e.MonthGroupName into eventGroups
                              select new Grouping<string, EventEntities>(eventGroups.Key, eventGroups);
 
-                eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
-                return eventGroups;
-                //IEnumerable<EventEntities> items = await eventTable.Where(x => x.Date > DateTime.Now).OrderBy(x => x.Date).ToEnumerableAsync();
-                    //.Where(item != item.Title)
-                    //.ToEnumerableAsync();
+				try
+				{
+	                eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
+	                return eventGroups;
+	                //IEnumerable<EventEntities> items = await eventTable.Where(x => x.Date > DateTime.Now).OrderBy(x => x.Date).ToEnumerableAsync();
+	                    //.Where(item != item.Title)
+	                    //.ToEnumerableAsync();
 
-                //return new ObservableCollection<EventEntities>(items);
+	                //return new ObservableCollection<EventEntities>(items);
+				}
+				catch (MobileServiceInvalidOperationException msioe)
+				{
+					Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+				}
             }
             catch (MobileServiceInvalidOperationException msioe)
             {

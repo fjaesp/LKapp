@@ -13,12 +13,12 @@ namespace LK.Views
 {
     public partial class EventsPage : ContentPage
     {
-        AuthenticationResult authResult;
         EventManager manager;
+		AuthenticationResult authResult;
 
         public EventsPage(AuthenticationResult ar)
         {
-            InitializeComponent();
+			InitializeComponent();
             authResult = ar;
             manager = EventManager.DefaultManager;
         }
@@ -33,11 +33,9 @@ namespace LK.Views
         {
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
-                //ObservableCollection<EventEntities> items = await manager.GetEventsAsync(syncItems);
-                //eventList.ItemsSource = await manager.GetEventsAsync(syncItems);
-
-                ObservableCollection<Grouping<string, EventEntities>> items = await manager.GetEventsAsync(syncItems);
-                eventList.ItemsSource = items; // await manager.GetEventsAsync(syncItems);
+				var _items = await manager.GetEventsAsync(syncItems);
+				ObservableCollection<Grouping<string, EventEntities>> items = _items;
+                eventList.ItemsSource = items;
             }
         }
 
@@ -78,7 +76,6 @@ namespace LK.Views
             }
         }
 
-        //public async void OnSelected(object sender, SelectedItemChangedEventArgs e)
         public async void OnEventSelected(object sender, ItemTappedEventArgs args)
         {
             var e = args.Item as EventEntities;
@@ -86,13 +83,7 @@ namespace LK.Views
 
             await Navigation.PushAsync(new EventPage(e));
             eventList.SelectedItem = null;
-            //if (((ListView)sender).SelectedItem != null)
-            //{
-            //    await Navigation.PushAsync(new EventPage(e.SelectedItem as EventEntities));
-            //    ((ListView)sender).SelectedItem = null;
-            //}
         }
-
 
         public async void OnRefresh(object sender, EventArgs e)
         {
@@ -111,67 +102,5 @@ namespace LK.Views
                 list.EndRefresh();
             }
         }
-
-        #region To be deleted
-        //protected override void OnAppearing()
-        //{
-        //    if (authenticationResult != null)
-        //    {
-        //        if (authenticationResult.User.Name != "unknown")
-        //        {
-        //            messageLabel.Text = string.Format("Welcome {0}", authenticationResult.User.Name);
-        //        }
-        //        else
-        //        {
-        //            messageLabel.Text = string.Format("UserId: {0}", authenticationResult.User.UniqueId);
-        //        }
-        //    }
-        //    base.OnAppearing();
-        //}
-
-        //async void OnLogoutButtonClicked(object sender, EventArgs e)
-        //{
-        //    App.AuthenticationClient.UserTokenCache.Clear(Constants.ClientID);
-        //    await Navigation.PopAsync();
-        //}
-
-        //async void OnEditButtonClicked(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenAsync(
-        //            Constants.Scopes,
-        //            string.Empty,
-        //            UiOptions.SelectAccount,
-        //            string.Empty,
-        //            null,
-        //            Constants.Authority,
-        //            Constants.EditProfilepolicy);
-        //        await Navigation.PushAsync(new EventsPage(ar));
-        //    }
-        //    catch (MsalException ee)
-        //    {
-        //        if (ee.Message != null && ee.Message.Contains("AADB2C90118"))
-        //        {
-        //            await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
-        //        }
-
-        //        if (ee.ErrorCode != "authentication_canceled")
-        //        {
-        //            await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
-        //        }
-        //    }
-        //}
-
-        //async void OnGraphTestButtonnClicked(object sender, EventArgs e)
-        //{
-        //    //await Navigation.PushAsync(new OfficeGraphPage(authenticationResult));
-        //}
-
-        //async void OnSharePointButtonnClicked(object sender, EventArgs e)
-        //{
-        //    //await Navigation.PushAsync(new TabbedPage1(authenticationResult));
-        //}
-        #endregion
     }
 }

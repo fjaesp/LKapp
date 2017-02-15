@@ -5,7 +5,7 @@
              x:Class="LK.Views.EventPage"
              Title="{Binding Title}">
   <ContentPage.Content>
-    <ScrollView>
+    <ScrollView x:Name="EventScrollView">
       <Grid Padding="10" RowSpacing="10" ColumnSpacing="10">
         <Grid.RowDefinitions>
           <RowDefinition Height="Auto"/>
