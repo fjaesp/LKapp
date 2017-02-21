@@ -31,7 +31,7 @@ namespace LK
             MobileService = new MobileServiceClient(appUrl);
 
             //InitialzeDatabase for path
-            string path = "syncstore.db";
+            string path = "syncstore2.db";
             path = Path.Combine(MobileServiceClient.DefaultDatabasePath, path);
 
             //setup our local sqlite store and intialize our table
@@ -65,7 +65,7 @@ namespace LK
             try
             {
                 //pull down all latest changes and then push current coffees up
-                await eventTable.PullAsync("allEvents", eventTable.CreateQuery());
+                await eventTable.PullAsync("allEvents2", eventTable.CreateQuery());
                 await MobileService.SyncContext.PushAsync();
             }
             catch (Exception ex)

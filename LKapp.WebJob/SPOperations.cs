@@ -1,22 +1,11 @@
 ﻿using Microsoft.SharePoint.Client;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
 
 namespace LKapp.WebJob
 {
     public class ReadListItems
     {
-        public static string SPAccount = "Fjalestad@Fjalestad2016.onmicrosoft.com";
-        public static string SPOPassword = "lkapp2017!";
-        public static string SPUrl = "https://Fjalestad2016.sharepoint.com/LK";
-        public static string SPListViewTitle = "Alle elementer";
-
-        public static ListItemCollection GetListItems(string listName)
+        public static ListItemCollection GetListItems(string listName, string SPAccount, string SPOPassword, string SPUrl, string SPListViewTitle)
         {
             using (ClientContext context = new ClientContext(SPUrl))
             {
