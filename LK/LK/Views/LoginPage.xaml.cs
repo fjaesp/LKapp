@@ -11,21 +11,20 @@ namespace LK.Views
             InitializeComponent();
         }
 
-        protected override async void OnAppearing()
-        {
-            try
-            {
-                AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenSilentAsync(
-                    Constants.Scopes,
-                    string.Empty, 
-                    Constants.Authority, 
-                    Constants.SignUpSignInpolicy,
-                    false);
-                await Navigation.PushModalAsync(new BasePage(ar));
-            }
-            catch
-            { }
-        }
+        //protected override async void OnAppearing()
+        //{
+        //    try
+        //    {
+        //        AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenSilentAsync(
+        //            Constants.Scopes,
+        //            string.Empty, 
+        //            Constants.Authority, 
+        //            Constants.SignUpSignInpolicy,
+        //            false);
+        //        await Navigation.PushModalAsync(new BasePage(ar));
+        //    }
+        //    catch {}
+        //}
 
         async void OnSignUpSignIn(object sender, EventArgs e)
         {

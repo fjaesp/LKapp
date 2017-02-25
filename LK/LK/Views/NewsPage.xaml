@@ -4,8 +4,8 @@
              x:Class="LK.Views.NewsPage"
              Title="News">
   <ContentPage.Content>
-	<StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-		<Label Text="News will be listed here" FontSize="Large" />
-	</StackLayout>  
+	  <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+		  <Label Text="News will be listed here" FontSize="Large" />
+	  </StackLayout>  
   </ContentPage.Content>
 </ContentPage>
