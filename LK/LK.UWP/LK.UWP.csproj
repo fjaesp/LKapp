@@ -109,8 +109,15 @@
     <None Include="Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Arrow.png" />
+    <Content Include="Calendar.png" />
+    <Content Include="Email.png" />
+    <Content Include="Fagplan.png" />
     <Content Include="icon.png" />
+    <Content Include="Kompetansehandboka.png" />
     <Content Include="LKTxT.png" />
+    <Content Include="Phone.png" />
+    <Content Include="Profile.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -119,6 +126,7 @@
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="SignOut.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

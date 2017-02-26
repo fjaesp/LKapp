@@ -26,11 +26,11 @@ namespace LK.Views
                 if (authResult.User.Name != "unknown")
                 {
                     
-                    messageLabel.Text = string.Format("Welcome {0}", authResult.User.Name);
+                    messageLabel.Text = authResult.User.Name;
                 }
                 else
                 {
-                    messageLabel.Text = string.Format("UserId: {0}", authResult.User.UniqueId);
+                    messageLabel.Text = authResult.User.UniqueId;
                 }
             }
             base.OnAppearing();

@@ -237,6 +237,30 @@
       <Name>LK</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Email.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Fagplan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Kompetansehandboka.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Phone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\SignOut.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
