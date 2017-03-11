@@ -25,7 +25,6 @@ namespace LK.Views
             {
                 if (authResult.User.Name != "unknown")
                 {
-                    
                     messageLabel.Text = string.Format("Welcome {0}", authResult.User.Name);
                 }
                 else
