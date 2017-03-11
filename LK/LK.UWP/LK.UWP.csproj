@@ -109,6 +109,14 @@
     <None Include="Windows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Arrow.png" />
+    <Content Include="Assets\Calendar.png" />
+    <Content Include="Assets\Email.png" />
+    <Content Include="Assets\Fagplan.png" />
+    <Content Include="Assets\Kompetansehandboka.png" />
+    <Content Include="Assets\Phone.png" />
+    <Content Include="Assets\Profile.png" />
+    <Content Include="Assets\SignOut.png" />
     <Content Include="icon.png" />
     <Content Include="LKTxT.png" />
     <Content Include="Properties\Default.rd.xml" />

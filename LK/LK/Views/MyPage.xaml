@@ -5,7 +5,11 @@
              Title="My page">
     <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
         <Image Source="icon.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
+        
         <Label x:Name="messageLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
+        <Label Text="-----------------------------" />
+        <Label Text="{Binding id}" FontSize="Large" TextColor="Aqua" />
+        <Label Text="-----------------------------" />
         <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnEditButtonClicked"/>

@@ -37,10 +37,12 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="AzureDataService.cs" />
+    <Compile Include="AzureDataServiceUserEntities.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Models\EventEntities.cs" />
     <Compile Include="EventManager.cs" />
     <Compile Include="Helpers\Grouping.cs" />
+    <Compile Include="Models\UserEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToBeDeleted\ContentPage1.xaml.cs">
       <DependentUpon>ContentPage1.xaml</DependentUpon>
