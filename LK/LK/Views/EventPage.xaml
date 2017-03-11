@@ -21,8 +21,8 @@
         <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
           <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"  Grid.ColumnSpan="2" HorizontalOptions="Center"/>
           <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-          <Label Text="Attend this event" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
-          <Switch HorizontalOptions = "LayoutOptions.Center" VerticalOptions = "LayoutOptions.CenterAndExpand" Grid.Row="2" Grid.Column="1"/>
+          <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
+          <Switch HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
           <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
           <Label Text="Attachments" FontSize="Medium" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
           <!--<StackLayout VerticalOptions="StartAndExpand" Padding="30">
