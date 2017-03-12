@@ -21,6 +21,8 @@ namespace LK.Views
                     Constants.Authority, 
                     Constants.SignUpSignInpolicy,
                     false);
+
+                App.AuthResult = ar;
                 await Navigation.PushModalAsync(new BasePage(ar));
             }
             catch
@@ -39,6 +41,8 @@ namespace LK.Views
                     null, 
                     Constants.Authority, 
                     Constants.SignUpSignInpolicy);
+
+                App.AuthResult = ar;
                 await Navigation.PushModalAsync(new BasePage(ar));
             }
             catch (MsalException ee)
@@ -67,6 +71,8 @@ namespace LK.Views
                     null,
                     Constants.Authority,
                     Constants.ResetPasswordpolicy);
+
+                App.AuthResult = ar;
                 await Navigation.PushModalAsync(new BasePage(ar));
             }
             catch (MsalException ee)

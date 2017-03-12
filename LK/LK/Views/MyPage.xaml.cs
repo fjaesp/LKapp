@@ -1,8 +1,10 @@
-﻿using LK.Models;
+﻿using LK.Managers;
+using LK.Models;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,31 +16,32 @@ namespace LK.Views
     public partial class MyPage : ContentPage
     {
         AuthenticationResult authResult;
-        AzureDataServiceUserEntities userEntityManager;
+        UserManager manager;
 
         public MyPage(AuthenticationResult ar)
         {
             InitializeComponent();
             authResult = ar;
-
-            userEntityManager = new AzureDataServiceUserEntities();
-            BindingContext = userEntityManager.GetUser("John-Kenneth");
+            manager =  UserManager.DefaultManager;
         }
 
         protected override async void OnAppearing()
         {
             if (authResult != null)
             {
-                if (authResult.User.Name != "unknown")
-                {
-                    messageLabel.Text = authResult.User.Name;
-                }
-                else
-                {
-                    messageLabel.Text = authResult.User.UniqueId;
-                }
+                await GetCurrentUser(syncItems: true);
             }
             base.OnAppearing();
+        }
+
+        private async Task GetCurrentUser(bool syncItems)
+        {
+            ObservableCollection<UserEntities> users = await manager.GetUserAsync(authResult.User.UniqueId, syncItems);
+            if(users != null)
+            {
+                UserEntities user = users[0];
+                nameLabel.Text = user.displayName;
+            }
         }
 
         async void OnSignOutBtnClicked(object sender, EventArgs e)
@@ -92,6 +95,6 @@ namespace LK.Views
                     await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
                 }
             }
-        }
+        }       
     }
 }

@@ -11,7 +11,7 @@ using System.Linq;
 using LK.Helpers;
 using LK.Models;
 
-namespace LK
+namespace LK.Managers
 {
     public partial class EventManager
     {
@@ -73,7 +73,6 @@ namespace LK
 
                 // Hent kun fremtidige eventer og sorter disse etter nærmeste dato først
                 //IEnumerable<EventEntities> es = await eventTable.Where(x => x.Date > DateTime.Now).OrderBy(x => x.Date).ToEnumerableAsync();
-
                 IEnumerable<EventEntities> es = await eventTable
                                         .Where(x => x.Date > DateTime.Now)
                                         .OrderBy(x => x.Date)

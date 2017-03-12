@@ -6,15 +6,27 @@ using System.Threading.Tasks;
 using Xamarin.Forms.Maps;
 using Xamarin.Forms;
 using LK.Models;
+using LK.Managers;
 
 namespace LK.Views
 {
     public partial class EventPage : ContentPage
     {
+        AttendanceManager attendanceManager;
+        EventEntities currentEvent;
+
         public EventPage(EventEntities e)
         {
             InitializeComponent();
+
+            currentEvent = e;
+
+            attendanceManager = AttendanceManager.DefaultManager;
+
             BindingContext = e;
+
+            
+
             //string test = BindingContext.ToString();
             //double longditude=37;
             //double latitude=-127;
@@ -43,8 +55,20 @@ namespace LK.Views
             ////        pos, Distance.FromMiles(.2)));
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
+            if (App.AuthResult != null)
+            {
+                bool doesAttend = false;
+                doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
+                if (doesAttend)
+                {
+                    AttendSwitch.IsToggled = true;
+                    currentEvent.currentUserAttend = true;
+                }
+                //await GetCurrentUser(syncItems: true);
+            }
+
             base.OnAppearing();       
         }
 
@@ -72,6 +96,19 @@ namespace LK.Views
                 }
             }
             return 0;
+        }
+
+        private async void AttendSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            if(AttendSwitch.IsToggled && !currentEvent.currentUserAttend)
+            {
+                await attendanceManager.AddCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
+            }
+            else if(AttendSwitch.IsToggled == false)
+            {
+                await attendanceManager.RemoveCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
+            }
+            
         }
     }
 }

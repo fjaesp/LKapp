@@ -7,6 +7,7 @@ namespace LK
     public class App : Application
     {
         public static PublicClientApplication AuthenticationClient { get; private set; }
+        public static AuthenticationResult AuthResult { get; set; }
 
         public App()
         {

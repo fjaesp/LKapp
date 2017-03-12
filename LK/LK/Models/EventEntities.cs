@@ -43,6 +43,6 @@ namespace LK.Models
             }
         }
 
-
+        public bool currentUserAttend { get; set; }
     }
 }
