@@ -18,15 +18,13 @@ namespace LK.Views
         public EventPage(EventEntities e)
         {
             InitializeComponent();
-
             currentEvent = e;
+            BindingContext = currentEvent;
 
+            // Check if current user is attending the event
             attendanceManager = AttendanceManager.DefaultManager;
 
-            BindingContext = e;
-
-            
-
+            #region kart utkommentert
             //string test = BindingContext.ToString();
             //double longditude=37;
             //double latitude=-127;
@@ -53,6 +51,7 @@ namespace LK.Views
             ////MyMap.MoveToRegion(
             ////    MapSpan.FromCenterAndRadius(
             ////        pos, Distance.FromMiles(.2)));
+            #endregion
         }
 
         protected override async void OnAppearing()
@@ -63,13 +62,12 @@ namespace LK.Views
                 doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
                 if (doesAttend)
                 {
-                    AttendSwitch.IsToggled = true;
                     currentEvent.currentUserAttend = true;
+                    AttendSwitch.IsToggled = true;
                 }
-                //await GetCurrentUser(syncItems: true);
             }
-
-            base.OnAppearing();       
+        
+            base.OnAppearing();
         }
 
         public async Task<double> getLocation(string address, string type)

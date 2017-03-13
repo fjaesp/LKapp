@@ -53,16 +53,15 @@ namespace LK.Managers
 
         public async Task<bool> DoesCurrentUserAttend(string userId, string eventId)
         {
-            bool r = false;
+            IEnumerable<AttendEntities> attendEnum = 
+                await attendanceTable.Where(x => 
+                                            x.userid == userId && 
+                                            x.eventid == eventId)
+                                            .ToEnumerableAsync();
 
-            IEnumerable<AttendEntities> attendEnum = await attendanceTable.Where(x => x.userid == userId && x.eventid == eventId).ToEnumerableAsync();
             int ant = attendEnum.Count();
-            if (ant > 0)
-            {
-                r = true;
-            }
 
-            return r;
+            return ant > 0 ? true : false;
         }
 
         public async Task AddCurrentUserAsAttendant(string userId, string eventId)
@@ -80,7 +79,11 @@ namespace LK.Managers
         public async Task RemoveCurrentUserAsAttendant(string userId, string eventId)
         {
 
-            IEnumerable<AttendEntities> attendEnum = await attendanceTable.Where(x => x.userid == userId && x.eventid == eventId).ToEnumerableAsync();
+            IEnumerable<AttendEntities> attendEnum = 
+                await attendanceTable.Where(x => 
+                                            x.userid == userId && 
+                                            x.eventid == eventId)
+                                            .ToEnumerableAsync();
             int ant = attendEnum.Count();
             if(ant > 0)
             {
