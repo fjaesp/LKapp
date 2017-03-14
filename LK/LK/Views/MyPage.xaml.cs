@@ -27,7 +27,7 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            if (authResult != null)
+            if (App.AuthResult != null)
             {
                 await GetCurrentUser(syncItems: true);
             }
