@@ -16,6 +16,7 @@ namespace LK.Managers
     public partial class EventManager
     {
         static EventManager defaultInstance = new EventManager();
+        AttendanceManager attendManager;
         MobileServiceClient client;
         IMobileServiceSyncTable<EventEntities> eventTable;
 
@@ -29,6 +30,8 @@ namespace LK.Managers
             store.DefineTable<EventEntities>();
             this.client.SyncContext.InitializeAsync(store);
             this.eventTable = client.GetSyncTable<EventEntities>();
+
+            attendManager = AttendanceManager.DefaultManager;
 
             //Hvis du vil slette elementene i den lokale tabellen
             //bool clear = true;
@@ -62,7 +65,6 @@ namespace LK.Managers
         }
 
         public async Task<ObservableCollection<Grouping<string, EventEntities>>> GetEventsAsync(bool syncItems = false)
-        //public async Task<ObservableCollection<EventEntities>> GetEventsAsync(bool syncItems = false)
         {
             try
             {
@@ -72,11 +74,22 @@ namespace LK.Managers
                 }
 
                 // Hent kun fremtidige eventer og sorter disse etter nærmeste dato først
-                //IEnumerable<EventEntities> es = await eventTable.Where(x => x.Date > DateTime.Now).OrderBy(x => x.Date).ToEnumerableAsync();
                 IEnumerable<EventEntities> es = await eventTable
                                         .Where(x => x.Date > DateTime.Now)
                                         .OrderBy(x => x.Date)
                                         .ToEnumerableAsync();
+
+                // Updated attendance
+                //ObservableCollection<AttendEntities> attendingEvents = 
+                //    await attendManager.GetAllEventsCurrentUserAttend(App.AuthResult.User.UniqueId);
+               
+
+
+                //foreach (var e in es)
+                //{
+                //    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
+                //        e.currentUserAttend = true;
+                //}
 
                 var sorted = from e in es
                              orderby e.Date

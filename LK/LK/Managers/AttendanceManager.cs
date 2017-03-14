@@ -92,6 +92,20 @@ namespace LK.Managers
             }
         }
 
+        public async Task<ObservableCollection<AttendEntities>> GetAllEventsCurrentUserAttend(string userId)
+        {
+            ObservableCollection<AttendEntities> result = null;
+
+            IEnumerable<AttendEntities> attendEnum = 
+                await attendanceTable.Where(x =>
+                                            x.userid == userId)
+                                            .ToEnumerableAsync();
+            if(attendEnum.Count() > 0)
+                result = new ObservableCollection<AttendEntities>(attendEnum);
+
+            return result;
+        }
+
         public async Task<ObservableCollection<AttendEntities>> GetAttendanceAsync(string userId, string eventId, bool syncItems = false)
         {
             try

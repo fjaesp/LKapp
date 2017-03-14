@@ -35,7 +35,7 @@ namespace LK.Views
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
 				var _items = await manager.GetEventsAsync(syncItems);
-				ObservableCollection<Grouping<string, EventEntities>> items = _items;
+                ObservableCollection<Grouping<string, EventEntities>> items = _items;
                 eventList.ItemsSource = items;
             }
         }
