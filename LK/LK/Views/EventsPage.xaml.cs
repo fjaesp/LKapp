@@ -15,12 +15,10 @@ namespace LK.Views
     public partial class EventsPage : ContentPage
     {
         EventManager manager;
-		AuthenticationResult authResult;
 
-        public EventsPage(AuthenticationResult ar)
+        public EventsPage()
         {
 			InitializeComponent();
-            authResult = ar;
             manager = EventManager.DefaultManager;
         }
 

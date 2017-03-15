@@ -11,14 +11,9 @@ namespace LK.Views
 {
     public partial class NewsPage : ContentPage
     {
-        AuthenticationResult authResult;
-
-        public NewsPage(AuthenticationResult ar)
+        public NewsPage()
         {
             InitializeComponent();
-            authResult = ar;
         }
-
-        
     }
 }

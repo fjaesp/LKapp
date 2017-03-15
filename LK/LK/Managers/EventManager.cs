@@ -26,20 +26,12 @@ namespace LK.Managers
         private EventManager()
         {
             this.client = new MobileServiceClient(Constants.ApplicationURL);
-            var store = new MobileServiceSQLiteStore("localstore3.db");
+            var store = new MobileServiceSQLiteStore("LKLocal.db"); //("localstore3.db");
             store.DefineTable<EventEntities>();
             this.client.SyncContext.InitializeAsync(store);
             this.eventTable = client.GetSyncTable<EventEntities>();
 
             attendManager = AttendanceManager.DefaultManager;
-
-            //Hvis du vil slette elementene i den lokale tabellen
-            //bool clear = true;
-            //ClearTable(clear);
-
-            ////Midlertidig
-            //int maxEvents = 6;
-            //Add(maxEvents);
         }
       
         public static EventManager DefaultManager

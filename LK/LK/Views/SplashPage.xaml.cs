@@ -30,7 +30,9 @@ namespace LK.Views
                     false);
 
                 App.AuthResult = ar;
-                await Navigation.PushModalAsync(new BasePage(ar));
+                await Navigation.PushModalAsync(new BasePage());
+                //Navigation.InsertPageBefore(new BasePage(), this); 
+                //await Navigation.PopAsync();
             }
             catch
             {

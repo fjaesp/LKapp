@@ -23,7 +23,7 @@ namespace LK.Managers
         private UserManager()
         {
             this.client = new MobileServiceClient(Constants.ApplicationURL);
-            var store = new MobileServiceSQLiteStore("localstore3.db");
+            var store = new MobileServiceSQLiteStore("LKLocal.db"); //("localstore3.db");
             store.DefineTable<UserEntities>();
             this.client.SyncContext.InitializeAsync(store);
             this.userTable = client.GetSyncTable<UserEntities>();
@@ -81,7 +81,7 @@ namespace LK.Managers
             {
                 if (syncItems)
                 {
-                    await this.SyncAsync();
+                    await SyncAsync();
                 }
             
                 IEnumerable<UserEntities> es = await userTable.Where(x => x.Id != "").ToEnumerableAsync();

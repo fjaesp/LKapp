@@ -43,7 +43,9 @@ namespace LK.Views
                     Constants.SignUpSignInpolicy);
 
                 App.AuthResult = ar;
-                await Navigation.PushModalAsync(new BasePage(ar));
+                //Navigation.InsertPageBefore(new BasePage(), this);
+                //await Navigation.PopAsync();
+                await Navigation.PushModalAsync(new BasePage());
             }
             catch (MsalException ee)
             {
@@ -73,7 +75,9 @@ namespace LK.Views
                     Constants.ResetPasswordpolicy);
 
                 App.AuthResult = ar;
-                await Navigation.PushModalAsync(new BasePage(ar));
+                //Navigation.InsertPageBefore(new BasePage(), this);
+                //await Navigation.PopAsync();
+                await Navigation.PushModalAsync(new BasePage());
             }
             catch (MsalException ee)
             {

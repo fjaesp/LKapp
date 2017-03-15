@@ -15,13 +15,11 @@ namespace LK.Views
 {
     public partial class MyPage : ContentPage
     {
-        AuthenticationResult authResult;
         UserManager manager;
 
-        public MyPage(AuthenticationResult ar)
+        public MyPage()
         {
             InitializeComponent();
-           // authResult = ar;
             manager =  UserManager.DefaultManager;
         }
 
@@ -81,7 +79,7 @@ namespace LK.Views
                     null,
                     Constants.Authority,
                     Constants.EditProfilepolicy);
-                await Navigation.PushModalAsync(new BasePage(ar));
+                await Navigation.PushModalAsync(new BasePage());
             }
             catch (MsalException ee)
             {
