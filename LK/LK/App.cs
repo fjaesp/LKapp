@@ -12,7 +12,7 @@ namespace LK
         public App()
         {
             AuthenticationClient = new PublicClientApplication(Constants.Authority, Constants.ClientID);
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new SplashPage());
         }
 
         protected override void OnStart()

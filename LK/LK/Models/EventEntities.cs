@@ -1,6 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 using System.Globalization;
+using Newtonsoft.Json.Serialization;
 
 namespace LK.Models
 {
@@ -43,6 +44,7 @@ namespace LK.Models
             }
         }
 
-        public bool currentUserAttend { get; set; }
+        [JsonIgnore]
+        public bool CurrentUserAttend { get; set; }
     }
 }

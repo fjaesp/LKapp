@@ -8,6 +8,7 @@ namespace LK.Views
         public BasePage(AuthenticationResult ar)
         {
             InitializeComponent();
+            //Navigation.PopAsync();
             this.Children.Add(new NewsPage(ar));
             var eventsNavigationPage = new NavigationPage(new EventsPage(ar)) { Title = "Events" };
             this.Children.Add(eventsNavigationPage);

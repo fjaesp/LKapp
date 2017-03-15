@@ -21,7 +21,7 @@ namespace LK.Views
         public MyPage(AuthenticationResult ar)
         {
             InitializeComponent();
-            authResult = ar;
+           // authResult = ar;
             manager =  UserManager.DefaultManager;
         }
 
@@ -36,7 +36,7 @@ namespace LK.Views
 
         private async Task GetCurrentUser(bool syncItems)
         {
-            ObservableCollection<UserEntities> users = await manager.GetUserAsync(authResult.User.UniqueId, syncItems);
+            ObservableCollection<UserEntities> users = await manager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
             if(users != null)
             {
                 UserEntities user = users[0];

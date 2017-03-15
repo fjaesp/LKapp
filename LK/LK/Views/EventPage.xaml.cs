@@ -62,7 +62,7 @@ namespace LK.Views
                 doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
                 if (doesAttend)
                 {
-                    currentEvent.currentUserAttend = true;
+                    currentEvent.CurrentUserAttend = true;
                     AttendSwitch.IsToggled = true;
                 }
             }
@@ -98,7 +98,7 @@ namespace LK.Views
 
         private async void AttendSwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            if(AttendSwitch.IsToggled && !currentEvent.currentUserAttend)
+            if(AttendSwitch.IsToggled && !currentEvent.CurrentUserAttend)
             {
                 await attendanceManager.AddCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
             }

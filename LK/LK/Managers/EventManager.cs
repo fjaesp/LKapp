@@ -74,22 +74,16 @@ namespace LK.Managers
                 }
 
                 // Hent kun fremtidige eventer og sorter disse etter nærmeste dato først
-                IEnumerable<EventEntities> es = await eventTable
+                ObservableCollection<EventEntities> es = await eventTable
                                         .Where(x => x.Date > DateTime.Now)
                                         .OrderBy(x => x.Date)
-                                        .ToEnumerableAsync();
+                                        .ToCollectionAsync();
 
-                // Updated attendance
-                //ObservableCollection<AttendEntities> attendingEvents = 
-                //    await attendManager.GetAllEventsCurrentUserAttend(App.AuthResult.User.UniqueId);
-               
-
-
-                //foreach (var e in es)
-                //{
-                //    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
-                //        e.currentUserAttend = true;
-                //}
+                foreach (var e in es)
+                {
+                    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
+                        e.CurrentUserAttend = true;
+                }
 
                 var sorted = from e in es
                              orderby e.Date
@@ -97,6 +91,7 @@ namespace LK.Managers
                              select new Grouping<string, EventEntities>(eventGroups.Key, eventGroups);
 
 	            eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
+
 	            return eventGroups;
             }
             catch (MobileServiceInvalidOperationException msioe)
