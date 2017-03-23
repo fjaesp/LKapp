@@ -99,6 +99,35 @@ namespace LK.Managers
             return null;
         }
 
+        public async Task<string> GetUserNameAsync(string userId, bool syncItems = false)
+        {
+            try
+            {
+                string uName = string.Empty;
+
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+
+                IEnumerable<UserEntities> userEnum = await userTable.Where(x => x.Id == userId).ToEnumerableAsync();
+                users = new ObservableCollection<UserEntities>(userEnum);
+                if (users.Count > 0)
+                    uName = users.First<UserEntities>().displayName;
+
+                return uName;
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
         public async Task SyncAsync()
         {
             ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;

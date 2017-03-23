@@ -7,12 +7,15 @@ using Xamarin.Forms.Maps;
 using Xamarin.Forms;
 using LK.Models;
 using LK.Managers;
+using System.Collections.ObjectModel;
 
 namespace LK.Views
 {
     public partial class EventPage : ContentPage
     {
         AttendanceManager attendanceManager;
+        CommentManager commentManager;
+        static UserManager userManager;
         EventEntities currentEvent;
 
         public EventPage(EventEntities e)
@@ -23,6 +26,8 @@ namespace LK.Views
 
             // Check if current user is attending the event
             attendanceManager = AttendanceManager.DefaultManager;
+            commentManager = CommentManager.DefaultManager;
+            userManager = UserManager.DefaultManager;
 
             #region kart utkommentert
             //string test = BindingContext.ToString();
@@ -56,17 +61,17 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            if (App.AuthResult != null)
-            {
-                bool doesAttend = false;
-                doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
-                if (doesAttend)
-                {
-                    currentEvent.CurrentUserAttend = true;
-                    AttendSwitch.IsToggled = true;
-                }
-            }
-        
+            //if (App.AuthResult != null)
+            //{
+            //    bool doesAttend = false;
+            //    doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
+            //    if (doesAttend)
+            //    {
+            //        currentEvent.CurrentUserAttend = true;
+            //        AttendSwitch.IsToggled = true;
+            //    }
+            //}
+            await RefreshComments(true, syncItems: true);
             base.OnAppearing();
         }
 
@@ -107,6 +112,92 @@ namespace LK.Views
                 await attendanceManager.RemoveCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
             }
             
+        }
+
+        private async Task CommentEditor_CompletedAsync(object sender, EventArgs e)
+        {
+            string newComment = ((Editor)sender).Text;
+            if(newComment.Length > 0)
+            {
+                await commentManager.AddComment(App.AuthResult.User.UniqueId, currentEvent.Id, newComment);
+
+                CommentList.ItemsSource = await commentManager.GetCommentsAsync(currentEvent.Id, true);
+                ((Editor)sender).Text = "";
+            }
+        }
+
+        private async Task RefreshComments(bool showActivityIndicator, bool syncItems)
+        {
+            using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
+            {
+                ObservableCollection<Comments> items = await commentManager.GetCommentsAsync(currentEvent.Id, syncItems);
+                //ObservableCollection<Comments> cx = new ObservableCollection<Comments>();
+                //cx.Add(new Comments { comment = "ABC" });
+                //cx.Add(new Comments { comment = "DEF" });
+                //cx.Add(new Comments { comment = "GHI" });
+
+                for(int i=0; i<items.Count; i++)
+                {
+                    items[i].userName = await userManager.GetUserNameAsync(items[i].userid);
+                }
+
+                CommentList.ItemsSource = items;
+            }
+        }
+
+        private async Task CommentList_RefreshingAsync(object sender, EventArgs e)
+        {
+            var list = (ListView)sender;
+            Exception error = null;
+            try
+            {
+                await RefreshComments(false, true);
+            }
+            catch (Exception ex)
+            {
+                error = ex;
+            }
+            finally
+            {
+                list.EndRefresh();
+            }
+        }
+
+        private class ActivityIndicatorScope : IDisposable
+        {
+            private bool showIndicator;
+            private ActivityIndicator indicator;
+            private Task indicatorDelay;
+
+            public ActivityIndicatorScope(ActivityIndicator indicator, bool showIndicator)
+            {
+                this.indicator = indicator;
+                this.showIndicator = showIndicator;
+
+                if (showIndicator)
+                {
+                    indicatorDelay = Task.Delay(2000);
+                    SetIndicatorActivity(true);
+                }
+                else
+                {
+                    indicatorDelay = Task.FromResult(0);
+                }
+            }
+
+            private void SetIndicatorActivity(bool isActive)
+            {
+                this.indicator.IsVisible = isActive;
+                this.indicator.IsRunning = isActive;
+            }
+
+            public void Dispose()
+            {
+                if (showIndicator)
+                {
+                    indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
+                }
+            }
         }
     }
 }

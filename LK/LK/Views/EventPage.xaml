@@ -5,40 +5,69 @@
              x:Class="LK.Views.EventPage"
              Title="{Binding Title}">
   <ContentPage.Content>
-    <ScrollView x:Name="EventScrollView">
-      <Grid Padding="10" RowSpacing="10" ColumnSpacing="10">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-          <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto"/>
-          <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
-          <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"  Grid.ColumnSpan="2" HorizontalOptions="Center"/>
-          <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-          <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
-          <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
-          <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-          <Label Text="Attachments" FontSize="Medium" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
-          <!--<StackLayout VerticalOptions="StartAndExpand" Padding="30">
-            <maps:Map WidthRequest="320" HeightRequest="200" 
-                x:Name="MyMap"
-                IsShowingUser="true"
-                MapType="Hybrid"
-          />
-          </StackLayout>-->
-          <!--<maps:Map Grid.Row="4"
-                Grid.ColumnSpan="2"
-                      x:Name="MyMap"
-                      IsShowingUser="false"
-                      MapType="Hybrid"/>-->
-        </StackLayout>
-      </Grid>
-    </ScrollView>
-  </ContentPage.Content>
+        <ScrollView x:Name="EventScrollView">
+            <Grid Padding="10" RowSpacing="10" ColumnSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
+                    <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"  Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                    <Label Text="{Binding Date}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+                    <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
+                    <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
+                    <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+                    <Label Text="Attachments" FontSize="Medium" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
+                    <Editor x:Name="CommentEditor" 
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            BackgroundColor="Silver" 
+                            Completed="CommentEditor_CompletedAsync" 
+                            HeightRequest="100">
+                    </Editor>
+                    <ActivityIndicator Grid.RowSpan="2"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"
+                                       IsVisible="False"
+                                       IsEnabled="True"
+                                       x:Name="syncIndicator" />
+                    <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="6" Grid.ColumnSpan="2" HasUnevenRows="True">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout BackgroundColor="White">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                                                <Label Text="{Binding userName}" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
+                                                <Label Text="{Binding createdAt, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium" Grid.Row="0" Grid.Column="1" />
+                                                <Label Text="{Binding comment}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+                                            </StackLayout>
+                                        </Grid>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
 </ContentPage>
