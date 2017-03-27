@@ -27,14 +27,23 @@
                     <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
                     <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
                     <Label Text="Attachments" FontSize="Medium" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
-                    <Editor x:Name="CommentEditor" 
+                    <!--<Editor x:Name="CommentEditor" 
                             Grid.Row="5"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            BackgroundColor="Silver" 
-                            Completed="CommentEditor_CompletedAsync" 
-                            HeightRequest="100">
-                    </Editor>
+                            BackgroundColor="White"
+                            VerticalOptions="FillAndExpand" 
+                            HeightRequest="100"
+                            Completed="CommentEditor_CompletedAsync">
+                    </Editor>-->
+                    <Entry x:Name="CommentEntry" 
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            BackgroundColor="Silver"
+                            VerticalOptions="FillAndExpand" 
+                            Completed="CommentEntry_CompletedAsync">
+                    </Entry>
                     <ActivityIndicator Grid.RowSpan="2"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"

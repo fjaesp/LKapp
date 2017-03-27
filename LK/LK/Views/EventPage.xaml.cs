@@ -131,10 +131,6 @@ namespace LK.Views
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
                 ObservableCollection<Comments> items = await commentManager.GetCommentsAsync(currentEvent.Id, syncItems);
-                //ObservableCollection<Comments> cx = new ObservableCollection<Comments>();
-                //cx.Add(new Comments { comment = "ABC" });
-                //cx.Add(new Comments { comment = "DEF" });
-                //cx.Add(new Comments { comment = "GHI" });
 
                 for(int i=0; i<items.Count; i++)
                 {
@@ -197,6 +193,18 @@ namespace LK.Views
                 {
                     indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
                 }
+            }
+        }
+
+        private async Task CommentEntry_CompletedAsync(object sender, EventArgs e)
+        {
+            string newComment = ((Entry)sender).Text;
+            if (newComment.Length > 0)
+            {
+                await commentManager.AddComment(App.AuthResult.User.UniqueId, currentEvent.Id, newComment);
+
+                CommentList.ItemsSource = await commentManager.GetCommentsAsync(currentEvent.Id, true);
+                ((Entry)sender).Text = "";
             }
         }
     }
