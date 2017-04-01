@@ -24,8 +24,8 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            base.OnAppearing();
             await RefreshItems(true, syncItems: true);
+            base.OnAppearing();
         }
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
@@ -33,8 +33,11 @@ namespace LK.Views
             using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
             {
 				var _items = await manager.GetEventsAsync(syncItems);
-                ObservableCollection<Grouping<string, EventEntities>> items = _items;
-                eventList.ItemsSource = items;
+                if (_items != null)
+                {
+                    ObservableCollection<Grouping<string, EventEntities>> items = _items;
+                    eventList.ItemsSource = items;
+                }
             }
         }
 

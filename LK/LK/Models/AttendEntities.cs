@@ -15,8 +15,8 @@ namespace LK.Models
         [JsonProperty("createdAt")]
         public DateTime createdAt { get; set; }
 
-        //[JsonProperty("updatedAt")]
-        //public string updatedAt { get; set; }
+        [JsonProperty("updatedAt")]
+        public DateTime updatedAt { get; set; }
 
         [Microsoft.WindowsAzure.MobileServices.Version]
         public string AzureVersion { get; set; }

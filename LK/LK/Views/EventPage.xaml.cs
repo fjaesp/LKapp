@@ -61,7 +61,6 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            //await RefreshAttendance(true, syncItems: true);
             await RefreshComments(true, syncItems: true);
             if(currentEvent.CurrentUserAttend)
             {

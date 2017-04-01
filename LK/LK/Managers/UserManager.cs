@@ -51,7 +51,35 @@ namespace LK.Managers
             get { return userTable is IMobileServiceSyncTable<UserEntities>; }
         }
 
-        public async Task<ObservableCollection<UserEntities>> GetUserAsync(string userId, bool syncItems = false)
+        public async Task<UserEntities> GetUserAsync(string userId, bool syncItems = false)
+        {
+            try
+            {
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+
+                List<UserEntities> userEnum = await userTable.Where(x => x.Id == userId).ToListAsync();
+                if(userEnum != null && userEnum.Count > 0)
+                {
+                    return userEnum[0];
+                }
+
+                return null;
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
+        public async Task<ObservableCollection<UserEntities>> GetUserAsync2(string userId, bool syncItems = false)
         {
             try
             {

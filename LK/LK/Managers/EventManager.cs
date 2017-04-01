@@ -75,14 +75,33 @@ namespace LK.Managers
                 // Update attendance for current user
                 es = await attendManager.UpdateEventsWithAttendance(es, true);
 
-                var sorted = from e in es
-                             orderby e.Date
-                             group e by e.MonthGroupName into eventGroups
-                             select new Grouping<string, EventEntities>(eventGroups.Key, eventGroups);
+                string[] currentUserTopics = App.CurrentUser.topic.Split(',');
 
-	            eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
+                List<EventEntities> currentUsersEvents = new List<EventEntities>();
+                for (int i=0; i<es.Count(); i++)
+                {
+                    for(int j=0; j<currentUserTopics.Length; j++)
+                    {
+                        if(es[i].Topic.Contains(currentUserTopics[j]))
+                        {
+                            if(!currentUsersEvents.Contains(es[i]))
+                                currentUsersEvents.Add(es[i]);
+                        }
+                    }
+                }
 
-	            return eventGroups;
+                if (currentUsersEvents.Count > 0)
+                {
+                    var sorted = from e in currentUsersEvents
+                                 orderby e.Date
+                                 group e by e.MonthGroupName into eventGroups
+                                 select new Grouping<string, EventEntities>(eventGroups.Key, eventGroups);
+
+                    eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
+
+                    return eventGroups;
+                }
+                return null;
             }
             catch (MobileServiceInvalidOperationException msioe)
             {

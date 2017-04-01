@@ -1,15 +1,20 @@
+using LK.Managers;
+using LK.Models;
 using Microsoft.Identity.Client;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace LK.Views
 {
     public partial class BasePage : TabbedPage
     {
+
         public BasePage()
         {
             InitializeComponent();
 
-			if (Device.OS == TargetPlatform.Android)
+            if (Device.OS == TargetPlatform.Android)
 			{
 				BarBackgroundColor = Color.Transparent;
 				BarTextColor = Color.Silver;

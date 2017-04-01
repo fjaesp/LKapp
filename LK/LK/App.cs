@@ -1,4 +1,6 @@
-﻿using LK.Views;
+﻿using LK.Managers;
+using LK.Models;
+using LK.Views;
 using Microsoft.Identity.Client;
 using Xamarin.Forms;
 
@@ -8,6 +10,7 @@ namespace LK
     {
         public static PublicClientApplication AuthenticationClient { get; private set; }
         public static AuthenticationResult AuthResult { get; set; }
+        public static UserEntities CurrentUser { get; set; }
 
         public App()
         {

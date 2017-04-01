@@ -1,4 +1,5 @@
-﻿using Microsoft.Identity.Client;
+﻿using LK.Managers;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,11 @@ namespace LK.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SplashPage : ContentPage
     {
+        UserManager xManager;
         public SplashPage()
         {
             InitializeComponent();
+            xManager = UserManager.DefaultManager;
         }
 
         protected override async void OnAppearing()
@@ -30,6 +33,9 @@ namespace LK.Views
                     false);
 
                 App.AuthResult = ar;
+
+                await GetCurrentUser(true);
+
                 await Navigation.PushModalAsync(new BasePage());
                 //Navigation.InsertPageBefore(new BasePage(), this); 
                 //await Navigation.PopAsync();
@@ -38,6 +44,13 @@ namespace LK.Views
             {
                 await Navigation.PushAsync(new LoginPage());
             }
+        }
+
+        private async Task GetCurrentUser(bool syncItems)
+        {
+            var user = await xManager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
+            if (user != null)
+                App.CurrentUser = user;
         }
     }
 }

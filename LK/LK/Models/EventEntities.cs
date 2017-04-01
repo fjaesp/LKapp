@@ -28,6 +28,9 @@ namespace LK.Models
         [JsonProperty("Address")]
         public string Address { get; set; }
 
+        [JsonProperty("Topic")]
+        public string Topic { get; set; }
+
         [Microsoft.WindowsAzure.MobileServices.Version]
         public string AzureVersion { get; set; }
 

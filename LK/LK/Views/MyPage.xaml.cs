@@ -15,31 +15,17 @@ namespace LK.Views
 {
     public partial class MyPage : ContentPage
     {
-        UserManager manager;
-
         public MyPage()
         {
             InitializeComponent();
-            manager =  UserManager.DefaultManager;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
-            if (App.AuthResult != null)
-            {
-                await GetCurrentUser(syncItems: true);
-            }
+            if(App.CurrentUser != null)
+                nameLabel.Text = App.CurrentUser.displayName;
+
             base.OnAppearing();
-        }
-
-        private async Task GetCurrentUser(bool syncItems)
-        {
-            ObservableCollection<UserEntities> users = await manager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
-            if(users != null)
-            {
-                UserEntities user = users[0];
-                nameLabel.Text = user.displayName;
-            }
         }
 
         async void OnSignOutBtnClicked(object sender, EventArgs e)
