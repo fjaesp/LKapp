@@ -71,11 +71,11 @@ namespace LK.Managers
                                         .OrderBy(x => x.Date)
                                         .ToCollectionAsync();
 
-                foreach (var e in es)
-                {
-                    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
-                        e.CurrentUserAttend = true;
-                }
+                //foreach (var e in es)
+                //{
+                //    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
+                //        e.CurrentUserAttend = true;
+                //}
 
                 var sorted = from e in es
                              orderby e.Date

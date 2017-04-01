@@ -83,7 +83,7 @@ namespace LK.Views
             var e = args.Item as EventEntities;
             if(e == null) return;
 
-            await Navigation.PushAsync(new EventPage(e));
+            await Navigation.PushAsync(new EventPage(e, e.CurrentUserAttend));
             eventList.SelectedItem = null;
         }
 

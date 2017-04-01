@@ -17,12 +17,15 @@ namespace LK.Views
         CommentManager commentManager;
         static UserManager userManager;
         EventEntities currentEvent;
+        bool currentUserAttend = false;
 
-        public EventPage(EventEntities e)
+        public EventPage(EventEntities e, bool doesAttend)
         {
             InitializeComponent();
             currentEvent = e;
             BindingContext = currentEvent;
+
+            currentUserAttend = doesAttend;
 
             // Check if current user is attending the event
             attendanceManager = AttendanceManager.DefaultManager;
@@ -72,13 +75,18 @@ namespace LK.Views
             //    }
             //}
 
-            bool doesAttend = false;
-            doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
-            if(doesAttend)
-            {
-                currentEvent.CurrentUserAttend = true;
-                AttendSwitch.IsEnabled = true;
-            }
+            bool y = currentEvent.CurrentUserAttend;
+
+            if (currentUserAttend)
+                AttendSwitch.IsToggled = true;
+
+            //bool doesAttend = false;
+            //doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
+            //if(doesAttend)
+            //{
+            //    currentEvent.CurrentUserAttend = true;
+            //    AttendSwitch.IsEnabled = true;
+            //}
             
             await RefreshComments(true, syncItems: true);
             base.OnAppearing();
