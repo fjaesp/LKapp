@@ -285,6 +285,15 @@
   <ItemGroup>
     <BundleResource Include="Resources\defaultprofilepic.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\TabPicCalendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\TabPicNews.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\TabPicProfile.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

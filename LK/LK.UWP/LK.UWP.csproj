@@ -118,6 +118,9 @@
     <Content Include="Assets\Phone.png" />
     <Content Include="Assets\Profile.png" />
     <Content Include="Assets\SignOut.png" />
+    <Content Include="Assets\TabPicCalendar.png" />
+    <Content Include="Assets\TabPicNews.png" />
+    <Content Include="Assets\TabPicProfile.png" />
     <Content Include="icon.png" />
     <Content Include="LKTxT.png" />
     <Content Include="Properties\Default.rd.xml" />

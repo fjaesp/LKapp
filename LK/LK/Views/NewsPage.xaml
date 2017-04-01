@@ -2,10 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.NewsPage"
-             Title="News">
+             Title="Nyheter">
   <ContentPage.Content>
 	<StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-		<Label Text="News will be listed here" FontSize="Large" />
+		<Label Text="Nyheter kommer her..." FontSize="Large" />
 	</StackLayout>  
   </ContentPage.Content>
 </ContentPage>
