@@ -9,32 +9,43 @@ namespace LK.Views
         {
             InitializeComponent();
 
-			BarBackgroundColor = Color.Transparent;
-			BarTextColor = Color.Silver;
-
+			if (Device.OS == TargetPlatform.Android)
+			{
+				BarBackgroundColor = Color.Transparent;
+				BarTextColor = Color.Silver;
+			}
 
             var newsNavigationPage = new NavigationPage(new NewsPage()) {
                 Title = "Nyheter",
                 Icon = "TabPicNews.jpeg" //png"
             };
-			newsNavigationPage.BarBackgroundColor = Color.Transparent;
-			newsNavigationPage.BarTextColor = Color.Silver;
+			if (Device.OS == TargetPlatform.Android)
+			{ 
+				newsNavigationPage.BarBackgroundColor = Color.Transparent;
+				newsNavigationPage.BarTextColor = Color.Silver;
+			}
             this.Children.Add(newsNavigationPage);
 
             var eventsNavigationPage = new NavigationPage(new EventsPage()) {
                 Title = "Kalender",
                 Icon = "TabPicCalendar.jpeg"//png"
             };
-			eventsNavigationPage.BarBackgroundColor = Color.Transparent;
-			eventsNavigationPage.BarTextColor = Color.Silver;
+			if (Device.OS == TargetPlatform.Android)
+			{
+				eventsNavigationPage.BarBackgroundColor = Color.Transparent;
+				eventsNavigationPage.BarTextColor = Color.Silver;
+			}
             this.Children.Add(eventsNavigationPage);
 
             var myNavigationPage = new NavigationPage(new MyPage()) {
                 Title = "Min side",
                 Icon = "TabPicProfile.jpeg" //png"
             };
-			myNavigationPage.BarBackgroundColor = Color.Transparent;
-			myNavigationPage.BarTextColor = Color.Silver;
+			if (Device.OS == TargetPlatform.Android)
+			{
+				myNavigationPage.BarBackgroundColor = Color.Transparent;
+				myNavigationPage.BarTextColor = Color.Silver;
+			}
             this.Children.Add(myNavigationPage);
         }
     }
