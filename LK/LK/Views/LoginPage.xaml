@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.LoginPage"
-             Title="Welcome to LK">
+             Title="Velkommen til LK">
     <StackLayout Spacing="20" Padding="20" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
         <Image Source="icon.png" Aspect="AspectFit" WidthRequest = "75" HeightRequest = "75" HorizontalOptions="Center" />
         <Image Source="LKTxT.png" Aspect="AspectFit" />

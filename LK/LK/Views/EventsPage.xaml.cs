@@ -37,6 +37,9 @@ namespace LK.Views
 				var _items = await manager.GetEventsAsync(syncItems);
                 ObservableCollection<Grouping<string, EventEntities>> items = _items;
 
+                var _attendance = await attendManager.GetAllEventsCurrentUserAttend(App.AuthResult.User.UniqueId);
+                ObservableCollection<AttendEntities> attendance = _attendance;
+
                 eventList.ItemsSource = items;
             }
         }
