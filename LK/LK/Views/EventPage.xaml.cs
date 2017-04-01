@@ -17,15 +17,12 @@ namespace LK.Views
         CommentManager commentManager;
         static UserManager userManager;
         EventEntities currentEvent;
-        bool currentUserAttend = false;
 
-        public EventPage(EventEntities e, bool doesAttend)
+        public EventPage(EventEntities e)
         {
             InitializeComponent();
             currentEvent = e;
             BindingContext = currentEvent;
-
-            currentUserAttend = doesAttend;
 
             // Check if current user is attending the event
             attendanceManager = AttendanceManager.DefaultManager;
@@ -64,30 +61,7 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            //if (App.AuthResult != null)
-            //{
-            //    bool doesAttend = false;
-            //    doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
-            //    if (doesAttend)
-            //    {
-            //        currentEvent.CurrentUserAttend = true;
-            //        AttendSwitch.IsToggled = true;
-            //    }
-            //}
-
-            bool y = currentEvent.CurrentUserAttend;
-
-            if (currentUserAttend)
-                AttendSwitch.IsToggled = true;
-
-            //bool doesAttend = false;
-            //doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
-            //if(doesAttend)
-            //{
-            //    currentEvent.CurrentUserAttend = true;
-            //    AttendSwitch.IsEnabled = true;
-            //}
-            
+            await RefreshAttendance(true, syncItems: true);
             await RefreshComments(true, syncItems: true);
             base.OnAppearing();
         }
@@ -129,6 +103,25 @@ namespace LK.Views
                 await attendanceManager.RemoveCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
             }
             
+        }
+
+        private async Task RefreshAttendance(bool showActivityIndicator, bool syncItems)
+        {
+            using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
+            {
+                ObservableCollection<AttendEntities> items = 
+                    await attendanceManager.GetUserAttendanceAsync(App.AuthResult.User.UniqueId, syncItems);
+
+                for (int i = 0; i < items.Count; i++)
+                {
+                    if(items[i].eventid == currentEvent.Id)
+                    {
+                        string x = "Ya";
+                        currentEvent.CurrentUserAttend = true;
+                        AttendSwitch.IsToggled = true;
+                    }
+                }
+            }
         }
 
         private async Task RefreshComments(bool showActivityIndicator, bool syncItems)

@@ -106,6 +106,35 @@ namespace LK.Managers
             return result;
         }
 
+        public async Task<ObservableCollection<AttendEntities>> GetUserAttendanceAsync(string userId, bool syncItems = false)
+        {
+            try
+            {
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+
+                IEnumerable<AttendEntities> attendEnum = 
+                    await attendanceTable
+                                .Where(x => x.userid == userId)
+                                .ToEnumerableAsync();
+
+                users = new ObservableCollection<AttendEntities>(attendEnum);
+
+                return users;
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
         public async Task<ObservableCollection<AttendEntities>> GetAttendanceAsync(string userId, string eventId, bool syncItems = false)
         {
             try
