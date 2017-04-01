@@ -4,7 +4,7 @@
              x:Class="LK.Views.MyPage"
              Title="My page">
     <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
-        <Image Source="icon.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
+        <Image Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
         <Label x:Name="nameLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
         <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
             <StackLayout.GestureRecognizers>
