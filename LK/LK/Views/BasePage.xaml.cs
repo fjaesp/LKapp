@@ -8,20 +8,20 @@ namespace LK.Views
         public BasePage()
         {
             InitializeComponent();
-            var newsNavigationPage = new NavigationPage(new NewsPage()) {
-                Title = "Nyheter",
-                Icon = "TabPicNews.png"
-            };
+            var newsNavigationPage = new NavigationPage(new NewsPage()) { Title = "Nyheter" };
+            //    Title = "Nyheter",
+            //    Icon = "TabPicNews.png"
+            //};
             this.Children.Add(newsNavigationPage);
-            var eventsNavigationPage = new NavigationPage(new EventsPage()) {
-                Title = "Kalender",
-                Icon = "TabPicCalendar.png"
-            };
+            var eventsNavigationPage = new NavigationPage(new EventsPage()) { Title = "Kalender" };
+            //    Title = "Kalender",
+            //    Icon = "TabPicCalendar.png"
+            //};
             this.Children.Add(eventsNavigationPage);
-            var myNavigationPage = new NavigationPage(new MyPage()) {
-                Title = "Min side",
-                Icon = "TabPicProfile.png"
-            };
+            var myNavigationPage = new NavigationPage(new MyPage()) { Title = "Min side" };
+            //    Title = "Min side",
+            //    Icon = "TabPicProfile.png"
+            //};
             this.Children.Add(myNavigationPage);
         }
     }
