@@ -111,6 +111,7 @@
   <ItemGroup>
     <Content Include="Assets\Arrow.png" />
     <Content Include="Assets\Calendar.png" />
+    <Content Include="Assets\defaultprofilepic.png" />
     <Content Include="Assets\Email.png" />
     <Content Include="Assets\Fagplan.png" />
     <Content Include="Assets\Kompetansehandboka.png" />

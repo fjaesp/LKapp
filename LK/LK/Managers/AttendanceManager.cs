@@ -23,7 +23,7 @@ namespace LK.Managers
         private AttendanceManager()
         {
             client = new MobileServiceClient(Constants.ApplicationURL);
-            var store = new MobileServiceSQLiteStore("LKLocal.db"); //"localstore3.db");
+            var store = new MobileServiceSQLiteStore("LKLocal.db");
             store.DefineTable<AttendEntities>();
             client.SyncContext.InitializeAsync(store);
             attendanceTable = client.GetSyncTable<AttendEntities>();
