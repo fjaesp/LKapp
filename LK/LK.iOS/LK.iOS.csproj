@@ -108,15 +108,24 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <BundleResource Include="Resources\icon.png" />
     <BundleResource Include="Resources\LKTxT.png" />
+    <BundleResource Include="Resources\Calendar50.png" />
+    <BundleResource Include="Resources\Contacts50.png" />
+    <BundleResource Include="Resources\News50.png" />
+    <BundleResource Include="Resources\Calendar25.png" />
+    <BundleResource Include="Resources\Contacts25.png" />
+    <BundleResource Include="Resources\News25.png" />
+    <BundleResource Include="Resources\TabPicCalendar.jpeg" />
+    <BundleResource Include="Resources\TabPicCalendar.png" />
     <BundleResource Include="Resources\TabPicCalendar50.png" />
     <BundleResource Include="Resources\TabPicCalendar75.png" />
+    <BundleResource Include="Resources\TabPicNews.jpeg" />
+    <BundleResource Include="Resources\TabPicNews.png" />
     <BundleResource Include="Resources\TabPicNews50.png" />
     <BundleResource Include="Resources\TabPicNews75.png" />
+    <BundleResource Include="Resources\TabPicProfile.jpeg" />
+    <BundleResource Include="Resources\TabPicProfile.png" />
     <BundleResource Include="Resources\TabPicProfile50.png" />
     <BundleResource Include="Resources\TabPicProfile75.png" />
-    <BundleResource Include="Resources\TabPicCalendar.jpeg" />
-    <BundleResource Include="Resources\TabPicNews.jpeg" />
-    <BundleResource Include="Resources\TabPicProfile.jpeg" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -293,15 +302,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\defaultprofilepic.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\TabPicCalendar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\TabPicNews.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\TabPicProfile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

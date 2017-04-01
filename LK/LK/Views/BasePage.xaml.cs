@@ -17,7 +17,7 @@ namespace LK.Views
 
             var newsNavigationPage = new NavigationPage(new NewsPage()) {
                 Title = "Nyheter",
-                Icon = "TabPicNews.jpeg" //png"
+                Icon = "News25.png" //"TabPicNews.jpeg" //png"
             };
 			if (Device.OS == TargetPlatform.Android)
 			{ 
@@ -28,7 +28,7 @@ namespace LK.Views
 
             var eventsNavigationPage = new NavigationPage(new EventsPage()) {
                 Title = "Kalender",
-                Icon = "TabPicCalendar.jpeg"//png"
+				Icon = "Calendar25.png" //TabPicCalendar.jpeg"//png"
             };
 			if (Device.OS == TargetPlatform.Android)
 			{
@@ -39,7 +39,7 @@ namespace LK.Views
 
             var myNavigationPage = new NavigationPage(new MyPage()) {
                 Title = "Min side",
-                Icon = "TabPicProfile.jpeg" //png"
+                Icon = "Contacts25.png" //TabPicProfile.jpeg" //png"
             };
 			if (Device.OS == TargetPlatform.Android)
 			{
