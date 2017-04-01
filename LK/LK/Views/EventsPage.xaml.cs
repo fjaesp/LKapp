@@ -15,11 +15,13 @@ namespace LK.Views
     public partial class EventsPage : ContentPage
     {
         EventManager manager;
+        AttendanceManager attendManager;
 
         public EventsPage()
         {
 			InitializeComponent();
             manager = EventManager.DefaultManager;
+            attendManager = AttendanceManager.DefaultManager;
         }
 
         protected override async void OnAppearing()
@@ -34,6 +36,7 @@ namespace LK.Views
             {
 				var _items = await manager.GetEventsAsync(syncItems);
                 ObservableCollection<Grouping<string, EventEntities>> items = _items;
+
                 eventList.ItemsSource = items;
             }
         }

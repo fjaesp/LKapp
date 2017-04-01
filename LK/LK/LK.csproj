@@ -39,6 +39,7 @@
     <Compile Include="AzureDataService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Managers\AttendanceManager.cs" />
+    <Compile Include="Managers\BlobManager.cs" />
     <Compile Include="Managers\CommentManager.cs" />
     <Compile Include="Models\AttendEntities.cs" />
     <Compile Include="Models\Comments.cs" />

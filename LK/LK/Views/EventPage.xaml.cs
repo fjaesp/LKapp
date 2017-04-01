@@ -71,6 +71,15 @@ namespace LK.Views
             //        AttendSwitch.IsToggled = true;
             //    }
             //}
+
+            bool doesAttend = false;
+            doesAttend = await attendanceManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, currentEvent.Id);
+            if(doesAttend)
+            {
+                currentEvent.CurrentUserAttend = true;
+                AttendSwitch.IsEnabled = true;
+            }
+            
             await RefreshComments(true, syncItems: true);
             base.OnAppearing();
         }
@@ -112,18 +121,6 @@ namespace LK.Views
                 await attendanceManager.RemoveCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
             }
             
-        }
-
-        private async Task CommentEditor_CompletedAsync(object sender, EventArgs e)
-        {
-            string newComment = ((Editor)sender).Text;
-            if(newComment.Length > 0)
-            {
-                await commentManager.AddComment(App.AuthResult.User.UniqueId, currentEvent.Id, newComment);
-
-                CommentList.ItemsSource = await commentManager.GetCommentsAsync(currentEvent.Id, true);
-                ((Editor)sender).Text = "";
-            }
         }
 
         private async Task RefreshComments(bool showActivityIndicator, bool syncItems)
@@ -202,8 +199,8 @@ namespace LK.Views
             if (newComment.Length > 0)
             {
                 await commentManager.AddComment(App.AuthResult.User.UniqueId, currentEvent.Id, newComment);
-
-                CommentList.ItemsSource = await commentManager.GetCommentsAsync(currentEvent.Id, true);
+                await RefreshComments(true, syncItems: true);
+                //CommentList.ItemsSource = await commentManager.GetCommentsAsync(currentEvent.Id, true);
                 ((Entry)sender).Text = "";
             }
         }

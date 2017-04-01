@@ -73,8 +73,8 @@ namespace LK.Managers
 
                 foreach (var e in es)
                 {
-                    //if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
-                    //    e.CurrentUserAttend = true;
+                    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
+                        e.CurrentUserAttend = true;
                 }
 
                 var sorted = from e in es

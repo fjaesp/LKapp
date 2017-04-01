@@ -15,7 +15,6 @@ namespace LK.Managers
     public class CommentManager
     {
         static CommentManager defaultInstance = new CommentManager();
-        //static UserManager userManager;
         MobileServiceClient client;
         IMobileServiceSyncTable<Comments> commentTable;
 
@@ -28,7 +27,6 @@ namespace LK.Managers
             store.DefineTable<Comments>();
             client.SyncContext.InitializeAsync(store);
             commentTable = client.GetSyncTable<Comments>();
-            //userManager = UserManager.DefaultManager;
         }
 
         public static CommentManager DefaultManager
@@ -57,10 +55,10 @@ namespace LK.Managers
         {
             try
             {
-                //if (syncItems)
-                //{
-                //    await this.SyncAsync();
-                //}
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
 
                 IEnumerable<Comments> eventComments =
                     await commentTable
@@ -83,13 +81,11 @@ namespace LK.Managers
 
         public async Task AddComment(string userId, string eventId, string message)
         {
-            //string uName = await userManager.GetUserNameAsync(userId);
             var newComment = new Comments
             {
                 eventid = eventId,
                 userid = userId,
                 comment = message
-                //userName = string.IsNullOrEmpty(uName) ? "" : uName
             };
 
             await commentTable.InsertAsync(newComment);

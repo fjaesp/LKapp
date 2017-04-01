@@ -45,7 +45,6 @@ namespace LK.Models
         }
 
         //[JsonProperty("CurrentUserAttend")]
-        [JsonIgnore]
         public bool CurrentUserAttend { get; set; }
     }
 }
