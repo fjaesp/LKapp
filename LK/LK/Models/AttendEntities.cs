@@ -13,16 +13,16 @@ namespace LK.Models
         public string id { get; set; }
 
         [JsonProperty("createdAt")]
-        public string createdAt { get; set; }
+        public DateTime createdAt { get; set; }
 
-        [JsonProperty("updatedAt")]
-        public string updatedAt { get; set; }
+        //[JsonProperty("updatedAt")]
+        //public string updatedAt { get; set; }
 
         [Microsoft.WindowsAzure.MobileServices.Version]
         public string AzureVersion { get; set; }
 
         [JsonProperty("deleted")]
-        public string deleted { get; set; }
+        public bool deleted { get; set; }
 
         [JsonProperty("eventid")]
         public string eventid { get; set; }

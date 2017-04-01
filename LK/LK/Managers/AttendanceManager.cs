@@ -51,19 +51,6 @@ namespace LK.Managers
             get { return attendanceTable is IMobileServiceSyncTable<AttendEntities>; }
         }
 
-        public async Task<bool> DoesCurrentUserAttend(string userId, string eventId)
-        {
-            IEnumerable<AttendEntities> attendEnum = 
-                await attendanceTable.Where(x => 
-                                            x.userid == userId && 
-                                            x.eventid == eventId)
-                                            .ToEnumerableAsync();
-
-            int ant = attendEnum.Count();
-
-            return ant > 0 ? true : false;
-        }
-
         public async Task AddCurrentUserAsAttendant(string userId, string eventId)
         {
             var attend = new AttendEntities
@@ -74,6 +61,41 @@ namespace LK.Managers
 
             await attendanceTable.InsertAsync(attend);
             await SyncAsync();
+        }
+
+        public async Task<List<EventEntities>> UpdateEventsWithAttendance(List<EventEntities> events, bool syncItems)
+        {
+            try
+            {
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+
+                ObservableCollection<AttendEntities> attEvents = await attendanceTable
+                                        .Where(a => a.userid == App.AuthResult.User.UniqueId && a.deleted == false)
+                                        .ToCollectionAsync();
+
+                foreach(var a in attEvents)
+                {
+                    foreach(var e in events)
+                    {
+                        if (a.eventid == e.Id)
+                            e.CurrentUserAttend = true;
+                    }
+                }
+
+                return events;
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
         }
 
         public async Task RemoveCurrentUserAsAttendant(string userId, string eventId)
@@ -92,20 +114,6 @@ namespace LK.Managers
             }
         }
 
-        public async Task<ObservableCollection<AttendEntities>> GetAllEventsCurrentUserAttend(string userId)
-        {
-            ObservableCollection<AttendEntities> result = null;
-
-            IEnumerable<AttendEntities> attendEnum = 
-                await attendanceTable.Where(x =>
-                                            x.userid == userId)
-                                            .ToEnumerableAsync();
-            if(attendEnum.Count() > 0)
-                result = new ObservableCollection<AttendEntities>(attendEnum);
-
-            return result;
-        }
-
         public async Task<ObservableCollection<AttendEntities>> GetUserAttendanceAsync(string userId, bool syncItems = false)
         {
             try
@@ -122,30 +130,6 @@ namespace LK.Managers
 
                 users = new ObservableCollection<AttendEntities>(attendEnum);
 
-                return users;
-            }
-            catch (MobileServiceInvalidOperationException msioe)
-            {
-                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(@"Sync error: {0}", e.Message);
-            }
-            return null;
-        }
-
-        public async Task<ObservableCollection<AttendEntities>> GetAttendanceAsync(string userId, string eventId, bool syncItems = false)
-        {
-            try
-            {
-                if (syncItems)
-                {
-                    await this.SyncAsync();
-                }
-
-                IEnumerable<AttendEntities> attendEnum = await attendanceTable.Where(x => x.userid == userId && x.eventid == eventId).ToEnumerableAsync();
-                users = new ObservableCollection<AttendEntities>(attendEnum);
                 return users;
             }
             catch (MobileServiceInvalidOperationException msioe)
@@ -198,5 +182,56 @@ namespace LK.Managers
                 }
             }
         }
+
+        //public async Task<bool> DoesCurrentUserAttend(string userId, string eventId)
+        //{
+        //    IEnumerable<AttendEntities> attendEnum =
+        //        await attendanceTable.Where(x =>
+        //                                    x.userid == userId &&
+        //                                    x.eventid == eventId)
+        //                                    .ToEnumerableAsync();
+
+        //    int ant = attendEnum.Count();
+
+        //    return ant > 0 ? true : false;
+        //}
+
+        //public async Task<ObservableCollection<AttendEntities>> GetAttendanceAsync(string userId, string eventId, bool syncItems = false)
+        //{
+        //    try
+        //    {
+        //        if (syncItems)
+        //        {
+        //            await this.SyncAsync();
+        //        }
+
+        //        IEnumerable<AttendEntities> attendEnum = await attendanceTable.Where(x => x.userid == userId && x.eventid == eventId).ToEnumerableAsync();
+        //        users = new ObservableCollection<AttendEntities>(attendEnum);
+        //        return users;
+        //    }
+        //    catch (MobileServiceInvalidOperationException msioe)
+        //    {
+        //        Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Debug.WriteLine(@"Sync error: {0}", e.Message);
+        //    }
+        //    return null;
+        //}
+
+        //public async Task<ObservableCollection<AttendEntities>> GetAllEventsCurrentUserAttend(string userId)
+        //{
+        //    ObservableCollection<AttendEntities> result = null;
+
+        //    IEnumerable<AttendEntities> attendEnum =
+        //        await attendanceTable.Where(x =>
+        //                                    x.userid == userId)
+        //                                    .ToEnumerableAsync();
+        //    if (attendEnum.Count() > 0)
+        //        result = new ObservableCollection<AttendEntities>(attendEnum);
+
+        //    return result;
+        //}
     }
 }

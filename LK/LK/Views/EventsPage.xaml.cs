@@ -34,7 +34,6 @@ namespace LK.Views
             {
 				var _items = await manager.GetEventsAsync(syncItems);
                 ObservableCollection<Grouping<string, EventEntities>> items = _items;
-
                 eventList.ItemsSource = items;
             }
         }

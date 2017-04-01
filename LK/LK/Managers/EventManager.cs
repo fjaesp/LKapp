@@ -66,10 +66,17 @@ namespace LK.Managers
                 }
 
                 // Hent kun fremtidige eventer og sorter disse etter nærmeste dato først
-                ObservableCollection<EventEntities> es = await eventTable
+                //ObservableCollection<EventEntities> es = await eventTable
+                //                        .Where(x => x.Date > DateTime.Now)
+                //                        .OrderBy(x => x.Date)
+                //                        .ToCollectionAsync();
+
+                List<EventEntities> es = await eventTable
                                         .Where(x => x.Date > DateTime.Now)
                                         .OrderBy(x => x.Date)
-                                        .ToCollectionAsync();
+                                        .ToListAsync();
+
+                es = await attendManager.UpdateEventsWithAttendance(es, true);
 
                 //foreach (var e in es)
                 //{

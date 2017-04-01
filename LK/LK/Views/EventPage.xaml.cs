@@ -61,8 +61,12 @@ namespace LK.Views
 
         protected override async void OnAppearing()
         {
-            await RefreshAttendance(true, syncItems: true);
+            //await RefreshAttendance(true, syncItems: true);
             await RefreshComments(true, syncItems: true);
+            if(currentEvent.CurrentUserAttend)
+            {
+                AttendSwitch.IsToggled = true;
+            }
             base.OnAppearing();
         }
 
@@ -116,7 +120,6 @@ namespace LK.Views
                 {
                     if(items[i].eventid == currentEvent.Id)
                     {
-                        string x = "Ya";
                         currentEvent.CurrentUserAttend = true;
                         AttendSwitch.IsToggled = true;
                     }
