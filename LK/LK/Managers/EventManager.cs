@@ -17,6 +17,7 @@ namespace LK.Managers
     {
         static EventManager defaultInstance = new EventManager();
         AttendanceManager attendManager;
+        UserManager uManager;
         MobileServiceClient client;
         IMobileServiceSyncTable<EventEntities> eventTable;
 
@@ -31,6 +32,7 @@ namespace LK.Managers
             this.client.SyncContext.InitializeAsync(store);
             this.eventTable = client.GetSyncTable<EventEntities>();
 
+            uManager = UserManager.DefaultManager;
             attendManager = AttendanceManager.DefaultManager;
         }
       
@@ -65,24 +67,13 @@ namespace LK.Managers
                     await this.SyncAsync();
                 }
 
-                // Hent kun fremtidige eventer og sorter disse etter nærmeste dato først
-                //ObservableCollection<EventEntities> es = await eventTable
-                //                        .Where(x => x.Date > DateTime.Now)
-                //                        .OrderBy(x => x.Date)
-                //                        .ToCollectionAsync();
-
                 List<EventEntities> es = await eventTable
                                         .Where(x => x.Date > DateTime.Now)
                                         .OrderBy(x => x.Date)
                                         .ToListAsync();
 
+                // Update attendance for current user
                 es = await attendManager.UpdateEventsWithAttendance(es, true);
-
-                //foreach (var e in es)
-                //{
-                //    if (await attendManager.DoesCurrentUserAttend(App.AuthResult.User.UniqueId, e.Id))
-                //        e.CurrentUserAttend = true;
-                //}
 
                 var sorted = from e in es
                              orderby e.Date
