@@ -36,11 +36,8 @@ namespace LK.Models
         {
             get
             {
-                return string.Format(
-                    "{0} {1}",
-                    CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Date.Month),
-                    Date.Year.ToString()
-                );
+                CultureInfo ci = new CultureInfo("nb-NO");
+                return string.Format("{0} {1}", ci.DateTimeFormat.GetMonthName(Date.Month).ToUpper(), Date.Year.ToString());
             }
         }
 
