@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.MyPage"
@@ -6,7 +6,7 @@
     <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
         <Image Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
         <Label x:Name="nameLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
-        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
+        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent" Margin="0,15,0,0">
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnEditButtonClicked"/>
             </StackLayout.GestureRecognizers>
@@ -24,7 +24,7 @@
                 <Image Source="Arrow.png" Grid.Column="2" HeightRequest="17" HorizontalOptions="End" />
             </Grid>
         </StackLayout>
-        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White">
+        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent">
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnResetPwdBtnClicked"/>
             </StackLayout.GestureRecognizers>
