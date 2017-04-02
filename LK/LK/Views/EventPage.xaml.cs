@@ -18,11 +18,30 @@ namespace LK.Views
         static UserManager userManager;
         EventEntities currentEvent;
 
+        public string AttUrlStr { get; private set; }
+
         public EventPage(EventEntities e)
         {
             InitializeComponent();
             currentEvent = e;
+            
             BindingContext = currentEvent;
+
+            string[] att = string.IsNullOrEmpty(e.AttachmentUrl) ? null : e.AttachmentUrl.Split(',');
+            ObservableCollection<AttachmentEntity> attList;
+            if(att != null)
+            {
+                attList = new ObservableCollection<AttachmentEntity>();
+                for (int i = 0; i < att.Length; i++)
+                {
+                    attList.Add(new AttachmentEntity
+                    {
+                        url = att[i]
+                    });
+                }
+
+                AttachmentList.ItemsSource = attList;
+            }
 
             // Check if current user is attending the event
             attendanceManager = AttendanceManager.DefaultManager;
@@ -209,6 +228,11 @@ namespace LK.Views
 
                 ((Entry)sender).Text = "";
             }
+        }
+
+        private void OnAttachmentTapped(object sender, EventArgs e)
+        { 
+            Device.OpenUri(new Uri(""));
         }
     }
 }

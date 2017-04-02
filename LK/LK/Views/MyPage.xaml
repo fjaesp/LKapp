@@ -44,7 +44,7 @@
         </StackLayout>
         <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
             <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnFagplanClickedAsync"/>
+                <TapGestureRecognizer Tapped="OnFagplanClicked"/>
             </StackLayout.GestureRecognizers>
             <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
                 <Grid.RowDefinitions>
@@ -113,12 +113,3 @@
         </StackLayout>
     </StackLayout>
 </ContentPage>
-<!--<ContentPage.Content>
-    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="White">
-      <Label x:Name="messageLabel" FontSize="Medium" />
-      <Button x:Name="editButton" Text="Edit Profile" Clicked="OnEditButtonClicked" />
-      <Button x:Name="btnResetPwd" Text="Reset password" Clicked="OnResetPwdBtnClicked" />
-      <Button x:Name="btnSignOut" Text="Sign out" Clicked="OnSignOutBtnClicked" />
-    </StackLayout>
-  </ContentPage.Content>
-</ContentPage>-->
