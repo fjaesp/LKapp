@@ -18,18 +18,15 @@ namespace LK.Views
         static UserManager userManager;
         EventEntities currentEvent;
 
-        public string AttUrlStr { get; private set; }
-
         public EventPage(EventEntities e)
         {
             InitializeComponent();
             currentEvent = e;
-            
             BindingContext = currentEvent;
 
             string[] att = string.IsNullOrEmpty(e.AttachmentUrl) ? null : e.AttachmentUrl.Split(',');
             ObservableCollection<AttachmentEntity> attList;
-            if(att != null)
+            if (att != null)
             {
                 attList = new ObservableCollection<AttachmentEntity>();
                 for (int i = 0; i < att.Length; i++)
@@ -39,7 +36,6 @@ namespace LK.Views
                         url = att[i]
                     });
                 }
-
                 AttachmentList.ItemsSource = attList;
             }
 
@@ -85,6 +81,7 @@ namespace LK.Views
             {
                 AttendSwitch.IsToggled = true;
             }
+            
             base.OnAppearing();
         }
 

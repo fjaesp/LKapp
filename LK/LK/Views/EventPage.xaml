@@ -26,8 +26,8 @@
             <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
             <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
             <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-            <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
-            <ListView x:Name="AttachmentList" Grid.Row="5" Grid.ColumnSpan="2" HasUnevenRows="False">
+            <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start" />
+            <ListView x:Name="AttachmentList" HasUnevenRows="False" Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="75">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -37,11 +37,11 @@
                                 </StackLayout.GestureRecognizers>
                                 <Grid Padding="5">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40" />
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Image Source="{Binding fileicon}" WidthRequest="30" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
                                     <Label Text="{Binding filename}" FontSize="Medium" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" />
@@ -51,9 +51,6 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <Label />
-                </ListView.Footer>
             </ListView>
             <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" />
             <Entry x:Name="CommentEntry"
@@ -71,11 +68,11 @@
                                        IsVisible="False"
                                        IsEnabled="True"
                                        x:Name="syncIndicator" />
-            <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="7" Grid.ColumnSpan="2" HasUnevenRows="True">
+            <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="7" Grid.ColumnSpan="2" HasUnevenRows="True" HeightRequest="400">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout BackgroundColor="White">
+                            <StackLayout BackgroundColor="White" Padding="0,5,0,0">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -85,17 +82,14 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding userName}" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
-                                    <Label Text="{Binding createdAt, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium" Grid.Row="0" Grid.Column="1" />
+                                    <Label Text="{Binding userName}" FontSize="Medium" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding createdAt, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" />
                                     <Label Text="{Binding comment}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
                                 </Grid>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                <ListView.Footer>
-                    <Label />
-                </ListView.Footer>
             </ListView>
         </Grid>
     </ScrollView>

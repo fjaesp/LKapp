@@ -45,7 +45,7 @@
             </StackLayout>
             <StackLayout HorizontalOptions="Start" BackgroundColor="Transparent" Padding="0,10,0,0">
                 <Label Text="Mine dokumenter" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Start" />
-                <ListView x:Name="AttachmentList" Grid.Row="5" Grid.ColumnSpan="2" HasUnevenRows="False">
+                <ListView x:Name="AttachmentList" Grid.Row="5" Grid.ColumnSpan="2" HasUnevenRows="False" HeightRequest="130">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -55,11 +55,11 @@
                                     </StackLayout.GestureRecognizers>
                                     <Grid Padding="5">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Height="40" />
+                                            <RowDefinition Height="30" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="40" />
-                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Image Source="{Binding fileicon}" WidthRequest="30" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
                                         <Label Text="{Binding filename}" FontSize="Medium" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" />
