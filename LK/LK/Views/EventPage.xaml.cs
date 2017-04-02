@@ -204,6 +204,9 @@ namespace LK.Views
                 await commentManager.AddComment(App.AuthResult.User.UniqueId, currentEvent.Id, newComment);
                 await RefreshComments(true, syncItems: true);
                 //CommentList.ItemsSource = await commentManager.GetCommentsAsync(currentEvent.Id, true);
+
+                
+
                 ((Entry)sender).Text = "";
             }
         }

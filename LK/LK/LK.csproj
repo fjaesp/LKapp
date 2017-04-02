@@ -42,11 +42,13 @@
     <Compile Include="Managers\AttendanceManager.cs" />
     <Compile Include="Managers\BlobManager.cs" />
     <Compile Include="Managers\CommentManager.cs" />
+    <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Models\AttendEntities.cs" />
     <Compile Include="Models\Comments.cs" />
     <Compile Include="Models\EventEntities.cs" />
     <Compile Include="Managers\EventManager.cs" />
     <Compile Include="Helpers\Grouping.cs" />
+    <Compile Include="Models\NotificationEntity.cs" />
     <Compile Include="Models\UserEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Managers\UserManager.cs" />

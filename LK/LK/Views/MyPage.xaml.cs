@@ -52,6 +52,9 @@ namespace LK.Views
 
                 UserManager uManager = UserManager.DefaultManager;
                 await uManager.PurgeUserTableAsync();
+
+                NotificationManager nManager = NotificationManager.DefaultManager;
+                await nManager.PurgeNotificationTableAsync();
             }
             catch(Exception e)
             {
