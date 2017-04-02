@@ -43,6 +43,9 @@
             </Grid>
         </StackLayout>
         <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnFagplanClickedAsync"/>
+            </StackLayout.GestureRecognizers>
             <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -58,6 +61,9 @@
             </Grid>
         </StackLayout>
         <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" >
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnKompetanseClicked"/>
+            </StackLayout.GestureRecognizers>
             <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />

@@ -1,4 +1,5 @@
-﻿using LK.Managers;
+﻿using LK.Helpers;
+using LK.Managers;
 using LK.Models;
 using Microsoft.Identity.Client;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -107,6 +109,28 @@ namespace LK.Views
                     await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
                 }
             }
-        }       
+        }
+
+        private async Task OnFagplanClickedAsync(object sender, EventArgs e)
+        {
+            try
+            {
+                FileHandler fHandler = new FileHandler();
+                string result = await fHandler.GetFileAsync("https://lkappstorage.blob.core.windows.net/eventsblobcontainer/c5a730da-721f-4afa-b10c-f5c8d5856af9%7CKursmatriale.pdf");
+                string y = "X";
+            }
+            catch(Exception ex)
+            {
+                string a = ex.Message;
+            }
+            //Uri fagplanLink = new Uri("https://lkappstorage.blob.core.windows.net/eventsblobcontainer/3fa1ab6e-f333-4645-8f3b-b54eade1ba44%7CDiverse.xlsx");
+            //Device.OpenUri(fagplanLink);
+        }
+
+        private void OnKompetanseClicked(object sender, EventArgs e)
+        {
+            Uri komPlan = new Uri("https://lkappstorage.blob.core.windows.net/eventsblobcontainer/c5a730da-721f-4afa-b10c-f5c8d5856af9%7CKursmatriale.pdf");
+            Device.OpenUri(komPlan);
+        }
     }
 }
