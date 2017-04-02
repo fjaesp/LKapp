@@ -162,13 +162,11 @@ namespace LK.Managers
 
             try
             {
-                await this.client.SyncContext.PushAsync();
+                //await this.client.SyncContext.PushAsync();
 
                 // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
                 // Use a different query name for each unique query in your program.
-                await this.userTable.PullAsync(
-                    "allUsers3",
-                    this.userTable.CreateQuery());
+                await this.userTable.PullAsync("allUsers", userTable.CreateQuery());
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -196,6 +194,11 @@ namespace LK.Managers
                     Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
                 }
             }
+        }
+
+        public async Task PurgeUserTableAsync()
+        {
+            await userTable.PurgeAsync();
         }
     }
 }

@@ -75,31 +75,34 @@ namespace LK.Managers
                 // Update attendance for current user
                 es = await attendManager.UpdateEventsWithAttendance(es, true);
 
-                string[] currentUserTopics = App.CurrentUser.topic.Split(',');
-
-                List<EventEntities> currentUsersEvents = new List<EventEntities>();
-                for (int i=0; i<es.Count(); i++)
+                if (!string.IsNullOrEmpty(App.CurrentUser.topic))
                 {
-                    for(int j=0; j<currentUserTopics.Length; j++)
+                    string[] currentUserTopics = App.CurrentUser.topic.Split(',');
+
+                    List<EventEntities> currentUsersEvents = new List<EventEntities>();
+                    for (int i = 0; i < es.Count(); i++)
                     {
-                        if(es[i].Topic.Contains(currentUserTopics[j]))
+                        for (int j = 0; j < currentUserTopics.Length; j++)
                         {
-                            if(!currentUsersEvents.Contains(es[i]))
-                                currentUsersEvents.Add(es[i]);
+                            if (es[i].Topic.Contains(currentUserTopics[j]))
+                            {
+                                if (!currentUsersEvents.Contains(es[i]))
+                                    currentUsersEvents.Add(es[i]);
+                            }
                         }
                     }
-                }
 
-                if (currentUsersEvents.Count > 0)
-                {
-                    var sorted = from e in currentUsersEvents
-                                 orderby e.Date
-                                 group e by e.MonthGroupName into eventGroups
-                                 select new Grouping<string, EventEntities>(eventGroups.Key, eventGroups);
+                    if (currentUsersEvents.Count > 0)
+                    {
+                        var sorted = from e in currentUsersEvents
+                                     orderby e.Date
+                                     group e by e.MonthGroupName into eventGroups
+                                     select new Grouping<string, EventEntities>(eventGroups.Key, eventGroups);
 
-                    eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
+                        eventGroups = new ObservableCollection<Grouping<string, EventEntities>>(sorted);
 
-                    return eventGroups;
+                        return eventGroups;
+                    }
                 }
                 return null;
             }
@@ -124,9 +127,7 @@ namespace LK.Managers
 
                 // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
                 // Use a different query name for each unique query in your program.
-                await this.eventTable.PullAsync(
-                    "allEvents3",
-                    this.eventTable.CreateQuery());
+                await this.eventTable.PullAsync("allEvents", eventTable.CreateQuery());
             }
             catch (MobileServicePushFailedException exc)
             {
@@ -154,6 +155,11 @@ namespace LK.Managers
                     Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
                 }
             }
+        }
+
+        public async Task PurgeEventTableAsync()
+        {
+            await eventTable.PurgeAsync();
         }
         //public class Grouping<K, T> : ObservableCollection<T>
         //{

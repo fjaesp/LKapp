@@ -17,7 +17,7 @@ namespace LK.Views
         UserManager xManager;
         public SplashPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
             xManager = UserManager.DefaultManager;
         }
 
@@ -51,6 +51,8 @@ namespace LK.Views
             var user = await xManager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
             if (user != null)
                 App.CurrentUser = user;
+
+
         }
     }
 }

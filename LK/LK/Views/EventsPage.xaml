@@ -19,6 +19,9 @@
                     IsVisible="False"
                     IsEnabled="True"
                     x:Name="syncIndicator"/>
+        <StackLayout x:Name="MessageStack" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="False">
+            <Label x:Name="MessageLabel" FontSize="Large" HorizontalTextAlignment="Center" />
+        </StackLayout>
         <ListView x:Name="eventList"
                 ItemTapped="OnEventSelected"
 				IsPullToRefreshEnabled="true" 

@@ -35,8 +35,17 @@ namespace LK.Views
 				var _items = await manager.GetEventsAsync(syncItems);
                 if (_items != null)
                 {
+                    MessageStack.IsVisible = false;
+                    eventList.IsVisible = true;
+
                     ObservableCollection<Grouping<string, EventEntities>> items = _items;
                     eventList.ItemsSource = items;
+                }
+                else
+                {
+                    MessageStack.IsVisible = true;
+                    eventList.IsVisible = false;
+                    MessageLabel.Text = "Det er ingen arrangementer tilgjengelig.\n\nTa kontakt med din veileder.";                    
                 }
             }
         }

@@ -76,12 +76,15 @@ namespace LK.Managers
                                         .Where(a => a.userid == App.AuthResult.User.UniqueId && a.deleted == false)
                                         .ToCollectionAsync();
 
-                foreach(var a in attEvents)
+                if (attEvents != null && attEvents.Count > 0)
                 {
-                    foreach(var e in events)
+                    foreach (var a in attEvents)
                     {
-                        if (a.eventid == e.Id)
-                            e.CurrentUserAttend = true;
+                        foreach (var e in events)
+                        {
+                            if (a.eventid == e.Id)
+                                e.CurrentUserAttend = true;
+                        }
                     }
                 }
 
@@ -149,9 +152,7 @@ namespace LK.Managers
 
             try
             {
-                await this.attendanceTable.PullAsync(
-                    "allAttendance",
-                    this.attendanceTable.CreateQuery());
+                await this.attendanceTable.PullAsync("allAttendance", attendanceTable.CreateQuery());
 
                 await this.client.SyncContext.PushAsync();
             }
@@ -181,6 +182,11 @@ namespace LK.Managers
                     Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
                 }
             }
+        }
+
+        public async Task PurgeAttendTableAsync()
+        {
+            await attendanceTable.PurgeAsync();
         }
 
         //public async Task<bool> DoesCurrentUserAttend(string userId, string eventId)

@@ -128,5 +128,10 @@ namespace LK.Managers
                 }
             }
         }
+
+        public async Task PurgeCommentsTableAsync()
+        {
+            await commentTable.PurgeAsync();
+        }
     }
 }

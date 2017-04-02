@@ -31,7 +31,32 @@ namespace LK.Views
         async void OnSignOutBtnClicked(object sender, EventArgs e)
         {
             App.AuthenticationClient.UserTokenCache.Clear(Constants.ClientID);
+            App.CurrentUser = null;
+
+            //await PurgeAllTables();
             await Navigation.PopModalAsync();
+        }
+
+        async Task PurgeAllTables()
+        {
+            try
+            {
+                EventManager eManager = EventManager.DefaultManager;
+                await eManager.PurgeEventTableAsync();
+
+                AttendanceManager aManager = AttendanceManager.DefaultManager;
+                await aManager.PurgeAttendTableAsync();
+
+                CommentManager cManager = CommentManager.DefaultManager;
+                await cManager.PurgeCommentsTableAsync();
+
+                UserManager uManager = UserManager.DefaultManager;
+                await uManager.PurgeUserTableAsync();
+            }
+            catch(Exception e)
+            {
+                await DisplayAlert("An error has occurred", "Exception message: " + e.Message, "Dismiss");
+            }
         }
 
         async void OnResetPwdBtnClicked(object sender, EventArgs e)

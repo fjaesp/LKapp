@@ -1,14 +1,18 @@
-﻿using Microsoft.Identity.Client;
+﻿using LK.Managers;
+using Microsoft.Identity.Client;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace LK.Views
 {
     public partial class LoginPage : ContentPage
     {
+        UserManager xManager;
         public LoginPage()
         {
             InitializeComponent();
+            xManager = UserManager.DefaultManager;
         }
 
         //protected override async void OnAppearing()
@@ -45,6 +49,9 @@ namespace LK.Views
                 App.AuthResult = ar;
                 //Navigation.InsertPageBefore(new BasePage(), this);
                 //await Navigation.PopAsync();
+
+                await GetCurrentUser(true);
+
                 await Navigation.PushModalAsync(new BasePage());
             }
             catch (MsalException ee)
@@ -86,6 +93,13 @@ namespace LK.Views
                     await DisplayAlert("An error has occurred", "Exception message: " + ee.Message, "Dismiss");
                 }
             }
+        }
+
+        private async Task GetCurrentUser(bool syncItems)
+        {
+            var user = await xManager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
+            if (user != null)
+                App.CurrentUser = user;
         }
     }
 }
