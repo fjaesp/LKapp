@@ -21,7 +21,7 @@ namespace LK.Views
 			}
 
             var newsNavigationPage = new NavigationPage(new NewsPage()) {
-                Title = "Nyheter",
+                Title = "Varsler",
                 Icon = "News25.png" //"TabPicNews.jpeg" //png"
             };
 			if (Device.OS == TargetPlatform.Android)
