@@ -231,8 +231,10 @@ namespace LK.Views
         }
 
         private void OnAttachmentTapped(object sender, EventArgs e)
-        { 
-            Device.OpenUri(new Uri(""));
+        {
+            string url = ((StackLayout)sender).FindByName<Label>("AttachmentUrlString").Text;
+            if (!string.IsNullOrEmpty(url))
+                Device.OpenUri(new Uri(url));
         }
     }
 }

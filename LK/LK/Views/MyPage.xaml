@@ -3,46 +3,75 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.MyPage"
              Title="Min side">
-    <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
-        <Image Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
-        <Label x:Name="nameLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
-        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent" Margin="0,15,0,0">
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnEditButtonClicked"/>
-            </StackLayout.GestureRecognizers>
-            <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Source="Profile.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
-                <Label Text="Rediger profil" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Image Source="Arrow.png" Grid.Column="2" HeightRequest="17" HorizontalOptions="End" />
-            </Grid>
-        </StackLayout>
-        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent">
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnResetPwdBtnClicked"/>
-            </StackLayout.GestureRecognizers>
-            <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Source="Profile.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
-                <Label Text="Endre passord" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Image Source="Arrow.png" Grid.Column="3" HeightRequest="17" HorizontalOptions="End" />
-            </Grid>
-        </StackLayout>
-        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
+    <ScrollView x:Name="MyPageScrollView">
+        <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
+            <Image Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
+            <Label x:Name="nameLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
+            <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent" Margin="0,15,0,0">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnEditButtonClicked"/>
+                </StackLayout.GestureRecognizers>
+                <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Profile.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
+                    <Label Text="Rediger profil" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Image Source="Arrow.png" Grid.Column="2" HeightRequest="17" HorizontalOptions="End" />
+                </Grid>
+            </StackLayout>
+            <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnResetPwdBtnClicked"/>
+                </StackLayout.GestureRecognizers>
+                <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="Profile.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
+                    <Label Text="Endre passord" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Image Source="Arrow.png" Grid.Column="3" HeightRequest="17" HorizontalOptions="End" />
+                </Grid>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Start" BackgroundColor="Transparent" Padding="0,10,0,0">
+                <Label Text="Mine dokumenter" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Start" />
+                <ListView x:Name="AttachmentList" Grid.Row="5" Grid.ColumnSpan="2" HasUnevenRows="False">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnAttachmentTapped" />
+                                    </StackLayout.GestureRecognizers>
+                                    <Grid Padding="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="{Binding fileicon}" WidthRequest="30" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
+                                        <Label Text="{Binding filename}" FontSize="Medium" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" />
+                                        <Label x:Name="AttachmentUrlString" Text="{Binding url}" Grid.Row="0" Grid.Column="1" IsVisible="False"/>
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <!--<StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
             <StackLayout.GestureRecognizers>
                 <TapGestureRecognizer Tapped="OnFagplanClicked"/>
             </StackLayout.GestureRecognizers>
@@ -92,24 +121,25 @@
                 <Label Text="Synkroniser kalender" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
                 <Image Source="Arrow.png" Grid.Column="3" HeightRequest="17" HorizontalOptions="End" />
             </Grid>
+        </StackLayout>-->
+            <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSignOutBtnClicked"/>
+                </StackLayout.GestureRecognizers>
+                <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="SignOut.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
+                    <Label Text="Logg ut" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                    <Image Source="Arrow.png" Grid.Column="3" HeightRequest="17" HorizontalOptions="End" />
+                </Grid>
+            </StackLayout>
         </StackLayout>
-        <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="White" Margin="0,15,0,0">
-            <StackLayout.GestureRecognizers>
-                <TapGestureRecognizer Tapped="OnSignOutBtnClicked"/>
-            </StackLayout.GestureRecognizers>
-            <Grid RowSpacing="5" HorizontalOptions="Start" Padding="5,5,5,5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Source="SignOut.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
-                <Label Text="Logg ut" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
-                <Image Source="Arrow.png" Grid.Column="3" HeightRequest="17" HorizontalOptions="End" />
-            </Grid>
-        </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>

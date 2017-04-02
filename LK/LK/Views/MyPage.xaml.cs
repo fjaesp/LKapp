@@ -20,6 +20,22 @@ namespace LK.Views
         public MyPage()
         {
             InitializeComponent();
+
+            string[] att = string.IsNullOrEmpty(App.CurrentUser.AttachmentUrl) ? null : App.CurrentUser.AttachmentUrl.Split(',');
+            ObservableCollection<AttachmentEntity> attList;
+            if (att != null)
+            {
+                attList = new ObservableCollection<AttachmentEntity>();
+                for (int i = 0; i < att.Length; i++)
+                {
+                    attList.Add(new AttachmentEntity
+                    {
+                        url = att[i]
+                    });
+                }
+
+                AttachmentList.ItemsSource = attList;
+            }
         }
 
         protected override void OnAppearing()
@@ -111,15 +127,11 @@ namespace LK.Views
             }
         }
 
-        private void OnFagplanClicked(object sender, EventArgs e)
+        private void OnAttachmentTapped(object sender, EventArgs e)
         {
-            
-        }
-
-        private void OnKompetanseClicked(object sender, EventArgs e)
-        {
-            Uri komPlan = new Uri("https://lkappstorage.blob.core.windows.net/eventsblobcontainer/c5a730da-721f-4afa-b10c-f5c8d5856af9%7CKursmatriale.pdf");
-            Device.OpenUri(komPlan);
+            string url = ((StackLayout)sender).FindByName<Label>("AttachmentUrlString").Text;
+            if(!string.IsNullOrEmpty(url))
+                Device.OpenUri(new Uri(url));
         }
     }
 }

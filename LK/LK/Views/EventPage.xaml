@@ -4,57 +4,59 @@
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="LK.Views.EventPage"
              Title="{Binding Title}">
-  <ContentPage.Content>
-        <ScrollView x:Name="EventScrollView">
-            <Grid RowSpacing="10" ColumnSpacing="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="Transparent">
-                    <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand"/>
-                    <Label Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-                    <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
-                    <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
-                    <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-                    <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
-                    <ListView x:Name="AttachmentList" Grid.Row="5" Grid.ColumnSpan="2" HasUnevenRows="False">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout BackgroundColor="White">
-                                        <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer Tapped="OnAttachmentTapped" />
-                                        </StackLayout.GestureRecognizers>
-                                        <Grid Padding="5">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="40" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding fileicon}" WidthRequest="30" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
-                                            <Label Text="{Binding filename}" FontSize="Medium" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" />
-                                            <Label x:Name="AttUrlStr" Text="{Binding url}" Grid.Row="0" Grid.Column="1" IsVisible="False"/>
-                                        </Grid>
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" />
-                    <Entry x:Name="CommentEntry"
+    
+    <ScrollView x:Name="EventScrollView">
+        <Grid RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding PictureUrl}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="FillAndExpand" VerticalOptions="Start"/>
+            <Label Text="{Binding Date, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+            <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
+            <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
+            <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
+            <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" />
+            <ListView x:Name="AttachmentList" Grid.Row="5" Grid.ColumnSpan="2" HasUnevenRows="False">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnAttachmentTapped" />
+                                </StackLayout.GestureRecognizers>
+                                <Grid Padding="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="{Binding fileicon}" WidthRequest="30" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center" />
+                                    <Label Text="{Binding filename}" FontSize="Medium" Grid.Row="0" Grid.Column="1" HorizontalOptions="Start" />
+                                    <Label x:Name="AttachmentUrlString" Text="{Binding url}" Grid.Row="0" Grid.Column="1" IsVisible="False"/>
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Label />
+                </ListView.Footer>
+            </ListView>
+            <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" />
+            <Entry x:Name="CommentEntry"
                            Placeholder="Legg til kommentar..."
                            Grid.Row="6"
                            Grid.Column="0"
@@ -62,38 +64,39 @@
                            BackgroundColor="Silver"
                            VerticalOptions="FillAndExpand" 
                            Completed="CommentEntry_CompletedAsync">
-                    </Entry>
-                    <ActivityIndicator Grid.RowSpan="2"
+            </Entry>
+            <ActivityIndicator Grid.RowSpan="2"
                                        HorizontalOptions="Center"
                                        VerticalOptions="Center"
                                        IsVisible="False"
                                        IsEnabled="True"
                                        x:Name="syncIndicator" />
-                    <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="7" Grid.ColumnSpan="2" HasUnevenRows="True">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <StackLayout BackgroundColor="White">
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Label Text="{Binding userName}" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
-                                            <Label Text="{Binding createdAt, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium" Grid.Row="0" Grid.Column="1" />
-                                            <Label Text="{Binding comment}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-                                        </Grid>
-                                    </StackLayout>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </StackLayout>
-            </Grid>
-        </ScrollView>
-    </ContentPage.Content>
+            <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="7" Grid.ColumnSpan="2" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="White">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="{Binding userName}" FontSize="Medium" Grid.Row="0" Grid.Column="0"/>
+                                    <Label Text="{Binding createdAt, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium" Grid.Row="0" Grid.Column="1" />
+                                    <Label Text="{Binding comment}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <Label />
+                </ListView.Footer>
+            </ListView>
+        </Grid>
+    </ScrollView>
 </ContentPage>
