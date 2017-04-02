@@ -131,6 +131,9 @@
     <BundleResource Include="Resources\TabPicProfile.png" />
     <BundleResource Include="Resources\TabPicProfile50.png" />
     <BundleResource Include="Resources\TabPicProfile75.png" />
+    <BundleResource Include="Resources\iconword.png" />
+    <BundleResource Include="Resources\iconexcel.png" />
+    <BundleResource Include="Resources\iconpdf.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
