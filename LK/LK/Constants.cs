@@ -10,15 +10,6 @@
         public static string EditProfilepolicy = "B2C_1_SiPe";
         public static string Authority = "https://login.microsoftonline.com/LKapp.onmicrosoft.com/";
 
-        ////Graph
-        //public static string OfficeAppID = "ee833982-a11c-4c8a-b0cf-2fe36c117323";
-        //public static string[] OfficeAppScopes = { "User.Read" };
-        //public static string Username = string.Empty;
-
-        ////SharePoint
-        //public static string SPOAccount = "Fjalestad@Fjalestad2016.onmicrosoft.com";
-        //public static string SPOPassword = "lkapp2017!";
-
         //MobileApp
         public static string ApplicationURL = @"https://lkmobileapp.azurewebsites.net";
 

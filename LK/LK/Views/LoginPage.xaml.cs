@@ -15,24 +15,6 @@ namespace LK.Views
             xManager = UserManager.DefaultManager;
         }
 
-        //protected override async void OnAppearing()
-        //{
-        //    try
-        //    {
-        //        AuthenticationResult ar = await App.AuthenticationClient.AcquireTokenSilentAsync(
-        //            Constants.Scopes,
-        //            string.Empty, 
-        //            Constants.Authority, 
-        //            Constants.SignUpSignInpolicy,
-        //            false);
-
-        //        App.AuthResult = ar;
-        //        await Navigation.PushModalAsync(new BasePage(ar));
-        //    }
-        //    catch
-        //    { }
-        //}
-
         async void OnSignUpSignIn(object sender, EventArgs e)
         {
             try
@@ -47,8 +29,6 @@ namespace LK.Views
                     Constants.SignUpSignInpolicy);
 
                 App.AuthResult = ar;
-                //Navigation.InsertPageBefore(new BasePage(), this);
-                //await Navigation.PopAsync();
 
                 await GetCurrentUser(true);
 
