@@ -37,7 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="AzureDataService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Managers\AttendanceManager.cs" />
     <Compile Include="Managers\BlobManager.cs" />
