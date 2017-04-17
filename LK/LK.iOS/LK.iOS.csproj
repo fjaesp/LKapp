@@ -60,6 +60,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchSdkVersion>
     </MtouchSdkVersion>
+    <CodesignProvision>LK Ad Hoc Distribution</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -69,8 +70,9 @@
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Espen Fjalestad (R24N6TP73W)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>LK Ad Hoc Distribution</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -81,9 +83,8 @@
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
     <BuildIpa>True</BuildIpa>
-    <CodesignProvision>
-    </CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>LK Ad Hoc Distribution</CodesignProvision>
+    <CodesignKey>iPhone Distribution: Espen Fjalestad (R24N6TP73W)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
@@ -94,8 +95,8 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchArch>ARMv7, ARM64</MtouchArch>
-    <CodesignProvision>Automatic:AppStore</CodesignProvision>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignProvision>LK App Store Distribution</CodesignProvision>
+    <CodesignKey>iPhone Distribution: Espen Fjalestad (R24N6TP73W)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
@@ -289,27 +290,22 @@
     <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Default-Portrait%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk29_29.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk58_58.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk80_80.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk120_120.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk40_40.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk76_76.png">
-      <InProject>false</InProject>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\lk152_152.png">
-      <InProject>false</InProject>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\144logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\114logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\50logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\100logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\72logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167logo.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\defaultprofilepic.png" />

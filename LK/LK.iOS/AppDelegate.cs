@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using Foundation;
 using UIKit; using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
+using UserNotifications;
 
 namespace LK.iOS
 {
@@ -34,6 +35,14 @@ namespace LK.iOS
 			UIApplication.SharedApplication.RegisterUserNotificationSettings(settings);
 			UIApplication.SharedApplication.RegisterForRemoteNotifications();
 
+			// IOS 10 Request notification permissions from the user
+			if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+			{
+				UNUserNotificationCenter.Current.RequestAuthorization(UNAuthorizationOptions.Alert, (approved, err) =>
+				{
+					// Handle approval
+				});
+			}	
 			return result;
         }
 		public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)

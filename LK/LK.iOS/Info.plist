@@ -5,7 +5,6 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
-		<integer>2</integer>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -21,17 +20,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
-	<key>CFBundleDisplayName</key>
-	<string>LK</string>
+	<string>10.3</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.evilcorp.LK</string>
+	<string>net.azurewebsites.lkmobileapp.bundleid</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-	<key>CFBundleName</key>
-	<string>LK</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -41,5 +36,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>XSLaunchImageAssets</key>
 	<string>Assets.xcassets/LaunchImage.launchimage</string>
+	<key>CFBundleName</key>
+	<string>Noviz</string>
 </dict>
 </plist>
