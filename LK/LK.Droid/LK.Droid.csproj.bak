@@ -40,9 +40,10 @@
     <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
     <Debugger>.Net (Xamarin)</Debugger>
     <JavaMaximumHeapSize>1G</JavaMaximumHeapSize>
+<AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType></DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -193,11 +194,15 @@
       <HintPath>..\..\packages\Xamarin.GooglePlayServices.Maps.29.0.0.1\lib\MonoAndroid41\Xamarin.GooglePlayServices.Maps.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GCM.Client">
+      <HintPath>..\..\Components\GCMClient-1.0\lib\android\GCM.Client.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GcmService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -238,9 +243,9 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <XamarinComponentReference Include="googleplayservices-maps">
+    <XamarinComponentReference Include="GCMClient">
+      <Version>1.0</Version>
       <Visible>False</Visible>
-      <Version>29.0.0.2</Version>
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
