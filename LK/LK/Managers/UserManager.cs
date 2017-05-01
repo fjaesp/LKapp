@@ -63,6 +63,9 @@ namespace LK.Managers
                 List<UserEntities> userEnum = await userTable.Where(x => x.Id == userId).ToListAsync();
                 if(userEnum != null && userEnum.Count > 0)
                 {
+					userEnum[0].installationid = client.InstallationId;
+					await userTable.UpdateAsync(userEnum[0]);
+					await this.SyncAsync();
                     return userEnum[0];
                 }
 
@@ -76,6 +79,33 @@ namespace LK.Managers
             {
                 Debug.WriteLine(@"Sync error: {0}", e.Message);
             }
+
+			try
+			{
+
+				ObservableCollection<UserEntities> usersList = await userTable
+						.Where(u => u.Id == App.AuthResult.User.UniqueId)
+						.ToCollectionAsync();
+
+				if (usersList != null && usersList.Count > 0)
+				{
+					foreach (var u in users)
+					{
+						u.installationid = client.InstallationId;
+						await userTable.UpdateAsync(u);
+					}
+					await this.SyncAsync();
+
+				}
+			}
+			catch (MobileServiceInvalidOperationException msioe)
+			{
+				Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(@"Sync error: {0}", e.Message);
+			}
             return null;
         }
 
@@ -155,6 +185,7 @@ namespace LK.Managers
             }
             return null;
         }
+
 
         public async Task SyncAsync()
         {

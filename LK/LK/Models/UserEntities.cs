@@ -50,5 +50,8 @@ namespace LK.Models
 
         [JsonProperty("AttachmentUrl")]
         public string AttachmentUrl { get; set; }
+
+		[JsonProperty("installationid")]
+		public string installationid { get; set; }
     }
 }

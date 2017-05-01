@@ -13,5 +13,9 @@
         //MobileApp
         public static string ApplicationURL = @"https://lkmobileapp.azurewebsites.net";
 
+		// Azure app-specific connection string and hub path
+		public const string ConnectionString = "Endpoint=sb://lknamespace.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=urN2s7121zAbvWS/nb4vTTCSxJyZ9zPZHVWnXc7twWA=";
+		public const string NotificationHubPath = "<Azure hub path>";
+
     }
 }

@@ -51,8 +51,6 @@ namespace LK.Views
             var user = await xManager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
             if (user != null)
                 App.CurrentUser = user;
-
-
         }
     }
 }
