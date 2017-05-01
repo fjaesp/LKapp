@@ -293,22 +293,54 @@
     <ImageAsset Include="Assets.xcassets\LaunchImage.launchimage\Default-Portrait%402x.png">
       <InProject>false</InProject>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\144logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\114logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\50logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\100logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\72logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152logo.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167logo.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\144logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\29logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\58logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\87logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\80logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\120logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\57logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\114logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\180logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\40logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\50logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\100logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\72logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\76logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\152logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\167logo.png">
+      <InProject>false</InProject>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\defaultprofilepic.png" />
