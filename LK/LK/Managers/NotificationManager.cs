@@ -16,16 +16,16 @@ namespace LK.Managers
     {
         static NotificationManager defaultInstance = new NotificationManager();
         MobileServiceClient client;
-        IMobileServiceSyncTable<NotificationEntity> notificationTable;
-        public ObservableCollection<NotificationEntity> notificaitons { get; set; }
+        IMobileServiceSyncTable<NotificationEntities> notificationTable;
+        public ObservableCollection<NotificationEntities> notificaitons { get; set; }
 
         public NotificationManager()
         {
             client = new MobileServiceClient(Constants.ApplicationURL);
             var store = new MobileServiceSQLiteStore("LKLocal.db");
-            store.DefineTable<NotificationEntity>();
+            store.DefineTable<NotificationEntities>();
             client.SyncContext.InitializeAsync(store);
-            notificationTable = client.GetSyncTable<NotificationEntity>();
+            notificationTable = client.GetSyncTable<NotificationEntities>();
         }
 
         public static NotificationManager DefaultManager
@@ -47,10 +47,10 @@ namespace LK.Managers
 
         public bool IsOfflineEnabled
         {
-            get { return notificationTable is IMobileServiceSyncTable<NotificationEntity>; }
+            get { return notificationTable is IMobileServiceSyncTable<NotificationEntities>; }
         }
 
-        public async Task<ObservableCollection<NotificationEntity>> GetNotificationsAsync(string eventId, bool syncItems = false)
+        public async Task<ObservableCollection<NotificationEntities>> GetNotificationsByUserAsync(string userId, bool syncItems = false)
         {
             try
             {
@@ -59,12 +59,12 @@ namespace LK.Managers
                     await this.SyncAsync();
                 }
 
-                IEnumerable<NotificationEntity> notifications = await notificationTable
-                                .Where(n => n.updatedAt < DateTime.Now.AddDays(2))
+                IEnumerable<NotificationEntities> notifications = await notificationTable
+                                .Where(n => n.userid == userId)
                                 .OrderByDescending(e => e.createdAt)
                                 .ToEnumerableAsync();
 
-                return new ObservableCollection<NotificationEntity>(notifications);
+                return new ObservableCollection<NotificationEntities>(notifications);
             }
             catch (MobileServiceInvalidOperationException msioe)
             {
@@ -77,14 +77,41 @@ namespace LK.Managers
             return null;
         }
 
-        public async Task AddNotification(string userId, string eventId, string message, string type)
+        public async Task<ObservableCollection<NotificationEntities>> GetNotificationsByEventAsync(string eventId, bool syncItems = false)
         {
-            var notification = new NotificationEntity
+            try
             {
-                EventID = eventId,
-                UserID = userId,
-                NotificationType = type,
-                Message = message,
+                if (syncItems)
+                {
+                    await this.SyncAsync();
+                }
+
+                IEnumerable<NotificationEntities> notifications = await notificationTable
+                                .Where(n => n.eventid == eventId)
+                                .OrderByDescending(e => e.createdAt)
+                                .ToEnumerableAsync();
+
+                return new ObservableCollection<NotificationEntities>(notifications);
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
+
+        public async Task AddNotification(string userId, string eventId, string msg, string type)
+        {
+            var notification = new NotificationEntities
+            {
+                eventid = eventId,
+                userid = userId,
+                notificationtype = type,
+                message = msg,
             };
 
             await notificationTable.InsertAsync(notification);

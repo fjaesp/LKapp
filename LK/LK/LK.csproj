@@ -48,6 +48,7 @@
     <Compile Include="Models\EventEntities.cs" />
     <Compile Include="Managers\EventManager.cs" />
     <Compile Include="Helpers\Grouping.cs" />
+    <Compile Include="Models\NotificationEntities.cs" />
     <Compile Include="Models\NotificationEntity.cs" />
     <Compile Include="Models\UserEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
