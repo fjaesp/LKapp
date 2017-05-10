@@ -3,62 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.NewsPage"
              Title="Nyheter">
-  <ContentPage.Content>
-	<ScrollView x:Name="NewsScrollView">          
-    	<StackLayout HorizontalOptions="Center" BackgroundColor="Transparent">
-			<Grid RowSpacing="5" ColumnSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-				<Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="http://oppla.no/var/oppla.no/storage/images/media/images/portrett_5898_crop_trykk/13724-1-nor-NO/portrett_5898_crop_trykk_size-medium.jpg" />
-				<Label Grid.Row="0" Grid.Column="1"  Text ="Stian har opprettet et nytt arrangement" />
-				<Label Grid.Row="1" Grid.Column="1" FontSize="Small" Text="3 timer siden" /> 					
-			</Grid>
-			<Grid RowSpacing="5" ColumnSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-				<Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="https://s-media-cache-ak0.pinimg.com/736x/8c/2b/d4/8c2bd4f261ed5ca12f99b7bd462cb052.jpg" />
-				<Label Grid.Row="0" Grid.Column="1"  Text ="Minner om siste frist for påmelding 12.04.17 - Utbening og farse" />
-				<Label Grid.Row="1" Grid.Column="1" FontSize="Small" Text="12 timer siden" /> 					
-			</Grid>
-				<Grid RowSpacing="5" ColumnSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-				<Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="http://oppla.no/var/oppla.no/storage/images/media/images/eva-erichsen_web/16487-1-nor-NO/eva-erichsen_web_size-medium.jpg" />
-				<Label Grid.Row="0" Grid.Column="1"  Text ="Eva har opprettet et nytt arrangement" />
-				<Label Grid.Row="1" Grid.Column="1" FontSize="Small" Text="2 dager siden" /> 					
-			</Grid>
-			<Grid RowSpacing="5" ColumnSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-				<Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="http://oppla.no/var/oppla.no/storage/images/media/images/portrett_5888_crop_trykk/13736-1-nor-NO/portrett_5888_crop_trykk_size-medium.jpg" />
-				<Label Grid.Row="0" Grid.Column="1"  Text ="Magnus har lagt inn viktig melding i Studetur til Paris" />
-				<Label Grid.Row="1" Grid.Column="1" FontSize="Small" Text="3 dager siden" /> 					
-			</Grid>
-		</StackLayout>
-    </ScrollView>
-  </ContentPage.Content>
+    <ContentPage.Content>
+        <Grid x:Name="LayoutRoot" Padding="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding Title}" FontSize="Large" LineBreakMode="WordWrap">
+                <Label.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="False" WinPhone="True" />
+                </Label.IsVisible>
+            </Label>
+            <ActivityIndicator Grid.RowSpan="2"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    IsVisible="False"
+                    IsEnabled="True"
+                    x:Name="syncIndicator"/>
+            <StackLayout x:Name="MessageStack" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="False">
+                <Label x:Name="MessageLabel" FontSize="Large" HorizontalTextAlignment="Center" />
+            </StackLayout>
+            <ListView x:Name="notificationList"
+                ItemTapped="OnNotificationSelected"
+				IsPullToRefreshEnabled="true" 
+                Refreshing="OnRefresh"
+				Grid.Row="1"
+                HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0,5,0,5" HorizontalOptions="Center" BackgroundColor="Transparent">
+                                <Grid RowSpacing="5" ColumnSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="http://oppla.no/var/oppla.no/storage/images/media/images/portrett_5898_crop_trykk/13724-1-nor-NO/portrett_5898_crop_trykk_size-medium.jpg" />
+                                    <Label Grid.Row="0" Grid.Column="1" FontSize="Medium" Text="{Binding notificationtype}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding message}" />
+                                    <Label Grid.Row="2" Grid.Column="1" FontSize="Small" Text="{Binding updatedAt, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" />
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
 </ContentPage>

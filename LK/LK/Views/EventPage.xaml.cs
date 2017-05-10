@@ -17,6 +17,7 @@ namespace LK.Views
         CommentManager commentManager;
         static UserManager userManager;
         EventEntities currentEvent;
+        NotificationManager notificationManager;
 
         public EventPage(EventEntities e)
         {
@@ -43,6 +44,7 @@ namespace LK.Views
             attendanceManager = AttendanceManager.DefaultManager;
             commentManager = CommentManager.DefaultManager;
             userManager = UserManager.DefaultManager;
+            notificationManager = NotificationManager.DefaultManager;
 
             #region kart utkommentert
             //string test = BindingContext.ToString();
@@ -77,6 +79,7 @@ namespace LK.Views
         protected override async void OnAppearing()
         {
             await RefreshComments(true, syncItems: true);
+            await RefreshNotifications(true, syncItems: true);
             if(currentEvent.CurrentUserAttend)
             {
                 AttendSwitch.IsToggled = true;
@@ -137,6 +140,26 @@ namespace LK.Views
                     {
                         currentEvent.CurrentUserAttend = true;
                         AttendSwitch.IsToggled = true;
+                    }
+                }
+            }
+        }
+
+        private async Task RefreshNotifications(bool showActivityIndicator, bool syncItems)
+        {
+            using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
+            {
+                ObservableCollection<NotificationEntities> items = await notificationManager.GetNotificationsByUserAsync(currentEvent.Id, syncItems);
+                if (items != null)
+                {
+                    if (items.Count > 0)
+                    {
+                        NotificationList.IsVisible = true;
+                        NotificationList.ItemsSource = items;
+                    }
+                    else
+                    {
+                        NotificationList.IsVisible = false;
                     }
                 }
             }

@@ -15,6 +15,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -26,8 +27,33 @@
             <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
             <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
             <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-            <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start" />
-            <ListView x:Name="AttachmentList" HasUnevenRows="False" Grid.Row="5" Grid.ColumnSpan="2" HeightRequest="75">
+            <ListView x:Name="NotificationList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HasUnevenRows="True" HeightRequest="400">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="0,5,0,5" HorizontalOptions="Center" BackgroundColor="Transparent">
+                                <Grid RowSpacing="5" ColumnSpacing="5">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="http://oppla.no/var/oppla.no/storage/images/media/images/portrett_5898_crop_trykk/13724-1-nor-NO/portrett_5898_crop_trykk_size-medium.jpg" />
+                                    <Label Grid.Row="0" Grid.Column="1" FontSize="Medium" Text="{Binding notificationtype}" />
+                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding message}" />
+                                    <Label Grid.Row="2" Grid.Column="1" FontSize="Small" Text="{Binding updatedAt, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" />
+                                </Grid>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start" />
+            <ListView x:Name="AttachmentList" HasUnevenRows="False" Grid.Row="6" Grid.ColumnSpan="2" HeightRequest="75">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -52,7 +78,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" />
+            <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="7" Grid.Column="0" HorizontalOptions="Start" />
             <Entry x:Name="CommentEntry"
                            Placeholder="Legg til kommentar..."
                            Grid.Row="6"
@@ -68,7 +94,7 @@
                                        IsVisible="False"
                                        IsEnabled="True"
                                        x:Name="syncIndicator" />
-            <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="7" Grid.ColumnSpan="2" HasUnevenRows="True" HeightRequest="400">
+            <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="8" Grid.ColumnSpan="2" HasUnevenRows="True" HeightRequest="400">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
