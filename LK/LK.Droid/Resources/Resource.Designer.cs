@@ -26,10 +26,10 @@ namespace LK.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Gcm.Client.Resource.String.library_name = global::LK.Droid.Resource.String.library_name;
 			global::Microsoft.Identity.Client.Resource.Id.agentWebView = global::LK.Droid.Resource.Id.agentWebView;
 			global::Microsoft.Identity.Client.Resource.Layout.WebAuthenticationBroker = global::LK.Droid.Resource.Layout.WebAuthenticationBroker;
 			global::Microsoft.Identity.Client.Resource.String.ApplicationName = global::LK.Droid.Resource.String.ApplicationName;
-			global::Gcm.Client.Resource.String.library_name = global::LK.Droid.Resource.String.library_name;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::LK.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -3301,8 +3301,8 @@ namespace LK.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f060046
-			public const int ApplicationName = 2131099718;
+			// aapt resource value: 0x7f060045
+			public const int ApplicationName = 2131099717;
 			
 			// aapt resource value: 0x7f06002e
 			public const int abc_action_bar_home_description = 2131099694;
@@ -3463,8 +3463,8 @@ namespace LK.Droid
 			// aapt resource value: 0x7f06001e
 			public const int common_signin_button_text_long = 2131099678;
 			
-			// aapt resource value: 0x7f060045
-			public const int library_name = 2131099717;
+			// aapt resource value: 0x7f060046
+			public const int library_name = 2131099718;
 			
 			// aapt resource value: 0x7f06001f
 			public const int mr_button_content_description = 2131099679;

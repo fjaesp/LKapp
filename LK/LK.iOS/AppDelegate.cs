@@ -8,6 +8,7 @@ using UIKit; using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UserNotifications;
 using WindowsAzure.Messaging;
+using ImageCircle.Forms.Plugin.iOS;
 
 namespace LK.iOS
 {
@@ -19,6 +20,7 @@ namespace LK.iOS
 			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 			SQLitePCL.CurrentPlatform.Init();
 			global::Xamarin.Forms.Forms.Init();
+            ImageCircleRenderer.Init();
 			LoadApplication(new App());
 
 			var result = base.FinishedLaunching(app, options);
