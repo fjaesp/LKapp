@@ -2504,8 +2504,8 @@ namespace LK.Droid
 			// aapt resource value: 0x7f0200d8
 			public const int News25 = 2130837720;
 			
-			// aapt resource value: 0x7f0200df
-			public const int notification_template_icon_bg = 2130837727;
+			// aapt resource value: 0x7f0200e0
+			public const int notification_template_icon_bg = 2130837728;
 			
 			// aapt resource value: 0x7f0200d9
 			public const int Phone = 2130837721;
@@ -2524,6 +2524,9 @@ namespace LK.Droid
 			
 			// aapt resource value: 0x7f0200de
 			public const int TabPicProfile = 2130837726;
+			
+			// aapt resource value: 0x7f0200df
+			public const int ViktigMelding = 2130837727;
 			
 			static Drawable()
 			{

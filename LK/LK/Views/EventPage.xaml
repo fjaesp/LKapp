@@ -23,6 +23,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -100,11 +101,10 @@
             </ListView>
             <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="7" Grid.Column="0" HorizontalOptions="Start" />
             <Entry x:Name="CommentEntry"
-                           Placeholder="Legg til kommentar..."
-                           Grid.Row="6"
+                           Placeholder="Legg til ny kommentar..."
+                           Grid.Row="8"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           BackgroundColor="Silver"
                            VerticalOptions="FillAndExpand" 
                            Completed="CommentEntry_CompletedAsync">
             </Entry>
@@ -117,7 +117,7 @@
             <ListView x:Name="CommentList"
                 CachingStrategy="RecycleElement"
                 Refreshing="CommentList_RefreshingAsync" 
-                    Grid.Row="8" 
+                    Grid.Row="9" 
                     Grid.ColumnSpan="2" 
                     HasUnevenRows="True" 
                     HeightRequest="400"
@@ -136,7 +136,7 @@
                         <ColumnDefinition Width="Auto"/>
                       </Grid.ColumnDefinitions>
                       <controls:CircleImage 
-                                    Source="icon.png" 
+                                    Source="defaultprofilepic.png" 
                                     VerticalOptions="CenterAndExpand"
                                     HorizontalOptions="CenterAndExpand"
                                     Grid.RowSpan="2">

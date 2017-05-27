@@ -50,7 +50,7 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                      <Image Source="icon.png" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                      <Image Source="ViktigMelding.png" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
                         <Image.WidthRequest>
                             <OnPlatform x:TypeArguments="x:Double">
                                 <OnPlatform.iOS>55</OnPlatform.iOS>
