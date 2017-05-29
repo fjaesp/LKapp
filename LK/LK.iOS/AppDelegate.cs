@@ -115,7 +115,8 @@ namespace LK.iOS
 
 			var hub = new SBNotificationHub(cs, hubname);
 
-			NSSet tags = new NSSet(new string[] { "username_" + Managers.NotificationManager.DefaultManager.CurrentClient.InstallationId });
+			NSSet tags = new NSSet(new string[] { Managers.NotificationManager.DefaultManager.CurrentClient.InstallationId });
+			//NSSet tags = new NSSet(new string[] { "$installationId:{" + Managers.NotificationManager.DefaultManager.CurrentClient.InstallationId + "}" });
 
 
 			hub.RegisterNativeAsync((NSData)deviceToken, tags, err => {

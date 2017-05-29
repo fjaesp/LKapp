@@ -18,6 +18,7 @@ namespace LK.Managers
         MobileServiceClient client;
         IMobileServiceSyncTable<AttendEntities> attendanceTable;
 
+
         public ObservableCollection<AttendEntities> users { get; set; }
 
         private AttendanceManager()

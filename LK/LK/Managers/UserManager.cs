@@ -63,9 +63,18 @@ namespace LK.Managers
                 List<UserEntities> userEnum = await userTable.Where(x => x.Id == userId).ToListAsync();
                 if(userEnum != null && userEnum.Count > 0)
                 {
-					userEnum[0].installationid = client.InstallationId;
-					await userTable.UpdateAsync(userEnum[0]);
-					await this.SyncAsync();
+                    if (userEnum[0].installationid == null)
+					{
+						userEnum[0].installationid = client.InstallationId;
+						await userTable.UpdateAsync(userEnum[0]);
+						await this.SyncAsync();
+					}
+                    else if (!userEnum[0].installationid.Contains(client.InstallationId))
+                    {
+                        userEnum[0].installationid = userEnum[0].installationid + "," + client.InstallationId;
+						await userTable.UpdateAsync(userEnum[0]);
+						await this.SyncAsync();
+                    }
                     return userEnum[0];
                 }
 
