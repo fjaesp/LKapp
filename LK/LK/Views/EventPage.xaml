@@ -3,11 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              x:Class="LK.Views.EventPage"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:local="clr-namespace:LK" 
              Title="{Binding Title}">
-    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ChatDateFormatConverter x:Key="ChatDateFormatConverter" />
+            <local:ChatAuthorConverter x:Key="ChatAuthorConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView x:Name="EventScrollView">
         <Grid RowSpacing="10">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -27,7 +35,14 @@
             <Label Text="Meld deg på her" FontSize="Medium" Grid.Row="2" Grid.Column="0" HorizontalOptions="Start"/>
             <Switch x:Name="AttendSwitch" Toggled="AttendSwitch_Toggled" HorizontalOptions="LayoutOptions.End" Grid.Row="2" Grid.Column="1"/>
             <Label Text="{Binding Description}" FontSize="Medium" LineBreakMode="WordWrap" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start"/>
-            <ListView x:Name="NotificationList" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" HasUnevenRows="True" HeightRequest="400">
+            <ListView 
+                x:Name="NotificationList" 
+                Grid.Row="4" 
+                Grid.Column="0" 
+                Grid.ColumnSpan="2" 
+                HasUnevenRows="True" 
+                HeightRequest="400"
+                SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -53,7 +68,13 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Label Text="Vedlegg" FontSize="Medium" FontAttributes="Bold" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Start" />
-            <ListView x:Name="AttachmentList" HasUnevenRows="False" Grid.Row="6" Grid.ColumnSpan="2" HeightRequest="75">
+            <ListView 
+                x:Name="AttachmentList" 
+                HasUnevenRows="False" 
+                Grid.Row="6" 
+                Grid.ColumnSpan="2" 
+                HeightRequest="75"
+                SeparatorVisibility="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -80,11 +101,10 @@
             </ListView>
             <Label Text="Kommentarer" FontSize="Medium" FontAttributes="Bold" Grid.Row="7" Grid.Column="0" HorizontalOptions="Start" />
             <Entry x:Name="CommentEntry"
-                           Placeholder="Legg til kommentar..."
-                           Grid.Row="6"
+                           Placeholder="Legg til ny kommentar..."
+                           Grid.Row="8"
                            Grid.Column="0"
                            Grid.ColumnSpan="2"
-                           BackgroundColor="Silver"
                            VerticalOptions="FillAndExpand" 
                            Completed="CommentEntry_CompletedAsync">
             </Entry>
@@ -94,28 +114,54 @@
                                        IsVisible="False"
                                        IsEnabled="True"
                                        x:Name="syncIndicator" />
-            <ListView x:Name="CommentList" Refreshing="CommentList_RefreshingAsync" Grid.Row="8" Grid.ColumnSpan="2" HasUnevenRows="True" HeightRequest="400">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout BackgroundColor="White" Padding="0,5,0,0">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding userName}" FontSize="Medium" FontAttributes="Bold" Grid.Row="0" Grid.Column="0"/>
-                                    <Label Text="{Binding createdAt, StringFormat='{}{0:dd.MM.yyyy}'}" FontSize="Medium" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" />
-                                    <Label Text="{Binding comment}" FontSize="Medium" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-                                </Grid>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+            <ListView x:Name="CommentList"
+                CachingStrategy="RecycleElement"
+                Refreshing="CommentList_RefreshingAsync" 
+                    Grid.Row="9" 
+                    Grid.ColumnSpan="2" 
+                    HasUnevenRows="True" 
+                    HeightRequest="400"
+                    SeparatorVisibility="None">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <Grid Padding="8,5">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                      </Grid.RowDefinitions>   
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      <controls:CircleImage 
+                                    Source="defaultprofilepic.png" 
+                                    VerticalOptions="CenterAndExpand"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Grid.RowSpan="2">
+                        <controls:CircleImage.WidthRequest>
+                          <OnPlatform x:TypeArguments="x:Double">
+                            <OnPlatform.iOS>55</OnPlatform.iOS>
+                            <OnPlatform.Android>55 </OnPlatform.Android>
+                            <OnPlatform.WinPhone>75</OnPlatform.WinPhone>
+                          </OnPlatform>
+                        </controls:CircleImage.WidthRequest>
+                      <controls:CircleImage.HeightRequest>
+                          <OnPlatform x:TypeArguments="x:Double">
+                            <OnPlatform.iOS>55</OnPlatform.iOS>
+                            <OnPlatform.Android>55</OnPlatform.Android>
+                            <OnPlatform.WinPhone>75</OnPlatform.WinPhone>
+                          </OnPlatform>
+                         </controls:CircleImage.HeightRequest>
+                      </controls:CircleImage>
+                      <Label Text="{Binding userName, Converter={StaticResource ChatAuthorConverter}}" Grid.Row="0" Grid.Column="1" FontSize="Medium" FontAttributes="Bold" TextColor="Black" LineBreakMode="NoWrap"/>
+                      <Label Text="{Binding createdAt, Converter={StaticResource ChatDateFormatConverter}}" Grid.Row="0" Grid.Column="2" FontSize="Small" LineBreakMode="NoWrap" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                      <Label Text="{Binding comment}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Small" LineBreakMode="WordWrap" TextColor = "Black"/>
+                     </Grid>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
             </ListView>
         </Grid>
     </ScrollView>

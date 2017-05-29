@@ -2,57 +2,70 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.NewsPage"
+             xmlns:local="clr-namespace:LK" 
              Title="Nyheter">
-    <ContentPage.Content>
-        <Grid x:Name="LayoutRoot" Padding="16">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Text="{Binding Title}" FontSize="Large" LineBreakMode="WordWrap">
-                <Label.IsVisible>
-                    <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="False" WinPhone="True" />
-                </Label.IsVisible>
-            </Label>
-            <ActivityIndicator Grid.RowSpan="2"
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    IsVisible="False"
-                    IsEnabled="True"
-                    x:Name="syncIndicator"/>
-            <StackLayout x:Name="MessageStack" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="False">
-                <Label x:Name="MessageLabel" FontSize="Large" HorizontalTextAlignment="Center" />
-            </StackLayout>
-            <ListView x:Name="notificationList"
-                ItemTapped="OnNotificationSelected"
-				IsPullToRefreshEnabled="true" 
-                Refreshing="OnRefresh"
-				Grid.Row="1"
-                HasUnevenRows="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Padding="0,5,0,5" HorizontalOptions="Center" BackgroundColor="Transparent">
-                                <Grid RowSpacing="5" ColumnSpacing="5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="100"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="http://oppla.no/var/oppla.no/storage/images/media/images/portrett_5898_crop_trykk/13724-1-nor-NO/portrett_5898_crop_trykk_size-medium.jpg" />
-                                    <Label Grid.Row="0" Grid.Column="1" FontSize="Medium" Text="{Binding notificationtype}" />
-                                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding message}" />
-                                    <Label Grid.Row="2" Grid.Column="1" FontSize="Small" Text="{Binding updatedAt, StringFormat='{}{0:dd.MM.yyyy HH:mm}'}" />
-                                </Grid>
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </Grid>
-    </ContentPage.Content>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ChatDateFormatConverter x:Key="ChatDateFormatConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid x:Name="LayoutRoot" Padding="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Text="{Binding Title}" FontSize="Large" LineBreakMode="WordWrap">
+            <Label.IsVisible>
+                <OnPlatform x:TypeArguments="x:Boolean" iOS="False" Android="False" WinPhone="True" />
+            </Label.IsVisible>
+        </Label>
+        <ActivityIndicator Grid.RowSpan="2"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsVisible="False"
+                IsEnabled="True"
+                x:Name="syncIndicator"/>
+        <StackLayout x:Name="MessageStack" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" IsVisible="False">
+            <Label x:Name="MessageLabel" FontSize="Large" HorizontalTextAlignment="Center" />
+        </StackLayout>
+
+        <ListView x:Name="notificationList"
+            ItemTapped="OnNotificationSelected"
+            IsPullToRefreshEnabled="true" 
+            CachingStrategy="RecycleElement"
+            Refreshing="OnRefresh"
+            Grid.Row="1"
+            HasUnevenRows="True"
+            SeparatorVisibility="None">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <Grid Padding="8,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                      <Image Source="ViktigMelding.png" Grid.RowSpan="2" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Image.WidthRequest>
+                            <OnPlatform x:TypeArguments="x:Double">
+                                <OnPlatform.iOS>55</OnPlatform.iOS>
+                                <OnPlatform.Android>55</OnPlatform.Android>
+                                <OnPlatform.WinPhone>75</OnPlatform.WinPhone>
+                            </OnPlatform>
+                        </Image.WidthRequest>
+                      </Image>
+                      <Label Text="{Binding notificationtype}" Grid.Row="0" Grid.Column="1" FontSize="Medium" FontAttributes="Bold" TextColor="Black" LineBreakMode="NoWrap"/>
+                      <Label Text="{Binding updatedAt, Converter={StaticResource ChatDateFormatConverter}}" Grid.Row="0" Grid.Column="2" FontSize="Small" LineBreakMode="NoWrap" HorizontalTextAlignment="End" VerticalTextAlignment="Center"/>
+                      <Label Text="{Binding message}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="Small" LineBreakMode="WordWrap" TextColor = "Black"/>
+                     </Grid>
+                  </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
 </ContentPage>

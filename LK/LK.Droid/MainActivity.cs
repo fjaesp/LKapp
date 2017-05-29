@@ -5,6 +5,7 @@ using Android.OS;
 using Microsoft.Identity.Client;
 using Gcm.Client;
 using System;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace LK.Droid
 {
@@ -30,6 +31,7 @@ namespace LK.Droid
 
 			// Initialize Xamarin Forms
 			global::Xamarin.Forms.Forms.Init (this, bundle);
+            ImageCircleRenderer.Init();
 
 			//Initialize Xamarin Forms Maps
             //Xamarin.FormsMaps.Init(this, bundle);
