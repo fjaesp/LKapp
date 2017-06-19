@@ -1,16 +1,10 @@
-﻿using LK.Helpers;
-using LK.Managers;
+﻿using LK.Managers;
 using LK.Models;
 using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-
+using Plugin.Media;
 using Xamarin.Forms;
 
 namespace LK.Views
@@ -126,6 +120,82 @@ namespace LK.Views
                 }
             }
         }
+        async void TakePictureButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                await CrossMedia.Current.Initialize();
+
+                if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                {
+                    await DisplayAlert("No Camera", "No camara available.", "OK");
+                    return;
+                }
+
+                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                {
+                    SaveToAlbum = true,
+                    Name = "test.jpg"
+                });
+
+                if (file == null)
+                    return;
+
+                ProfilePicture.Source = ImageSource.FromStream(() => file.GetStream());
+
+
+				//public static readonly string BlobStorageConnectionString = ConfigurationManager.AppSettings["BlobStorageConnectionString"];
+				//CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobStorageConnectionString"));
+				//CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+				//CloudBlobContainer container = blobClient.GetContainerReference(blobStorageContainerName);
+				//container.CreateIfNotExists();
+
+	      //      // Retrieve reference to a blob named with passed in blobName
+	      //      CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName + "|" + file.Name);
+			    //ICloudBlob iCloudBlob = null;
+	            //try
+	            //{
+             //       iCloudBlob = container.GetBlobReferenceFromServer(blobName + "|" + file.Name);
+             //   }   
+             //   catch (Exception e)
+	            //{
+	            //    Console.WriteLine(e.ToString());
+	            //}
+
+	            //file.OpenBinaryStream();
+	            //ClientResult<Stream> stream = file.OpenBinaryStream();
+	            //context.ExecuteQuery();
+
+	            //stream.Value.Position = 0;
+	            //blockBlob.UploadFromStream(stream.Value);
+
+
+            }
+			catch (MsalException ee)
+			{
+			}
+		}
+
+		async void UploadPictureButton_Clicked(object sender, EventArgs e)
+		{
+			try
+			{
+                if(!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    await DisplayAlert("No upload", "Picking a photo is not supported.", "OK");
+                    return;
+                }
+                var file = await CrossMedia.Current.PickPhotoAsync();
+
+                if (file == null)
+                    return;
+
+                ProfilePicture.Source = ImageSource.FromStream(() => file.GetStream());
+			}
+			catch (MsalException ee)
+			{
+			}
+		}
 
         private void OnAttachmentTapped(object sender, EventArgs e)
         {

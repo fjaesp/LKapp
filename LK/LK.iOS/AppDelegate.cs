@@ -62,6 +62,9 @@ namespace LK.iOS
 		        UIRemoteNotificationType.Alert |
 		        UIRemoteNotificationType.Badge |
 		        UIRemoteNotificationType.Sound);
+            
+			// reset our badge
+			UIApplication.SharedApplication.ApplicationIconBadgeNumber = 0;
 
 			return result;
         }

@@ -5,7 +5,13 @@
              Title="Min side">
     <ScrollView x:Name="MyPageScrollView">
         <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
-            <Image Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
+            <Image x:Name="ProfilePicture" Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
+            <Button x:Name="TakePictureButton"
+                            Clicked="TakePictureButton_Clicked"
+                            Text="Ta bilde"/>
+                    <Button x:Name="UploadPictureButton"
+                            Clicked="UploadPictureButton_Clicked"
+                            Text="Last opp bilde" />
             <Label x:Name="nameLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
             <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent" Margin="0,15,0,0">
                 <StackLayout.GestureRecognizers>
@@ -21,8 +27,17 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Image Source="Profile.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" HeightRequest="25" WidthRequest="25"/>
-                    <Label Text="Rediger profil" TextColor="Gray" FontSize="Medium" LineBreakMode="WordWrap" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
-                    <Image Source="Arrow.png" Grid.Column="2" HeightRequest="17" HorizontalOptions="End" />
+                    <Label Text="Rediger profil" 
+                            TextColor="Gray" 
+                            FontSize="Medium" 
+                            LineBreakMode="WordWrap"
+                            Grid.Column="1" 
+                            HorizontalOptions="Start" 
+                            VerticalOptions="Center"/>
+                    <Image Source="Arrow.png"
+                            Grid.Column="2" 
+                            HeightRequest="17" 
+                            HorizontalOptions="End" />
                 </Grid>
             </StackLayout>
             <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent">
