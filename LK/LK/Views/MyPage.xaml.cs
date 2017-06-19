@@ -6,6 +6,9 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Plugin.Media;
 using Xamarin.Forms;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
+
 
 namespace LK.Views
 {
@@ -135,41 +138,25 @@ namespace LK.Views
                 var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
                 {
                     SaveToAlbum = true,
-                    Name = "test.jpg"
+                    Name = App.CurrentUser.Id + ".jpg"
                 });
 
                 if (file == null)
                     return;
 
-                ProfilePicture.Source = ImageSource.FromStream(() => file.GetStream());
+                string userProfilePicturesContainerName = "userprofilepicturescontainer";
+             
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=lkappstorage;AccountKey=0PpAIi7FI8YRcNeg539IuFVXSDEA+EXyBEr1ykbQKgkChvUdKCnZsshIhIqKwOnSSJwwybxkx0vLH+MzTfg85Q==;");
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer container = blobClient.GetContainerReference(userProfilePicturesContainerName);
+                await container.CreateIfNotExistsAsync();
 
+	            // Retrieve reference to a blob named with passed in blobName
+	            CloudBlockBlob blockBlob = container.GetBlockBlobReference(App.CurrentUser.Id + ".jpg");
+                blockBlob.Properties.ContentType = "image/jpeg";
+                await blockBlob.UploadFromStreamAsync(file.GetStream());
 
-				//public static readonly string BlobStorageConnectionString = ConfigurationManager.AppSettings["BlobStorageConnectionString"];
-				//CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("BlobStorageConnectionString"));
-				//CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-				//CloudBlobContainer container = blobClient.GetContainerReference(blobStorageContainerName);
-				//container.CreateIfNotExists();
-
-	      //      // Retrieve reference to a blob named with passed in blobName
-	      //      CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobName + "|" + file.Name);
-			    //ICloudBlob iCloudBlob = null;
-	            //try
-	            //{
-             //       iCloudBlob = container.GetBlobReferenceFromServer(blobName + "|" + file.Name);
-             //   }   
-             //   catch (Exception e)
-	            //{
-	            //    Console.WriteLine(e.ToString());
-	            //}
-
-	            //file.OpenBinaryStream();
-	            //ClientResult<Stream> stream = file.OpenBinaryStream();
-	            //context.ExecuteQuery();
-
-	            //stream.Value.Position = 0;
-	            //blockBlob.UploadFromStream(stream.Value);
-
-
+                ProfilePicture.Source = "https://lkappstorage.blob.core.windows.net/usersblobcontainer/" + userProfilePicturesContainerName + App.CurrentUser.Id + ".jpg";
             }
 			catch (MsalException ee)
 			{
@@ -190,8 +177,20 @@ namespace LK.Views
                 if (file == null)
                     return;
 
-                ProfilePicture.Source = ImageSource.FromStream(() => file.GetStream());
-			}
+                string userProfilePicturesContainerName = "userprofilepicturescontainer";
+
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=lkappstorage;AccountKey=0PpAIi7FI8YRcNeg539IuFVXSDEA+EXyBEr1ykbQKgkChvUdKCnZsshIhIqKwOnSSJwwybxkx0vLH+MzTfg85Q==;");
+                CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                CloudBlobContainer container = blobClient.GetContainerReference(userProfilePicturesContainerName);
+                await container.CreateIfNotExistsAsync();
+
+                // Retrieve reference to a blob named with passed in blobName
+                CloudBlockBlob blockBlob = container.GetBlockBlobReference(App.CurrentUser.Id + ".jpg");
+                blockBlob.Properties.ContentType = "image/jpeg";
+                await blockBlob.UploadFromStreamAsync(file.GetStream());
+
+                ProfilePicture.Source = "https://lkappstorage.blob.core.windows.net/usersblobcontainer/" + userProfilePicturesContainerName + App.CurrentUser.Id + ".jpg";
+            }
 			catch (MsalException ee)
 			{
 			}

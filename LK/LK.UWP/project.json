@@ -4,14 +4,15 @@
     "Microsoft.Azure.Mobile.Client.SQLiteStore": "3.1.0",
     "Microsoft.Bcl": "1.1.10",
     "Microsoft.Bcl.Build": "1.0.21",
+    "Microsoft.Data.Edm": "5.8.1",
     "Microsoft.Identity.Client": "1.0.304142221-alpha",
     "Microsoft.Net.Http": "2.2.29",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.1",
-    "Newtonsoft.Json": "10.0.1",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.3.3",
+    "Newtonsoft.Json": "10.0.3",
     "SQLitePCL": "3.8.7.2",
-    "WindowsAzure.Storage": "8.1.1",
-    "Xamarin.Forms": "2.3.3.193",
-    "Xamarin.Forms.Maps": "2.3.3.193"
+    "WindowsAzure.Storage": "7.2.1",
+    "Xamarin.Forms": "2.3.4.247",
+    "Xamarin.Forms.Maps": "2.3.4.247"
   },
   "frameworks": {
     "uap10.0": {}
