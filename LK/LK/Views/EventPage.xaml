@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <local:ChatDateFormatConverter x:Key="ChatDateFormatConverter" />
             <local:ChatAuthorConverter x:Key="ChatAuthorConverter" />
+            <local:ChatProfilePictureConverter x:Key="ChatProfilePictureConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView x:Name="EventScrollView">
@@ -136,7 +137,7 @@
                         <ColumnDefinition Width="Auto"/>
                       </Grid.ColumnDefinitions>
                       <controls:CircleImage 
-                                    Source="defaultprofilepic.png" 
+                                    Source="{Binding profilepictureurl, Converter={StaticResource ChatProfilePictureConverter}}"
                                     VerticalOptions="CenterAndExpand"
                                     HorizontalOptions="CenterAndExpand"
                                     Grid.RowSpan="2">

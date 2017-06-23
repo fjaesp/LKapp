@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Helpers\ChatDateFormatConverter.cs" />
     <Compile Include="Helpers\ChatAuthorConverter.cs" />
+    <Compile Include="Helpers\ChatProfilePictureConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -53,5 +53,8 @@ namespace LK.Models
 
 		[JsonProperty("installationid")]
 		public string installationid { get; set; }
+
+		[JsonProperty("profilepictureurl")]
+		public string profilepictureurl { get; set; }
     }
 }

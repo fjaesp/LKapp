@@ -1,30 +1,12 @@
 ﻿using System;
+using System.Globalization;
 using Xamarin.Forms;
 
 namespace LK
 {
-    public class ChatAuthorConverter : IValueConverter
+    public class ChatProfilePictureConverter: IValueConverter
     {
 		public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-		{
-            try
-            {
-                if (value is String)
-                {
-                    String author = (string)value;
-                    if (author == App.CurrentUser.displayName)
-                        return "Meg";
-                    else
-                        return (string)value;
-                }
-            }
-            catch { }
-
-
-            return (string)value;
-		}
-
-		public object DefaultProfilePicConvert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{
 			try
 			{
@@ -47,5 +29,5 @@ namespace LK
 		{
 			throw new NotImplementedException();
 		}
-    }
+	}
 }
