@@ -10,7 +10,7 @@
         <ResourceDictionary>
             <local:ChatDateFormatConverter x:Key="ChatDateFormatConverter" />
             <local:ChatAuthorConverter x:Key="ChatAuthorConverter" />
-            <local:ChatProfilePictureConverter x:Key="ChatProfilePictureConverter" />
+            <!--<local:ChatProfilePictureConverter x:Key="ChatProfilePictureConverter" />-->
         </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView x:Name="EventScrollView">
@@ -136,11 +136,16 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                       </Grid.ColumnDefinitions>
-                      <controls:CircleImage 
-                                    Source="{Binding profilepictureurl, Converter={StaticResource ChatProfilePictureConverter}}"
+                      <controls:CircleImage                                 
+                                    Source="{Binding profilePicture}"
                                     VerticalOptions="CenterAndExpand"
                                     HorizontalOptions="CenterAndExpand"
                                     Grid.RowSpan="2">
+                       <!--<controls:CircleImage.Source>
+                                        <UriImageSource Uri="{Binding profilePicture, Converter={StaticResource ChatProfilePictureConverter}}"
+                                                                CacheValidity="14"
+                                                                CachingEnabled="True" />
+                       </controls:CircleImage.Source>-->
                         <controls:CircleImage.WidthRequest>
                           <OnPlatform x:TypeArguments="x:Double">
                             <OnPlatform.iOS>55</OnPlatform.iOS>

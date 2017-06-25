@@ -174,9 +174,15 @@ namespace LK.Views
                 for(int i=0; i<items.Count; i++)
                 {
                     items[i].userName = await userManager.GetUserNameAsync(items[i].userid);
+                    string profilePicUrlTemp = await userManager.GetUserProfilePictureUrl(items[i].userid);
+                    if (profilePicUrlTemp == null)
+                        items[i].profilePicture = ImageSource.FromFile("defaultprofilepic.png");
+                    else
+                        items[i].profilePicture = ImageSource.FromUri(new Uri(profilePicUrlTemp));
                 }
-
                 CommentList.ItemsSource = items;
+                
+                
             }
         }
 

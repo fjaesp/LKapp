@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace LK.Models
 {
@@ -34,5 +35,7 @@ namespace LK.Models
         public string AzureVersion { get; set; }
 
         public string userName { get; set; }
+
+        public ImageSource profilePicture { get; set; }
     }
 }

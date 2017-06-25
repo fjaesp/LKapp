@@ -42,7 +42,7 @@ namespace LK.Views
             if(App.CurrentUser != null)
             {
 				nameLabel.Text = App.CurrentUser.displayName;
-				//RefreshProfilePicture();
+				RefreshProfilePicture();
             }
                 
             base.OnAppearing();
@@ -192,7 +192,7 @@ namespace LK.Views
                 {                  
                 }
 
-				//RefreshProfilePicture();
+				RefreshProfilePicture();
 			}
 			catch (MsalException ee)
 			{
@@ -233,7 +233,7 @@ namespace LK.Views
 				catch (Exception eee)
 				{
 				}
-				//RefreshProfilePicture();
+				RefreshProfilePicture();
 			}
 			catch (MsalException ee)
 			{

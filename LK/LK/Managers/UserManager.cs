@@ -145,14 +145,14 @@ namespace LK.Managers
 		public async Task<bool> UpdateProfilePicture(string profilePictureUrl)
 		{
 			try
-			{
+			{ 
 				ObservableCollection<UserEntities> usersList = await userTable
 		        .Where(u => u.Id == App.CurrentUser.Id)
 		        .ToCollectionAsync();
 
 				if (usersList != null && usersList.Count > 0)
 				{
-					foreach (var u in users)
+					foreach (var u in usersList)
 					{
                         u.profilepictureurl = profilePictureUrl;
 						await userTable.UpdateAsync(u);
@@ -226,7 +226,29 @@ namespace LK.Managers
             }
             return null;
         }
+        public async Task<string> GetUserProfilePictureUrl(string userId)
+        {
+            try
+            {
+                string uProfilePicUrl = string.Empty;
 
+                IEnumerable<UserEntities> userEnum = await userTable.Where(x => x.Id == userId).ToEnumerableAsync();
+                users = new ObservableCollection<UserEntities>(userEnum);
+                if (users.Count > 0)
+                    uProfilePicUrl = users.First<UserEntities>().profilepictureurl;
+
+                return uProfilePicUrl;
+            }
+            catch (MobileServiceInvalidOperationException msioe)
+            {
+                Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(@"Sync error: {0}", e.Message);
+            }
+            return null;
+        }
 
         public async Task SyncAsync()
         {
