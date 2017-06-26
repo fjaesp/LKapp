@@ -2,16 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="LK.Views.MyPage"
+             xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              Title="Min side">
     <ScrollView x:Name="MyPageScrollView">
         <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
-            <Image x:Name="ProfilePicture" Source="defaultprofilepic.png" Aspect="AspectFit" HeightRequest="100" WidthRequest="100" />
-            <Button x:Name="TakePictureButton"
-                            Clicked="TakePictureButton_Clicked"
-                            Text="Ta bilde"/>
-                    <Button x:Name="UploadPictureButton"
-                            Clicked="UploadPictureButton_Clicked"
-                            Text="Last opp bilde" />
+            <controls:CircleImage   x:Name="ProfilePicture"
+                                    Source="defaultprofilepic.png"
+                                    VerticalOptions="CenterAndExpand"
+                                    HorizontalOptions="CenterAndExpand">
+            <controls:CircleImage.WidthRequest>
+              <OnPlatform x:TypeArguments="x:Double">
+                <OnPlatform.iOS>200</OnPlatform.iOS>
+                <OnPlatform.Android>200 </OnPlatform.Android>
+                <OnPlatform.WinPhone>225</OnPlatform.WinPhone>
+              </OnPlatform>
+            </controls:CircleImage.WidthRequest>
+          <controls:CircleImage.HeightRequest>
+              <OnPlatform x:TypeArguments="x:Double">
+                <OnPlatform.iOS>200</OnPlatform.iOS>
+                <OnPlatform.Android>200</OnPlatform.Android>
+                <OnPlatform.WinPhone>225</OnPlatform.WinPhone>
+              </OnPlatform>
+             </controls:CircleImage.HeightRequest>
+          </controls:CircleImage>
             <Label x:Name="nameLabel" TextColor="Gray" FontSize="20" HorizontalOptions="Center" />
             <StackLayout HorizontalOptions="StartAndExpand" BackgroundColor="Transparent" Margin="0,15,0,0">
                 <StackLayout.GestureRecognizers>
