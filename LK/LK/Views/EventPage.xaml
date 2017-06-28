@@ -140,6 +140,7 @@
                                     Source="{Binding profilePicture}"
                                     VerticalOptions="CenterAndExpand"
                                     HorizontalOptions="CenterAndExpand"
+                                    Aspect="AspectFill"
                                     Grid.RowSpan="2">
                        <!--<controls:CircleImage.Source>
                                         <UriImageSource Uri="{Binding profilePicture, Converter={StaticResource ChatProfilePictureConverter}}"

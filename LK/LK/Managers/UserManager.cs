@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Connectivity;
 
 namespace LK.Managers
 {
@@ -69,7 +70,7 @@ namespace LK.Managers
 						await userTable.UpdateAsync(userEnum[0]);
 						await this.SyncAsync();
 					}
-                    else if (!userEnum[0].installationid.Contains(client.InstallationId))
+                    else if (!userEnum[0].installationid.Contains(client.InstallationId) && CrossConnectivity.Current.IsConnected)
                     {
                         userEnum[0].installationid = userEnum[0].installationid + "," + client.InstallationId;
 						await userTable.UpdateAsync(userEnum[0]);
@@ -252,41 +253,44 @@ namespace LK.Managers
 
         public async Task SyncAsync()
         {
-            ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
-
-            try
+            if (CrossConnectivity.Current.IsConnected)
             {
-                //await this.client.SyncContext.PushAsync();
+				ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
 
-                // The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
-                // Use a different query name for each unique query in your program.
-                await this.userTable.PullAsync("allUsers", userTable.CreateQuery());
-            }
-            catch (MobileServicePushFailedException exc)
-            {
-                if (exc.PushResult != null)
-                {
-                    syncErrors = exc.PushResult.Errors;
-                }
-            }
+				try
+				{
+					//await this.client.SyncContext.PushAsync();
 
-            // Simple error/conflict handling.
-            if (syncErrors != null)
-            {
-                foreach (var error in syncErrors)
-                {
-                    if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
-                    {
-                        // Update failed, revert to server's copy
-                        await error.CancelAndUpdateItemAsync(error.Result);
-                    }
-                    else
-                    {
-                        // Discard local change
-                        await error.CancelAndDiscardItemAsync();
-                    }
-                    Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
-                }
+					// The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
+					// Use a different query name for each unique query in your program.
+					await this.userTable.PullAsync("allUsers", userTable.CreateQuery());
+				}
+				catch (MobileServicePushFailedException exc)
+				{
+					if (exc.PushResult != null)
+					{
+						syncErrors = exc.PushResult.Errors;
+					}
+				}
+
+				// Simple error/conflict handling.
+				if (syncErrors != null)
+				{
+					foreach (var error in syncErrors)
+					{
+						if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
+						{
+							// Update failed, revert to server's copy
+							await error.CancelAndUpdateItemAsync(error.Result);
+						}
+						else
+						{
+							// Discard local change
+							await error.CancelAndDiscardItemAsync();
+						}
+						Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
+					}
+				}
             }
         }
 

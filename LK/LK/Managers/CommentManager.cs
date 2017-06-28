@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Plugin.Connectivity;
 
 namespace LK.Managers
 {
@@ -94,38 +95,41 @@ namespace LK.Managers
 
         public async Task SyncAsync()
         {
-            ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
+            if(CrossConnectivity.Current.IsConnected)
+            {
+				ReadOnlyCollection<MobileServiceTableOperationError> syncErrors = null;
 
-            try
-            {
-                await client.SyncContext.PushAsync();
-                await this.commentTable.PullAsync("allComments", commentTable.CreateQuery());
-            }
-            catch (MobileServicePushFailedException exc)
-            {
-                if (exc.PushResult != null)
-                {
-                    syncErrors = exc.PushResult.Errors;
-                }
-            }
+				try
+				{
+					await client.SyncContext.PushAsync();
+					await this.commentTable.PullAsync("allComments", commentTable.CreateQuery());
+				}
+				catch (MobileServicePushFailedException exc)
+				{
+					if (exc.PushResult != null)
+					{
+						syncErrors = exc.PushResult.Errors;
+					}
+				}
 
-            // Simple error/conflict handling.
-            if (syncErrors != null)
-            {
-                foreach (var error in syncErrors)
-                {
-                    if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
-                    {
-                        // Update failed, revert to server's copy
-                        await error.CancelAndUpdateItemAsync(error.Result);
-                    }
-                    else
-                    {
-                        // Discard local change
-                        await error.CancelAndDiscardItemAsync();
-                    }
-                    Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
-                }
+				// Simple error/conflict handling.
+				if (syncErrors != null)
+				{
+					foreach (var error in syncErrors)
+					{
+						if (error.OperationKind == MobileServiceTableOperationKind.Update && error.Result != null)
+						{
+							// Update failed, revert to server's copy
+							await error.CancelAndUpdateItemAsync(error.Result);
+						}
+						else
+						{
+							// Discard local change
+							await error.CancelAndDiscardItemAsync();
+						}
+						Debug.WriteLine(@"Error executing sync operation. Item: {0} ({1}). Operation discarded.", error.TableName, error.Item["id"]);
+					}
+				}
             }
         }
 

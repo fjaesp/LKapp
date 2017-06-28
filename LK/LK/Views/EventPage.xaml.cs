@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using LK.Models;
 using LK.Managers;
 using System.Collections.ObjectModel;
+using Plugin.Connectivity;
 
 namespace LK.Views
 {
@@ -175,7 +176,7 @@ namespace LK.Views
                 {
                     items[i].userName = await userManager.GetUserNameAsync(items[i].userid);
                     string profilePicUrlTemp = await userManager.GetUserProfilePictureUrl(items[i].userid);
-                    if (profilePicUrlTemp == null)
+                    if (profilePicUrlTemp == null || !CrossConnectivity.Current.IsConnected)
                         items[i].profilePicture = ImageSource.FromFile("defaultprofilepic.png");
                     else
                         items[i].profilePicture = ImageSource.FromUri(new Uri(profilePicUrlTemp));

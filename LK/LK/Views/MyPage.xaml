@@ -8,6 +8,7 @@
         <StackLayout HorizontalOptions="Start" VerticalOptions="Center">
             <controls:CircleImage   x:Name="ProfilePicture"
                                     Source="defaultprofilepic.png"
+                                    Aspect="AspectFill"
                                     VerticalOptions="CenterAndExpand"
                                     HorizontalOptions="CenterAndExpand">
             <controls:CircleImage.WidthRequest>

@@ -8,6 +8,7 @@ using Plugin.Media;
 using Xamarin.Forms;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Plugin.Connectivity;
 
 
 namespace LK.Views
@@ -137,17 +138,19 @@ namespace LK.Views
 		{
 			try
 			{
-                if (App.CurrentUser != null)
+                if (App.CurrentUser != null && CrossConnectivity.Current.IsConnected)
                 {
-					if (App.CurrentUser.profilepictureurl != "")
-					{
-						ProfilePicture.Source = new UriImageSource
-						{
-							Uri = new Uri(App.CurrentUser.profilepictureurl),
-							CachingEnabled = false
-						};
-					}
-                }           
+                    if (App.CurrentUser.profilepictureurl != "")
+                    {
+                        ProfilePicture.Source = new UriImageSource
+                        {
+                            Uri = new Uri(App.CurrentUser.profilepictureurl),
+                            CachingEnabled = false
+                        };
+                    }
+                }
+                else
+                    ProfilePicture.Source = ImageSource.FromFile("defaultprofilepic.png");
 			}
 			catch (MsalException ee)
 			{
