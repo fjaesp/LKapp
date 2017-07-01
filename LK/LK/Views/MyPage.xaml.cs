@@ -159,102 +159,112 @@ namespace LK.Views
 
 		async void TakePictureButton_Clicked(object sender, EventArgs e)
 		{
-            string userProfilePicturesContainerName = "userprofilepicturescontainer";
-            string connectionString = "DefaultEndpointsProtocol=https;AccountName=lkappstorage;AccountKey=0PpAIi7FI8YRcNeg539IuFVXSDEA+EXyBEr1ykbQKgkChvUdKCnZsshIhIqKwOnSSJwwybxkx0vLH+MzTfg85Q==;";
+			if (CrossConnectivity.Current.IsConnected)
+			{
+				string userProfilePicturesContainerName = "userprofilepicturescontainer";
+				string connectionString = "DefaultEndpointsProtocol=https;AccountName=lkappstorage;AccountKey=0PpAIi7FI8YRcNeg539IuFVXSDEA+EXyBEr1ykbQKgkChvUdKCnZsshIhIqKwOnSSJwwybxkx0vLH+MzTfg85Q==;";
 
-			var action = await DisplayActionSheet("Bytt profilbilde?", "Avbryt", null, "Ta bilde", "Last opp");
-            if (action =="Ta bilde")
-            {
-                try
+				var action = await DisplayActionSheet("Bytt profilbilde?", "Avbryt", null, "Ta bilde", "Last opp");
+                if (action == "Ta bilde")
                 {
-                    await CrossMedia.Current.Initialize();
-
-                    if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                    try
                     {
-                        await DisplayAlert("No Camera", "No camara available.", "OK");
-                        return;
+                        await CrossMedia.Current.Initialize();
+
+                        if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
+                        {
+                            await DisplayAlert("No Camera", "No camara available.", "OK");
+                            return;
+                        }
+
+                        var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                        {
+                            SaveToAlbum = true,
+                            Name = App.CurrentUser.Id + ".jpg"
+                        });
+
+                        if (file == null)
+                            return;
+
+                        CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+                        CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+                        CloudBlobContainer container = blobClient.GetContainerReference(userProfilePicturesContainerName);
+                        await container.CreateIfNotExistsAsync();
+
+                        // Retrieve reference to a blob named with passed in blobName
+                        CloudBlockBlob blockBlob = container.GetBlockBlobReference(App.CurrentUser.Id + ".jpg");
+                        blockBlob.Properties.ContentType = "image/jpeg";
+                        await blockBlob.UploadFromStreamAsync(file.GetStream());
+
+                        try
+                        {
+                            userManager = UserManager.DefaultManager;
+                            bool updated = await userManager.UpdateProfilePicture("https://lkappstorage.blob.core.windows.net/userprofilepicturescontainer/" + App.CurrentUser.Id + ".jpg");
+                        }
+                        catch (Exception eee)
+                        {
+                        }
+
+                        RefreshProfilePicture();
                     }
-
-                    var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+                    catch (MsalException ee)
                     {
-                        SaveToAlbum = true,
-                        Name = App.CurrentUser.Id + ".jpg"
-                    });
-
-                    if (file == null)
-                        return;
-
-					CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-					CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-					CloudBlobContainer container = blobClient.GetContainerReference(userProfilePicturesContainerName);
-					await container.CreateIfNotExistsAsync();
-
-					// Retrieve reference to a blob named with passed in blobName
-					CloudBlockBlob blockBlob = container.GetBlockBlobReference(App.CurrentUser.Id + ".jpg");
-					blockBlob.Properties.ContentType = "image/jpeg";
-					await blockBlob.UploadFromStreamAsync(file.GetStream());
-
-					try
-					{
-						userManager = UserManager.DefaultManager;
-						bool updated = await userManager.UpdateProfilePicture("https://lkappstorage.blob.core.windows.net/userprofilepicturescontainer/" + App.CurrentUser.Id + ".jpg");
-					}
-					catch (Exception eee)
-					{
-					}
-
-					RefreshProfilePicture();
+                    }
                 }
-				catch (MsalException ee)
+				if (action == "Last opp")
 				{
-				}
-            }
-            if (action == "Last opp")
-            {
-				try
-				{
-					if (!CrossMedia.Current.IsPickPhotoSupported)
-					{
-						await DisplayAlert("No upload", "Picking a photo is not supported.", "OK");
-						return;
-					}
-					var file = await CrossMedia.Current.PickPhotoAsync();
-
-					if (file == null)
-						return;
-
-					CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
-					CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-					CloudBlobContainer container = blobClient.GetContainerReference(userProfilePicturesContainerName);
-					await container.CreateIfNotExistsAsync();
-
-					// Retrieve reference to a blob named with passed in blobName
-					CloudBlockBlob blockBlob = container.GetBlockBlobReference(App.CurrentUser.Id + ".jpg");
-					blockBlob.Properties.ContentType = "image/jpeg";
-					await blockBlob.UploadFromStreamAsync(file.GetStream());
-
 					try
 					{
-						userManager = UserManager.DefaultManager;
-						bool updated = await userManager.UpdateProfilePicture("https://lkappstorage.blob.core.windows.net/userprofilepicturescontainer/" + App.CurrentUser.Id + ".jpg");
+						if (!CrossMedia.Current.IsPickPhotoSupported)
+						{
+							await DisplayAlert("No upload", "Picking a photo is not supported.", "OK");
+							return;
+						}
+						var file = await CrossMedia.Current.PickPhotoAsync();
+
+						if (file == null)
+							return;
+
+						CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+						CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+						CloudBlobContainer container = blobClient.GetContainerReference(userProfilePicturesContainerName);
+						await container.CreateIfNotExistsAsync();
+
+						// Retrieve reference to a blob named with passed in blobName
+						CloudBlockBlob blockBlob = container.GetBlockBlobReference(App.CurrentUser.Id + ".jpg");
+						blockBlob.Properties.ContentType = "image/jpeg";
+						await blockBlob.UploadFromStreamAsync(file.GetStream());
+
+						try
+						{
+							userManager = UserManager.DefaultManager;
+							bool updated = await userManager.UpdateProfilePicture("https://lkappstorage.blob.core.windows.net/userprofilepicturescontainer/" + App.CurrentUser.Id + ".jpg");
+						}
+						catch (Exception eee)
+						{
+						}
+
+						RefreshProfilePicture();
 					}
-					catch (Exception eee)
+					catch (MsalException ee)
 					{
 					}
-
-					RefreshProfilePicture();
 				}
-				catch (MsalException ee)
-				{
-				}
-            }		
+			}
+			else
+				await DisplayAlert("Feilmelding", "Mangler tilkobling til internett!", "OK");
 		}
 
         private void OnAttachmentTapped(object sender, EventArgs e)
         {
-            string url = ((StackLayout)sender).FindByName<Label>("AttachmentUrlString").Text;
-            if(!string.IsNullOrEmpty(url))
-                Device.OpenUri(new Uri(url));
+			if (CrossConnectivity.Current.IsConnected)
+			{
+				string url = ((StackLayout)sender).FindByName<Label>("AttachmentUrlString").Text;
+				if (!string.IsNullOrEmpty(url))
+					Device.OpenUri(new Uri(url));
+			}
+			else
+				DisplayAlert("Feilmelding", "Mangler tilkobling til internett!", "OK");
         }
     }
 }
