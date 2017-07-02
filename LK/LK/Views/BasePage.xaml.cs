@@ -14,7 +14,7 @@ namespace LK.Views
         {
             InitializeComponent();
 
-            if (Device.OS == TargetPlatform.Android)
+            if (Device.RuntimePlatform == Device.Android)
 			{
 				BarBackgroundColor = Color.Transparent;
 				BarTextColor = Color.Silver;
@@ -24,7 +24,8 @@ namespace LK.Views
                 Title = "Varsler",
                 Icon = "News25.png" //"TabPicNews.jpeg" //png"
             };
-			if (Device.OS == TargetPlatform.Android)
+
+            if (Device.RuntimePlatform == Device.Android)
 			{ 
 				newsNavigationPage.BarBackgroundColor = Color.Transparent;
 				newsNavigationPage.BarTextColor = Color.Silver;
@@ -35,7 +36,7 @@ namespace LK.Views
                 Title = "Kalender",
 				Icon = "Calendar25.png" //TabPicCalendar.jpeg"//png"
             };
-			if (Device.OS == TargetPlatform.Android)
+            if (Device.RuntimePlatform == Device.Android)
 			{
 				eventsNavigationPage.BarBackgroundColor = Color.Transparent;
 				eventsNavigationPage.BarTextColor = Color.Silver;
@@ -46,7 +47,8 @@ namespace LK.Views
                 Title = "Min side",
                 Icon = "Contacts25.png" //TabPicProfile.jpeg" //png"
             };
-			if (Device.OS == TargetPlatform.Android)
+
+            if (Device.RuntimePlatform == Device.Android)
 			{
 				myNavigationPage.BarBackgroundColor = Color.Transparent;
 				myNavigationPage.BarTextColor = Color.Silver;

@@ -21,25 +21,28 @@ namespace LK.Views
         {
             InitializeComponent();
 
-            string[] att = string.IsNullOrEmpty(App.CurrentUser.AttachmentUrl) ? null : App.CurrentUser.AttachmentUrl.Split(',');
-            ObservableCollection<AttachmentEntity> attList;
-            if (att != null)
+            if (App.CurrentUser != null)
             {
-                attList = new ObservableCollection<AttachmentEntity>();
-                for (int i = 0; i < att.Length; i++)
-                {
-                    attList.Add(new AttachmentEntity
-                    {
-                        url = att[i]
-                    });
-                }
+				string[] att = string.IsNullOrEmpty(App.CurrentUser.AttachmentUrl) ? null : App.CurrentUser.AttachmentUrl.Split(',');
+				ObservableCollection<AttachmentEntity> attList;
+				if (att != null)
+				{
+					attList = new ObservableCollection<AttachmentEntity>();
+					for (int i = 0; i < att.Length; i++)
+					{
+						attList.Add(new AttachmentEntity
+						{
+							url = att[i]
+						});
+					}
 
-                AttachmentList.ItemsSource = attList;
+					AttachmentList.ItemsSource = attList;
+				}
+
+				TapGestureRecognizer imageTap = new TapGestureRecognizer();
+				imageTap.Tapped += TakePictureButton_Clicked;
+				ProfilePicture.GestureRecognizers.Add(imageTap);
             }
-
-			TapGestureRecognizer imageTap = new TapGestureRecognizer();
-			imageTap.Tapped += TakePictureButton_Clicked;
-			ProfilePicture.GestureRecognizers.Add(imageTap);
         }
 
         protected override void OnAppearing()
