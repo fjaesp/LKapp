@@ -30,23 +30,32 @@ namespace LK.Views
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
         {
-            using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
+            if (App.CurrentUser != null)
             {
-				var _items = await manager.GetEventsAsync(syncItems);
-                if (_items != null)
+                using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
                 {
-                    MessageStack.IsVisible = false;
-                    eventList.IsVisible = true;
+                    var _items = await manager.GetEventsAsync(syncItems);
+                    if (_items != null)
+                    {
+                        MessageStack.IsVisible = false;
+                        eventList.IsVisible = true;
 
-                    ObservableCollection<Grouping<string, EventEntities>> items = _items;
-                    eventList.ItemsSource = items;
+                        ObservableCollection<Grouping<string, EventEntities>> items = _items;
+                        eventList.ItemsSource = items;
+                    }
+                    else
+                    {
+                        MessageStack.IsVisible = true;
+                        eventList.IsVisible = false;
+                        MessageLabel.Text = "Det er ingen arrangementer tilgjengelig.";
+                    }
                 }
-                else
-                {
-                    MessageStack.IsVisible = true;
-                    eventList.IsVisible = false;
-                    MessageLabel.Text = "Det er ingen arrangementer tilgjengelig.\n\nTa kontakt med din veileder.";                    
-                }
+            }
+            else
+            {
+                MessageStack.IsVisible = true;
+                eventList.IsVisible = false;
+                MessageLabel.Text = "Du er ikke knyttet opp mot noen fag, eller synkronisering er ikke utført. \n\nVennligst ta kontakt med din veileder.";
             }
         }
 

@@ -29,21 +29,30 @@ namespace LK.Views
 
         private async Task RefreshItems(bool showActivityIndicator, bool syncItems)
         {
-            using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
+            if (App.CurrentUser != null)
             {
-                var items = await notificationManager.GetNotificationsByUserAsync(App.CurrentUser.Id, syncItems);
-                if (items != null)
+                using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
                 {
-                    MessageStack.IsVisible = false;
-                    notificationList.IsVisible = true;
-                    notificationList.ItemsSource = items;
+                    var items = await notificationManager.GetNotificationsByUserAsync(App.CurrentUser.Id, syncItems);
+                    if (items != null)
+                    {
+                        MessageStack.IsVisible = false;
+                        notificationList.IsVisible = true;
+                        notificationList.ItemsSource = items;
+                    }
+                    else
+                    {
+                        MessageStack.IsVisible = true;
+                        notificationList.IsVisible = false;
+                        MessageLabel.Text = "Ingen nye varsler.";
+                    }
                 }
-                else
-                {
-                    MessageStack.IsVisible = true;
-                    notificationList.IsVisible = false;
-                    MessageLabel.Text = "Ingen nye varsler.";
-                }
+            }
+            else
+            {
+                MessageStack.IsVisible = true;
+                notificationList.IsVisible = false;
+                MessageLabel.Text = "Velkommen!\n\nTa kontakt med din veileder.";
             }
         }
 
