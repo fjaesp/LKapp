@@ -1,5 +1,4 @@
-﻿using LK.Managers;
-using LK.Models;
+﻿using LK.Models;
 using LK.Views;
 using Microsoft.Identity.Client;
 using Xamarin.Forms;

@@ -70,8 +70,6 @@ namespace LK.Views
                         Constants.ResetPasswordpolicy);
 
                     App.AuthResult = ar;
-                    //Navigation.InsertPageBefore(new BasePage(), this);
-                    //await Navigation.PopAsync();
                     await Navigation.PushModalAsync(new BasePage());
                 }
                 catch (MsalException ee)
