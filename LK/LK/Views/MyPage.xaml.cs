@@ -20,6 +20,7 @@ namespace LK.Views
         public MyPage()
         {
             InitializeComponent();
+            userManager = UserManager.DefaultManager;
 
             if (App.CurrentUser != null)
             {
@@ -143,7 +144,7 @@ namespace LK.Views
 			{
                 if (App.CurrentUser != null && CrossConnectivity.Current.IsConnected)
                 {
-                    if (App.CurrentUser.profilepictureurl != "")
+                    if (!string.IsNullOrEmpty(App.CurrentUser.profilepictureurl))
                     {
                         ProfilePicture.Source = new UriImageSource
                         {
@@ -200,8 +201,7 @@ namespace LK.Views
                         await blockBlob.UploadFromStreamAsync(file.GetStream());
 
                         try
-                        {
-                            userManager = UserManager.DefaultManager;
+                        {                           
                             bool updated = await userManager.UpdateProfilePicture("https://lkappstorage.blob.core.windows.net/userprofilepicturescontainer/" + App.CurrentUser.Id + ".jpg");
                         }
                         catch (Exception eee)
@@ -240,7 +240,6 @@ namespace LK.Views
 
 						try
 						{
-							userManager = UserManager.DefaultManager;
 							bool updated = await userManager.UpdateProfilePicture("https://lkappstorage.blob.core.windows.net/userprofilepicturescontainer/" + App.CurrentUser.Id + ".jpg");
 						}
 						catch (Exception eee)

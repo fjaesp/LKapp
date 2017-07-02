@@ -39,7 +39,6 @@
     <Compile Include="App.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Managers\AttendanceManager.cs" />
-    <Compile Include="Managers\BlobManager.cs" />
     <Compile Include="Managers\CommentManager.cs" />
     <Compile Include="Managers\NotificationManager.cs" />
     <Compile Include="Models\AttachmentEntity.cs" />

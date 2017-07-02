@@ -9,10 +9,12 @@ namespace LK.Views
     public partial class NewsPage : ContentPage
     {
         NotificationManager notificationManager;
+        UserManager xManager;
         public NewsPage()
         {
             InitializeComponent();
             notificationManager = NotificationManager.DefaultManager;
+            xManager = UserManager.DefaultManager;
         }
 
         protected override async void OnAppearing()
@@ -27,14 +29,23 @@ namespace LK.Views
             {
                 using (var scope = new ActivityIndicatorScope(syncIndicator, showActivityIndicator))
                 {
-                    var items = await notificationManager.GetNotificationsByUserAsync(App.CurrentUser.Id, syncItems);
-                    if (items != null)
+                    try
                     {
-                        MessageStack.IsVisible = false;
-                        notificationList.IsVisible = true;
-                        notificationList.ItemsSource = items;
+                        var items = await notificationManager.GetNotificationsByUserAsync(App.CurrentUser.Id, syncItems);
+                        if (items != null && items.Count > 0)
+                        {
+                            MessageStack.IsVisible = false;
+                            notificationList.IsVisible = true;
+                            notificationList.ItemsSource = items;
+                        }
+                        else
+                        {
+                            MessageStack.IsVisible = true;
+                            notificationList.IsVisible = false;
+                            MessageLabel.Text = "Ingen nye varsler.";
+                        }
                     }
-                    else
+                    catch
                     {
                         MessageStack.IsVisible = true;
                         notificationList.IsVisible = false;
@@ -44,9 +55,16 @@ namespace LK.Views
             }
             else
             {
-                MessageStack.IsVisible = true;
-                notificationList.IsVisible = false;
-                MessageLabel.Text = "Velkommen!\n\nTa kontakt med din veileder.";
+                try
+                {
+                    await GetCurrentUser(true);
+                }
+                catch
+                {
+                    MessageStack.IsVisible = true;
+                    notificationList.IsVisible = false;
+                    MessageLabel.Text = "Velkommen!\n\nTa kontakt med din veileder.";
+                }
             }
         }
 
@@ -108,6 +126,15 @@ namespace LK.Views
                 {
                     indicatorDelay.ContinueWith(t => SetIndicatorActivity(false), TaskScheduler.FromCurrentSynchronizationContext());
                 }
+            }           
+        }
+        private async Task GetCurrentUser(bool syncItems)
+        {
+            var user = await xManager.GetUserAsync(App.AuthResult.User.UniqueId, syncItems);
+            if (user != null)
+            {
+                App.CurrentUser = user;
+                user.installationid = xManager.CurrentClient.InstallationId;
             }
         }
     }

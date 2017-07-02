@@ -35,8 +35,8 @@ namespace LK.Models
         [JsonProperty("active")]
         public string active { get; set; }
 
-        [JsonProperty("userPrincipalName")]
-        public string userPrincipalName { get; set; }
+        //[JsonProperty("userPrincipalName")]
+        //public string userPrincipalName { get; set; }
 
         [JsonProperty("telephone")]
         public string telephone { get; set; }

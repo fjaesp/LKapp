@@ -18,7 +18,6 @@ namespace LK.Managers
         MobileServiceClient client;
         IMobileServiceSyncTable<AttendEntities> attendanceTable;
 
-
         public ObservableCollection<AttendEntities> users { get; set; }
 
         private AttendanceManager()
@@ -192,56 +191,5 @@ namespace LK.Managers
         {
             await attendanceTable.PurgeAsync();
         }
-
-        //public async Task<bool> DoesCurrentUserAttend(string userId, string eventId)
-        //{
-        //    IEnumerable<AttendEntities> attendEnum =
-        //        await attendanceTable.Where(x =>
-        //                                    x.userid == userId &&
-        //                                    x.eventid == eventId)
-        //                                    .ToEnumerableAsync();
-
-        //    int ant = attendEnum.Count();
-
-        //    return ant > 0 ? true : false;
-        //}
-
-        //public async Task<ObservableCollection<AttendEntities>> GetAttendanceAsync(string userId, string eventId, bool syncItems = false)
-        //{
-        //    try
-        //    {
-        //        if (syncItems)
-        //        {
-        //            await this.SyncAsync();
-        //        }
-
-        //        IEnumerable<AttendEntities> attendEnum = await attendanceTable.Where(x => x.userid == userId && x.eventid == eventId).ToEnumerableAsync();
-        //        users = new ObservableCollection<AttendEntities>(attendEnum);
-        //        return users;
-        //    }
-        //    catch (MobileServiceInvalidOperationException msioe)
-        //    {
-        //        Debug.WriteLine(@"Invalid sync operation: {0}", msioe.Message);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        Debug.WriteLine(@"Sync error: {0}", e.Message);
-        //    }
-        //    return null;
-        //}
-
-        //public async Task<ObservableCollection<AttendEntities>> GetAllEventsCurrentUserAttend(string userId)
-        //{
-        //    ObservableCollection<AttendEntities> result = null;
-
-        //    IEnumerable<AttendEntities> attendEnum =
-        //        await attendanceTable.Where(x =>
-        //                                    x.userid == userId)
-        //                                    .ToEnumerableAsync();
-        //    if (attendEnum.Count() > 0)
-        //        result = new ObservableCollection<AttendEntities>(attendEnum);
-
-        //    return result;
-        //}
     }
 }

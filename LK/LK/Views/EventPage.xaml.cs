@@ -87,43 +87,57 @@ namespace LK.Views
             base.OnAppearing();
         }
 
-        public async Task<double> getLocation(string address, string type)
-        {
-            Position p = new Position();
-            var _address = address;
-            Geocoder geoCoder = new Geocoder();
-            IEnumerable<Position> result =
-                await geoCoder.GetPositionsForAddressAsync(_address);
-            if (result != null)
-            {
-                foreach (Position pos in result)
-                {
-                    System.Diagnostics.Debug.WriteLine("Lat: {0}, Lng: {1}", pos.Latitude, pos.Longitude);
-                    p = pos;
-                    if (type == "longditude")
-                    {
-                        return pos.Longitude;
-                    }
-                    else
-                    {
-                        return pos.Latitude;
-                    }
-                }
-            }
-            return 0;
-        }
+        //public async Task<double> getLocation(string address, string type)
+        //{
+        //    Position p = new Position();
+        //    var _address = address;
+        //    Geocoder geoCoder = new Geocoder();
+        //    IEnumerable<Position> result =
+        //        await geoCoder.GetPositionsForAddressAsync(_address);
+        //    if (result != null)
+        //    {
+        //        foreach (Position pos in result)
+        //        {
+        //            System.Diagnostics.Debug.WriteLine("Lat: {0}, Lng: {1}", pos.Latitude, pos.Longitude);
+        //            p = pos;
+        //            if (type == "longditude")
+        //            {
+        //                return pos.Longitude;
+        //            }
+        //            else
+        //            {
+        //                return pos.Latitude;
+        //            }
+        //        }
+        //    }
+        //    return 0;
+        //}
 
         private async void AttendSwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            if(AttendSwitch.IsToggled && !currentEvent.CurrentUserAttend)
+            if (CrossConnectivity.Current.IsConnected)
             {
-                await attendanceManager.AddCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
+                if (AttendSwitch.IsToggled && !currentEvent.CurrentUserAttend)
+                {
+                    await attendanceManager.AddCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
+                }
+                else if (AttendSwitch.IsToggled == false)
+                {
+                    await attendanceManager.RemoveCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
+                }
             }
-            else if(AttendSwitch.IsToggled == false)
+            else
             {
-                await attendanceManager.RemoveCurrentUserAsAttendant(App.AuthResult.User.UniqueId, currentEvent.Id);
-            }
-            
+                await DisplayAlert("Feilmelding", "Mangler tilkobling til internett!", "OK");
+                if (AttendSwitch.IsToggled)
+                {
+                    AttendSwitch.IsToggled = false;
+                }
+                else if (AttendSwitch.IsToggled == false)
+                {
+                    AttendSwitch.IsToggled = true;
+                }
+            }            
         }
 
         private async Task RefreshAttendance(bool showActivityIndicator, bool syncItems)

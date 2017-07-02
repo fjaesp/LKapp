@@ -115,6 +115,7 @@
     <Content Include="Assets\defaultprofilepic.png" />
     <Content Include="Assets\Email.png" />
     <Content Include="Assets\Fagplan.png" />
+    <AndroidResource Include="Assets\information.png" />
     <Content Include="Assets\Kompetansehandboka.png" />
     <Content Include="Assets\Phone.png" />
     <Content Include="Assets\Profile.png" />

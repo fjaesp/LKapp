@@ -157,10 +157,10 @@ namespace LK.Managers
 					{
                         u.profilepictureurl = profilePictureUrl;
 						await userTable.UpdateAsync(u);
-					}
+                        App.CurrentUser = u;
+                    }
 					await this.SyncAsync();
-
-				}
+                }
 			}
 			catch (MobileServiceInvalidOperationException msioe)
 			{
@@ -259,7 +259,8 @@ namespace LK.Managers
 
 				try
 				{
-					//await this.client.SyncContext.PushAsync();
+                    if (App.CurrentUser != null)
+					    await this.client.SyncContext.PushAsync();
 
 					// The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
 					// Use a different query name for each unique query in your program.

@@ -1,13 +1,26 @@
+using LK.Managers;
 using Xamarin.Forms;
 
 namespace LK.Views
 {
     public partial class BasePage : TabbedPage
     {
+        AttendanceManager attendanceManager;
+        CommentManager commentManager;
+        UserManager userManager;
+        EventManager eventManager;
+        NotificationManager notificationManager;
 
         public BasePage()
         {
             InitializeComponent();
+
+            attendanceManager = AttendanceManager.DefaultManager;
+            commentManager = CommentManager.DefaultManager;
+            userManager = UserManager.DefaultManager;
+            notificationManager = NotificationManager.DefaultManager;
+            eventManager = EventManager.DefaultManager;
+
 
             if (Device.RuntimePlatform == Device.Android)
 			{

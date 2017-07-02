@@ -64,7 +64,7 @@ namespace LK.Managers
             {
                 if (syncItems)
                 {
-                    await this.SyncAsync();
+                    await this.SyncAsync(false);
                 }
 
                 List<EventEntities> es = await eventTable
@@ -117,7 +117,7 @@ namespace LK.Managers
             return null;
         }
 
-        public async Task SyncAsync()
+        public async Task SyncAsync(bool justPull)
         {
             if(CrossConnectivity.Current.IsConnected)
             {
@@ -125,7 +125,8 @@ namespace LK.Managers
 
 				try
 				{
-					await this.client.SyncContext.PushAsync();
+                    if (!justPull)
+					    await this.client.SyncContext.PushAsync();
 
 					// The first parameter is a query name that is used internally by the client SDK to implement incremental sync.
 					// Use a different query name for each unique query in your program.
@@ -140,7 +141,7 @@ namespace LK.Managers
 				}
 
 				// Simple error/conflict handling.
-				if (syncErrors != null)
+				if (syncErrors != null && syncErrors.Count > 0)
 				{
 					foreach (var error in syncErrors)
 					{
