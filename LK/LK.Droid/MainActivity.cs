@@ -6,6 +6,7 @@ using Microsoft.Identity.Client;
 using Gcm.Client;
 using System;
 using ImageCircle.Forms.Plugin.Droid;
+using Plugin.Permissions;
 
 namespace LK.Droid
 {
@@ -84,6 +85,11 @@ namespace LK.Droid
         {
             base.OnActivityResult(requestCode, resultCode, data);
             AuthenticationAgentContinuationHelper.SetAuthenticationAgentContinuationEventArgs(requestCode, resultCode, data);
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
